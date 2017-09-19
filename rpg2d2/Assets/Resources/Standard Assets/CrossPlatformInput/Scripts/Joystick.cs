@@ -25,6 +25,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 		CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
 		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
+
 //		void OnEnable()
 //		{
 //			CreateVirtualAxes();
@@ -75,10 +76,20 @@ namespace UnityStandardAssets.CrossPlatformInput
 			}
 		}
 
+		public void RandomEncount()
+		{
+			int foo = UnityEngine.Random.Range (0, 101);
+			if (foo == 50) 
+			{
+				Debug.Log ("HIT");
+			}
+		}
+
 
 		public void OnDrag(PointerEventData data)
 		{
 			Vector3 newPos = Vector3.zero;
+			RandomEncount ();
 
 			if (m_UseX)
 			{

@@ -35,6 +35,7 @@ public class BaseCharacterController : MonoBehaviour {
 	}
 
 
+
 	private void FixedUpdate()
 	{
 		// WASDの入力取得
