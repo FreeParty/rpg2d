@@ -26,6 +26,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
 
+		EncountController m_encount;
+
+
 //		void OnEnable()
 //		{
 //			CreateVirtualAxes();
@@ -35,6 +38,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         {
 			CreateVirtualAxes();
             m_StartPos = transform.position;
+			m_encount = GetComponent<EncountController>();
         }
 
 		void UpdateVirtualAxes(Vector3 value)
@@ -59,9 +63,6 @@ namespace UnityStandardAssets.CrossPlatformInput
 			m_UseX = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyHorizontal);
 			m_UseY = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyVertical);
 
-//			m_UseX = true;
-//			m_UseY = true;
-
 
 			// create new axes based on axes to use
 			if (m_UseX)
@@ -75,21 +76,12 @@ namespace UnityStandardAssets.CrossPlatformInput
 				CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
 			}
 		}
-
-		public void RandomEncount()
-		{
-			int foo = UnityEngine.Random.Range (0, 101);
-			if (foo == 50) 
-			{
-				Debug.Log ("HIT");
-			}
-		}
-
+			
 
 		public void OnDrag(PointerEventData data)
 		{
 			Vector3 newPos = Vector3.zero;
-			RandomEncount ();
+			m_encount.RandomEncount ();
 
 			if (m_UseX)
 			{
