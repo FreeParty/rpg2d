@@ -11,6 +11,8 @@ public class FadeinController : MonoBehaviour {
 	public bool isFadeOut = false;  //フェードアウト処理の開始、完了を管理するフラグ
 	public bool isFadeIn = false;   //フェードイン処理の開始、完了を管理するフラグ
 
+	EncountController m_encount;
+
 	Image fadeImage;                //透明度を変更するパネルのイメージ
 
 	void Start () {
@@ -19,6 +21,7 @@ public class FadeinController : MonoBehaviour {
 		green = fadeImage.color.g;
 		blue = fadeImage.color.b;
 		alfa = fadeImage.color.a;
+		m_encount = GameObject.Find ("MobileSingleStickControl/MobileJoystick").GetComponent<EncountController> ();
 	}
 
 	void Update () {
@@ -51,6 +54,7 @@ public class FadeinController : MonoBehaviour {
 		SetAlpha ();               // c)変更した透明度をパネルに反映する
 		if(alfa >= 1){             // d)完全に不透明になったら処理を抜ける
 			isFadeOut = false;
+			m_encount.InsertBattleScene ();
 		}
 	}
 
