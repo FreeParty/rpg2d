@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets.CrossPlatformInput
 {
@@ -25,8 +26,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 		CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
 		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
-
 		EncountController m_encount;
+		GameObject refObj;
+		BattleController m_battle;
 
 
 //		void OnEnable()
@@ -39,6 +41,8 @@ namespace UnityStandardAssets.CrossPlatformInput
 			CreateVirtualAxes();
             m_StartPos = transform.position;
 			m_encount = GetComponent<EncountController>();
+			refObj = GameObject.Find ("Fielad1/parent/commands/Panel");
+			m_battle = refObj.GetComponent<BattleController> ();
         }
 
 		void UpdateVirtualAxes(Vector3 value)
@@ -81,7 +85,10 @@ namespace UnityStandardAssets.CrossPlatformInput
 		public void OnDrag(PointerEventData data)
 		{
 			Vector3 newPos = Vector3.zero;
-			m_encount.RandomEncount ();
+
+			if (SceneManager.GetActiveScene ().name == "main") {
+				m_encount.RandomEncount ();
+			}
 
 			if (m_UseX)
 			{
@@ -103,8 +110,16 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 		public void OnPointerUp(PointerEventData data)
 		{
+			float x = CrossPlatformInputManager.GetAxis(horizontalAxisName); // X
+			float y = CrossPlatformInputManager.GetAxis (verticalAxisName); // Y
+
 			transform.position = m_StartPos;
 			UpdateVirtualAxes(m_StartPos);
+
+			if (SceneManager.GetActiveScene ().name == "battle") {
+				m_battle.MoveCommandCursor (x, y);
+			}
+
 		}
 
 

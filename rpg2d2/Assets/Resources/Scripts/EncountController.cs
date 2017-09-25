@@ -15,7 +15,7 @@ public class EncountController : MonoBehaviour {
 	{
 		fadeObj = GameObject.Find ("fade/Panel");
 		m_fade = fadeObj.GetComponent<FadeinController> ();
-		canvas = GameObject.Find("MobileSingleStickControl").GetComponent<Canvas>();
+		canvas = GameObject.Find("GameController").GetComponent<Canvas>();
 	}
 
 	public void RandomEncount()
@@ -27,8 +27,6 @@ public class EncountController : MonoBehaviour {
 			m_fade.alfa = 0;
 			m_fade.isFadeOut = true;
 			Time.timeScale = 0;
-//			StartCoroutine ("InsertBattleScene");
-//			Debug.Log ("passss");
 		}
 	}
 		
