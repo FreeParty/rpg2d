@@ -28,7 +28,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 		EncountController m_encount;
 		GameObject refObj;
-		BattleController m_battle;
+		CommandsController m_battle;
 
 
 //		void OnEnable()
@@ -42,7 +42,9 @@ namespace UnityStandardAssets.CrossPlatformInput
             m_StartPos = transform.position;
 			m_encount = GetComponent<EncountController>();
 			refObj = GameObject.Find ("Fielad1/parent/commands/Panel");
-			m_battle = refObj.GetComponent<BattleController> ();
+			if (SceneManager.GetActiveScene ().name == "battle") {
+				m_battle = refObj.GetComponent<CommandsController> ();
+			}
         }
 
 		void UpdateVirtualAxes(Vector3 value)

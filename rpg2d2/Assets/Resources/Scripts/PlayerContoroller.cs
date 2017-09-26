@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class  PlayerContoroller : MonoBehaviour {
-	public int HP = 30;
-	public int Max_HP = 30;
-	public int MP = 13;
-	public int Max_MP = 13;
-	public int Attack = 12;
-	public int Guard = 12;
-	public int Agility = 12;
+	public static int HP = 30;
+	public static int Max_HP = 30;
+	public static int MP = 13;
+	public static int Max_MP = 13;
+	public static int Attack = 12;
+	public static int Guard = 12;
+	public static int Agility = 12;
 
 	public string objectNameTag;
 	public bool StrongBoxFlg;
@@ -19,8 +19,7 @@ public class  PlayerContoroller : MonoBehaviour {
 		objectNameTag = "HAA";
 	}
 
-	public void CheckObject(){ // call if push A button
-		Debug.Log ("tag2 is " + objectNameTag);
+	public void CheckObject(){ // Calling if push A button
 		if(objectNameTag == "StrongBox"){
 			StrongBoxFlg = true;
 		}
