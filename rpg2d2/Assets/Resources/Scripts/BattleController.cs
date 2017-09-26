@@ -7,7 +7,7 @@ public class BattleController : MonoBehaviour {
 
 	static Component[] commands;
 	private GameObject[] b_commands;
-	public int current_command = 1; // current command is "fight"
+	private int current_command = 1; // current command is "fight"
 
 
 	// Use this for initialization
