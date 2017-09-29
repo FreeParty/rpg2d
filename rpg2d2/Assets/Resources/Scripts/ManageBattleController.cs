@@ -24,6 +24,5 @@ public class ManageBattleController : MonoBehaviour {
 	void OnSceneUnloaded( Scene scene )
 	{
 		int current_command = CommandsController.current_command; 
-		Debug.Log ( scene.name + " scene unloaded");
 	}
 }

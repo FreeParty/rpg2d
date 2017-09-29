@@ -39,6 +39,7 @@ public class EncountController : MonoBehaviour {
 
 	public void InsertBattleScene()
 	{
+		SceneManager2d.current_scene = SceneManager.GetActiveScene ().name;
 		SceneManager.LoadScene("Scene/battle");
 	}
 
