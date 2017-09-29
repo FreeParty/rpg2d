@@ -14,7 +14,18 @@ public class  PlayerContoroller : MonoBehaviour {
 	public string objectNameTag;
 	public bool StrongBoxFlg;
 
+	GameObject player_used;
 
+
+	void Awake(){
+		DontDestroyOnLoad(this);
+		player_used =  GameObject.Find ("Player_used");
+		if (player_used) {
+			player_used.GetComponent<Animator> ().enabled = true;
+			Destroy (GameObject.Find ("Player"));
+			player_used.name = "Player";
+		}
+	}
 	void Start(){
 		objectNameTag = "HAA";
 	}

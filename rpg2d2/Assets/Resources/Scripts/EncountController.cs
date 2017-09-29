@@ -9,14 +9,19 @@ public class EncountController : MonoBehaviour {
 	FadeinController m_fade;
 	GameObject stickUI;
 	Canvas canvas;
+	GameObject player;
+
 
 
 	void Start()
 	{
 		fadeObj = GameObject.Find ("fade/Panel");
+		player = GameObject.Find ("Player");
 		m_fade = fadeObj.GetComponent<FadeinController> ();
 		canvas = GameObject.Find("GameController").GetComponent<Canvas>();
+		stickUI = GameObject.Find ("GameController/MobileJoystick");
 	}
+
 
 	public void RandomEncount()
 	{
@@ -26,14 +31,11 @@ public class EncountController : MonoBehaviour {
 			canvas.enabled = false; // 仮想コントローラーを非表示
 			m_fade.alfa = 0;
 			m_fade.isFadeOut = true;
-			Time.timeScale = 0;
+			player.GetComponent<Animator> ().enabled = false;
+			stickUI.SetActive (false);
+			player.name = "Player_used";
 		}
 	}
-		
-//	IEnumerator InsertBattleScene(){
-//		yield return new WaitForSeconds(5.0f);
-//		Debug.Log ("Delayyyyyy");
-//	}
 
 	public void InsertBattleScene()
 	{

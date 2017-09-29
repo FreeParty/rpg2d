@@ -8,7 +8,7 @@ public class ManageBattleController : MonoBehaviour {
 
 	void Awake()
 	{
-		SceneManager.sceneUnloaded      += OnSceneUnloaded;
+//		SceneManager.sceneUnloaded      += OnSceneUnloaded;
 	}
 
 	// Use this for initialization

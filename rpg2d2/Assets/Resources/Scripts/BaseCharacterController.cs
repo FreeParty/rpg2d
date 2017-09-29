@@ -40,7 +40,8 @@ public class BaseCharacterController : MonoBehaviour {
 	{
 		// WASDの入力取得
 		float x = CrossPlatformInputManager.GetAxis("Horizontal"); // X
-		float y = CrossPlatformInputManager.GetAxis ("Vertical"); // Y
+		float y = CrossPlatformInputManager.GetAxis ("Vertical"); //y
+
 
 		//移動
 		m_Character.Move(x, y);	
