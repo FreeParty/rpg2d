@@ -28,11 +28,11 @@ public class EncountController : MonoBehaviour {
 		int num = UnityEngine.Random.Range (0, 101);
 		if (num == 50) 
 		{
-			canvas.enabled = false; // 仮想コントローラーを非表示
+			canvas.enabled = false; // 仮想コントローラー
+			SceneManager2d.isEncount = true;
 			m_fade.alfa = 0;
 			m_fade.isFadeOut = true;
 			player.GetComponent<Animator> ().enabled = false;
-			stickUI.SetActive (false);
 			player.name = "Player_used";
 		}
 	}
@@ -42,5 +42,5 @@ public class EncountController : MonoBehaviour {
 		SceneManager2d.current_scene = SceneManager.GetActiveScene ().name;
 		SceneManager.LoadScene("Scene/battle");
 	}
-
+		
 }

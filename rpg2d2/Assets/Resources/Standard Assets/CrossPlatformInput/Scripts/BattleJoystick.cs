@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets.CrossPlatformInput
 {
-	public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+	public class BattleJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 	{
 		public enum AxisOption
 		{
@@ -31,22 +31,24 @@ namespace UnityStandardAssets.CrossPlatformInput
 		CommandsController m_battle;
 
 
-//		void OnEnable()
-//		{
-//			CreateVirtualAxes();
-//		}
+		//		void OnEnable()
+		//		{
+		//			CreateVirtualAxes();
+		//		}
 
-//
-        void Start()
-        {
+		//
+		void Start()
+		{
+			Debug.Log ("current " + SceneManager2d.isEncount);
 			CreateVirtualAxes();
-            m_StartPos = transform.position;
+			m_StartPos = transform.position;
 			m_encount = GetComponent<EncountController>();
 			refObj = GameObject.Find ("Fielad1/parent/commands/Panel");
 			if (SceneManager.GetActiveScene ().name == "battle") {
 				m_battle = refObj.GetComponent<CommandsController> ();
+				//				this.enabled = true;
 			}
-        }
+		}
 
 		void UpdateVirtualAxes(Vector3 value)
 		{
@@ -66,31 +68,24 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 		void CreateVirtualAxes()
 		{
-
 			// set axes to use
 			m_UseX = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyHorizontal);
 			m_UseY = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyVertical);
+
+
 			// create new axes based on axes to use
 			if (m_UseX)
 			{
-				if (CrossPlatformInputManager.AxisExists(horizontalAxisName))
-				{
-					CrossPlatformInputManager.UnRegisterVirtualAxis(horizontalAxisName);
-				}
 				m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName);
 				CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis);
 			}
 			if (m_UseY)
 			{
-				if (CrossPlatformInputManager.AxisExists(verticalAxisName))
-				{
-					CrossPlatformInputManager.UnRegisterVirtualAxis(verticalAxisName);
-				}
 				m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(verticalAxisName);
 				CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
 			}
 		}
-			
+
 
 		public void OnDrag(PointerEventData data)
 		{
@@ -98,10 +93,8 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 			if (SceneManager.GetActiveScene ().name == "main") {
 				m_encount.RandomEncount ();
-				if (SceneManager2d.isEncount) {
+				if (SceneManager2d.isEncount)
 					this.enabled = false;
-				}
-				
 			}
 
 			if (m_UseX)
