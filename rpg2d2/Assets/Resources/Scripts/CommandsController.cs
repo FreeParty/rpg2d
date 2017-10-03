@@ -17,15 +17,6 @@ public class CommandsController : MonoBehaviour {
 		commands[current_command].transform.Find("isSelect").GetComponent<UnityEngine.UI.Image>().enabled = true;
 	}
 	
-	// Update is called once per frame
-//	void Update () {
-//		
-//	}
-//
-//	private void FixedUpdate()
-//	{
-//
-//	}
 
 	public void MoveCommandCursor(float x, float y)
 	{
