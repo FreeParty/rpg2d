@@ -8,7 +8,6 @@ public class BaseCharacterController : MonoBehaviour {
 
 	private BaseMortionController m_Character;
 	private Animator m_Anim;
-	private bool walking = false; // walking flag
 	private Rigidbody2D myobj;
 	private float time=0;
 	private GameObject substatus;
@@ -44,50 +43,29 @@ public class BaseCharacterController : MonoBehaviour {
 
 
 		//移動
-		m_Character.Move(x, y);	
-		if (x > 0 && y > 0) { // 第一象限
-			if (x > y) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingRight", walking);
-			} else if (x < y) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingTop", walking);
-			} else { // x == y
-				walk_state_init ();
-				m_Anim.SetBool ("walkingUnder", walking);
-			}
-		} else if (x < 0 && y > 0) { // 第二象限
-			if (Mathf.Abs (x) > y) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingLeft", walking);
-			} else if (Mathf.Abs (x) < y) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingTop", walking);
+		m_Character.Move(x, y);
+		
+		if(x == 0 && y == 0);
+		else{
+			walk_state_init ();
+			if(Mathf.Abs(x) < Mathf.Abs(y)){
+				if(0 < y){
+					m_Anim.SetBool ("walkingTop", true);
+				} else if(y < 0) {
+					m_Anim.SetBool ("walkingUnder", true);
+				}
+			} else if(Mathf.Abs(y) < Mathf.Abs(x)) {
+				if(0 < x){
+					m_Anim.SetBool ("walkingRight", true);
+				} else if(x < 0) {
+					m_Anim.SetBool ("walkingLeft", true);
+				}
 			} else {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingUnder", walking);
-			}
-		} else if (x < 0 && y < 0) { //  第三象限
-			if (Mathf.Abs (x) > Mathf.Abs (y)) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingLeft", walking);
-			} else if (Mathf.Abs (x) < Mathf.Abs (y)) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingUnder", walking);
-			} else {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingUnder", walking);
-			}
-		} else if(x > 0 && y < 0) { // 第四象限
-			if (x > Mathf.Abs (y)) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingRight", walking);
-			} else if (x < Mathf.Abs (y)) {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingUnder", walking);
-			} else {
-				walk_state_init ();
-				m_Anim.SetBool ("walkingUnder", walking);
+				if(0 < y) {
+					m_Anim.SetBool ("walkingTop", true);
+				} else {
+					m_Anim.SetBool ("walkingUnder", true);
+				}
 			}
 		}
 
@@ -111,7 +89,6 @@ public class BaseCharacterController : MonoBehaviour {
 
 	private void walk_state_init()
 	{
-		walking = true;
 		m_Anim.SetBool ("walkingRight", false);
 		m_Anim.SetBool ("walkingLeft", false);
 		m_Anim.SetBool ("walkingTop", false);
