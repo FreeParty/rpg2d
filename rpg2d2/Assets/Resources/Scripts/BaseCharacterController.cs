@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof (BaseMortionController))]
@@ -20,7 +21,7 @@ public class BaseCharacterController : MonoBehaviour {
 		myobj = GetComponent<Rigidbody2D> ();
 		substatus = GameObject.Find ("substatus");
 		sp = Resources.LoadAll<Sprite>("Sprites/mainchara");
- 	}
+	}
 
 
 	private void Update()
@@ -42,50 +43,36 @@ public class BaseCharacterController : MonoBehaviour {
 		float y = CrossPlatformInputManager.GetAxis ("Vertical"); //y
 
 
-		//移動
-		m_Character.Move(x, y);
-		
-		if(x == 0 && y == 0);
-		else{
-			walk_state_init ();
-			if(Mathf.Abs(x) < Mathf.Abs(y)){
-				if(0 < y){
-					m_Anim.SetBool ("walkingTop", true);
-				} else if(y < 0) {
-					m_Anim.SetBool ("walkingUnder", true);
-				}
-			} else if(Mathf.Abs(y) < Mathf.Abs(x)) {
-				if(0 < x){
-					m_Anim.SetBool ("walkingRight", true);
-				} else if(x < 0) {
-					m_Anim.SetBool ("walkingLeft", true);
-				}
-			} else {
-				if(0 < y) {
-					m_Anim.SetBool ("walkingTop", true);
+		if (SceneManager.GetActiveScene ().name != "battle") {
+			//移動
+			m_Character.Move(x, y);
+
+			if(x == 0 && y == 0);
+			else{
+				walk_state_init ();
+				if(Mathf.Abs(x) < Mathf.Abs(y)){
+					if(0 < y){
+						m_Anim.SetBool ("walkingTop", true);
+					} else if(y < 0) {
+						m_Anim.SetBool ("walkingUnder", true);
+					}
+				} else if(Mathf.Abs(y) < Mathf.Abs(x)) {
+					if(0 < x){
+						m_Anim.SetBool ("walkingRight", true);
+					} else if(x < 0) {
+						m_Anim.SetBool ("walkingLeft", true);
+					}
 				} else {
-					m_Anim.SetBool ("walkingUnder", true);
+					if(0 < y) {
+						m_Anim.SetBool ("walkingTop", true);
+					} else {
+						m_Anim.SetBool ("walkingUnder", true);
+
+					}
 				}
-			}
+			}			
 		}
-
-			
-
-//		if (myobj.IsSleeping ()) {
-//			time += Time.deltaTime;
-//			if ((int)time == 5) {
-//				Debug.Log ("HOOOOI");
-//				substatus.GetComponent<Canvas>().enabled = true;
-//				time = 0;
-//			}
-//			Debug.Log(time);
-//		}
-
-
-
-
 	}
-
 
 	private void walk_state_init()
 	{

@@ -1572,12 +1572,12 @@ Prefab:
     - target: {fileID: 114858404890737602, guid: 476d9daa1324d43f29c0f049ac247ab8,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114979452781926940, guid: 476d9daa1324d43f29c0f049ac247ab8,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 476d9daa1324d43f29c0f049ac247ab8, type: 2}
@@ -2198,6 +2198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eab82feb677246bba1a682037e65eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  obj: {fileID: 248102840}
+  mytext: {fileID: 248102842}
 --- !u!1 &2106703542
 GameObject:
   m_ObjectHideFlags: 0
