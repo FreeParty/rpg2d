@@ -17,6 +17,8 @@ public class ButtonA_ClickBattleController : MonoBehaviour {
 	public void onPushButton()
 	{
 		int current_command = CommandsController.current_command; 
+
+		// case 1: fight, case 2: run, case 3: guard, case 4: item
 		switch (current_command) 
 		{
 		case 1: 
