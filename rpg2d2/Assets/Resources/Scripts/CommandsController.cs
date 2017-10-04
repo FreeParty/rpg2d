@@ -25,14 +25,12 @@ public class CommandsController : MonoBehaviour {
 			commands [current_command].transform.Find ("isSelect").GetComponent<UnityEngine.UI.Image>().enabled = false;
 			current_command -= 2;
 			commands [current_command].transform.Find ("isSelect").GetComponent<UnityEngine.UI.Image>().enabled = true;
-			Debug.Log ("current_command is " + current_command);
 		} 
 		else if (x > -0.3 && x < 0.3 && y < 0 && current_command <= 7 && current_command != 7) 
 		{
 			commands [current_command].transform.Find ("isSelect").GetComponent<UnityEngine.UI.Image>().enabled = false;
 			current_command += 2;
 			commands [current_command].transform.Find ("isSelect").GetComponent<UnityEngine.UI.Image>().enabled = true;
-			Debug.Log ("current_command is " + current_command);
 		}
 
 	}
