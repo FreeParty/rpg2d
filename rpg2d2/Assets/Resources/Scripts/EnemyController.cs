@@ -5,24 +5,29 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
 
+	public static Dictionary<string, int> enemy_status = new Dictionary<string, int> () {
+		{"hp", 1},
+		{"mhp", 1},
+		{"mp", 1},
+		{"mmp", 1},
+		{"at", 1},
+		{"df", 1},
+		{"ag", 1},
+		{"get_exp", 0},
+		{"get_money", 0},
+		{"type", 0},
+		{"drop", 0},
+	};
+
+	public static string monster_name = "0";
+
 	public Text mytext;
 	private Sprite sp;
-	public string m_name="anonymas";
-	public int m_hp = 1;
-	public int m_mp = 1;
-	public int m_attack = 1;
-	public int m_guard = 1;
-	public int m_ag = 1;
 
 	// Use this for initialization
 	void Start () {
 		SetEnemyData ();
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 
@@ -51,18 +56,24 @@ public class EnemyController : MonoBehaviour {
 		return UnityEngine.Random.Range(0, ml.GetLength(0));
 	}
 
-//	{ "0", "スライム", "5", "0", "4", "2", "3", "0", "0" },
+//[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]type, [8] drop_no, [9] get_exp, [10] get_money, 
 
 	private void setEnemyStatus(string [,] ml, int mn, string rc){
-		mytext.text = ml[mn, 1] + " があらわれた！！"; // 名前をlogにセット
+		monster_name = ml[mn, 1];
+		mytext.text = monster_name + " があらわれた！！\n"; // 名前をlogにセット
 		sp = GetSprite ("enemys/" + rc, ml[mn, 0]);
 		GetComponent<Image> ().sprite = sp;
-		m_name = ml [mn, 1];
-		m_hp = int.Parse(ml [mn, 2]);
-		m_mp = int.Parse(ml [mn, 3]);
-		m_attack = int.Parse(ml [mn, 4]);
-		m_guard = int.Parse(ml [mn, 5]);
-		m_ag = int.Parse(ml [mn, 6]);
+		enemy_status["hp"] = int.Parse(ml [mn, 2]);
+		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
+		enemy_status["mp"] = int.Parse(ml [mn, 3]);
+		enemy_status["mmp"] = int.Parse(ml [mn, 3]);
+		enemy_status["at"] = int.Parse(ml [mn, 4]);
+		enemy_status["df"] = int.Parse(ml [mn, 5]);
+		enemy_status["ag"] = int.Parse(ml [mn, 6]);
+		enemy_status ["type"] = int.Parse (ml [mn, 7]);
+		enemy_status ["drop"] = int.Parse (ml [mn, 8]);
+		enemy_status ["get_exp"] = int.Parse (ml [mn, 9]);
+		enemy_status ["get_money"] = int.Parse (ml [mn, 10]);
 	}
 
 

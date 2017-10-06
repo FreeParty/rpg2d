@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class ButtonA_ClickBattleController : MonoBehaviour {
 
+	GameObject obj;
+
 	// Use this for initialization
 	void Start () {
+		obj = GameObject.Find ("management");
 	}
 	
 	// Update is called once per frame
@@ -22,7 +25,7 @@ public class ButtonA_ClickBattleController : MonoBehaviour {
 		switch (current_command) 
 		{
 		case 1: 
-			Debug.Log ("1");
+			obj.GetComponent<BattleManager> ().Fight ();
 			break;
 		case 3:
 			// xxxx は逃げ出した
