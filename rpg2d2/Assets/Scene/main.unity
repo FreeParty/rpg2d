@@ -112,6 +112,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &86351543 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224146113034184834, guid: a77705292aae642b4a0941b4ec40329d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1570913308}
 --- !u!1 &128776453
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +223,140 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770155e92dda341b3ac52453df67e481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &134338924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 134338925}
+  - component: {fileID: 134338929}
+  - component: {fileID: 134338928}
+  - component: {fileID: 134338927}
+  - component: {fileID: 134338926}
+  m_Layer: 5
+  m_Name: end
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &134338925
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134338924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -485, y: 279, z: 0}
+  m_LocalScale: {x: 1, y: 1.4250001, z: 1}
+  m_Children:
+  - {fileID: 1567074944}
+  m_Father: {fileID: 86351543}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -485, y: 279}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &134338926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134338924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a8d0e9d873c4e6ebd4d3a89e62a921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &134338927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134338924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 134338928}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 134338926}
+        m_MethodName: onPush
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &134338928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134338924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &134338929
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134338924}
 --- !u!1 &391671909
 GameObject:
   m_ObjectHideFlags: 0
@@ -96964,8 +97103,8 @@ CompositeCollider2D:
         Y: 110000000
       - X: 249375008
         Y: 110000000
-      - X: 246874883
-        Y: 107499877
+      - X: 246874881
+        Y: 107499875
       - X: 240000000
         Y: 101250000
       - X: 240000000
@@ -98016,17 +98155,17 @@ CompositeCollider2D:
         Y: 416249984
       - X: 488333358
         Y: 415833329
-    - - X: 210000000
-        Y: 406249984
-      - X: 208750000
-        Y: 406249984
-      - X: 208333338
-        Y: 405833324
     - - X: 30000000
         Y: 406249984
       - X: 28750000
         Y: 406249984
       - X: 28333337
+        Y: 405833324
+    - - X: 210000000
+        Y: 406249984
+      - X: 208750000
+        Y: 406249984
+      - X: 208333338
         Y: 405833324
     - - X: 88125000
         Y: 376875008
@@ -98366,17 +98505,17 @@ CompositeCollider2D:
         Y: 376249984
       - X: 488333358
         Y: 375833329
-    - - X: 230000000
-        Y: 366249984
-      - X: 228750000
-        Y: 366249984
-      - X: 228333338
-        Y: 365833324
     - - X: 10000000
         Y: 366249984
       - X: 8750000
         Y: 366249984
       - X: 8333337
+        Y: 365833324
+    - - X: 230000000
+        Y: 366249984
+      - X: 228750000
+        Y: 366249984
+      - X: 228333338
         Y: 365833324
     - - X: 260000000
         Y: 304375008
@@ -98974,6 +99113,24 @@ CompositeCollider2D:
         Y: 336249984
       - X: 488333358
         Y: 335833329
+    - - X: 60000000
+        Y: 326249984
+      - X: 58750000
+        Y: 326249984
+      - X: 58333337
+        Y: 325833324
+    - - X: 100000000
+        Y: 326249984
+      - X: 98750000
+        Y: 326249984
+      - X: 98333337
+        Y: 325833324
+    - - X: 240000000
+        Y: 326249984
+      - X: 238750000
+        Y: 326249984
+      - X: 238333338
+        Y: 325833324
     - - X: 180000000
         Y: 326249984
       - X: 178750000
@@ -98986,29 +99143,11 @@ CompositeCollider2D:
         Y: 326249984
       - X: 18333337
         Y: 325833324
-    - - X: 240000000
-        Y: 326249984
-      - X: 238750000
-        Y: 326249984
-      - X: 238333338
-        Y: 325833324
     - - X: 140000000
         Y: 326249984
       - X: 138750000
         Y: 326249984
       - X: 138333338
-        Y: 325833324
-    - - X: 100000000
-        Y: 326249984
-      - X: 98750000
-        Y: 326249984
-      - X: 98333337
-        Y: 325833324
-    - - X: 60000000
-        Y: 326249984
-      - X: 58750000
-        Y: 326249984
-      - X: 58333337
         Y: 325833324
     - - X: 286875008
         Y: 230624992
@@ -99874,8 +100013,8 @@ CompositeCollider2D:
         Y: 20000000
       - X: 169375008
         Y: 20000000
-      - X: 166874832
-        Y: 17499826
+      - X: 166874829
+        Y: 17499823
       - X: 160000000
         Y: 11250000
       - X: 160000000
@@ -100302,8 +100441,8 @@ CompositeCollider2D:
         Y: -120000000
       - X: -170624992
         Y: -120000000
-      - X: -173125117
-        Y: -122500123
+      - X: -173125119
+        Y: -122500125
       - X: -180000000
         Y: -128750000
     - - X: -130000000
@@ -101075,7 +101214,7 @@ CompositeCollider2D:
       - {x: 24, y: 11.625}
       - {x: 24.687502, y: 11}
       - {x: 24.937502, y: 11}
-      - {x: 24.687489, y: 10.749989}
+      - {x: 24.687489, y: 10.749988}
       - {x: 24, y: 10.125}
       - {x: 24, y: 9.625}
       - {x: 23.75, y: 9.5625}
@@ -101601,12 +101740,12 @@ CompositeCollider2D:
     - - {x: 49, y: 41.625}
       - {x: 48.875004, y: 41.625}
       - {x: 48.833336, y: 41.583336}
-    - - {x: 3, y: 40.625}
-      - {x: 2.875, y: 40.625}
-      - {x: 2.8333337, y: 40.583332}
     - - {x: 21, y: 40.625}
       - {x: 20.875, y: 40.625}
       - {x: 20.833334, y: 40.583332}
+    - - {x: 3, y: 40.625}
+      - {x: 2.875, y: 40.625}
+      - {x: 2.8333337, y: 40.583332}
     - - {x: 8.8125, y: 37.6875}
       - {x: 8.9375, y: 38}
       - {x: 9, y: 38}
@@ -101776,12 +101915,12 @@ CompositeCollider2D:
     - - {x: 49, y: 37.625}
       - {x: 48.875004, y: 37.625}
       - {x: 48.833336, y: 37.583336}
-    - - {x: 23, y: 36.625}
-      - {x: 22.875, y: 36.625}
-      - {x: 22.833334, y: 36.583332}
     - - {x: 1, y: 36.625}
       - {x: 0.875, y: 36.625}
       - {x: 0.83333373, y: 36.583332}
+    - - {x: 23, y: 36.625}
+      - {x: 22.875, y: 36.625}
+      - {x: 22.833334, y: 36.583332}
     - - {x: 26, y: 30.437502}
       - {x: 26, y: 31}
       - {x: 26.5625, y: 31}
@@ -102080,24 +102219,24 @@ CompositeCollider2D:
     - - {x: 49, y: 33.625}
       - {x: 48.875004, y: 33.625}
       - {x: 48.833336, y: 33.583336}
+    - - {x: 6, y: 32.625}
+      - {x: 5.875, y: 32.625}
+      - {x: 5.8333335, y: 32.583332}
+    - - {x: 10, y: 32.625}
+      - {x: 9.875, y: 32.625}
+      - {x: 9.833334, y: 32.583332}
+    - - {x: 24, y: 32.625}
+      - {x: 23.875, y: 32.625}
+      - {x: 23.833334, y: 32.583332}
     - - {x: 18, y: 32.625}
       - {x: 17.875, y: 32.625}
       - {x: 17.833334, y: 32.583332}
     - - {x: 2, y: 32.625}
       - {x: 1.875, y: 32.625}
       - {x: 1.8333336, y: 32.583332}
-    - - {x: 24, y: 32.625}
-      - {x: 23.875, y: 32.625}
-      - {x: 23.833334, y: 32.583332}
     - - {x: 14, y: 32.625}
       - {x: 13.875, y: 32.625}
       - {x: 13.833335, y: 32.583332}
-    - - {x: 10, y: 32.625}
-      - {x: 9.875, y: 32.625}
-      - {x: 9.833334, y: 32.583332}
-    - - {x: 6, y: 32.625}
-      - {x: 5.875, y: 32.625}
-      - {x: 5.8333335, y: 32.583332}
     - - {x: 28.687502, y: 23.0625}
       - {x: 29, y: 23.5}
       - {x: 29, y: 23.5625}
@@ -102530,7 +102669,7 @@ CompositeCollider2D:
       - {x: 17, y: 2.4375}
       - {x: 17, y: 2}
       - {x: 16.937502, y: 2}
-      - {x: 16.687483, y: 1.7499826}
+      - {x: 16.687483, y: 1.7499825}
       - {x: 16, y: 1.125}
       - {x: 16, y: 0.625}
       - {x: 15.75, y: 0.5625}
@@ -102744,7 +102883,7 @@ CompositeCollider2D:
       - {x: 11.375, y: -13}
     - - {x: -18, y: -12}
       - {x: -17.0625, y: -12}
-      - {x: -17.312511, y: -12.250012}
+      - {x: -17.312511, y: -12.250013}
       - {x: -18, y: -12.875}
     - - {x: -13, y: -12.375}
       - {x: -13.125, y: -12.375}
@@ -104310,6 +104449,80 @@ GameObject:
   m_PrefabParentObject: {fileID: 1153730242980890, guid: 0ade75f8e504341dda070491143edfb4,
     type: 2}
   m_PrefabInternal: {fileID: 2006101536}
+--- !u!1 &1567074943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1567074944}
+  - component: {fileID: 1567074946}
+  - component: {fileID: 1567074945}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1567074944
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1567074943}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 134338925}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1567074945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1567074943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Button
+--- !u!222 &1567074946
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1567074943}
 --- !u!1001 &1570913308
 Prefab:
   m_ObjectHideFlags: 0
