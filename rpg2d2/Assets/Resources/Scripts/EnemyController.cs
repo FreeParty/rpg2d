@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour {
 	private Sprite sp;
 
 	// Use this for initialization
-	void Start () {
+	void Awake() {
 		SetEnemyData ();
 
 	}
