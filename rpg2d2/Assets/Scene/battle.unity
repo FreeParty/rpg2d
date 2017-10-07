@@ -1624,7 +1624,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u306B\u3093\u3058\u3093"
+  m_Text: sample
 --- !u!222 &1487860926
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1769,7 +1769,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 178
+  m_Text: 1
 --- !u!222 &1613721706
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1787,7 +1787,7 @@ GameObject:
   - component: {fileID: 1680297878}
   - component: {fileID: 1680297877}
   m_Layer: 5
-  m_Name: Text
+  m_Name: p_mp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1843,7 +1843,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 101
+  m_Text: 1
 --- !u!222 &1680297878
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2271,6 +2271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   log_obj: {fileID: 248102840}
+  name_obj: {fileID: 1487860923}
+  hp_obj: {fileID: 1613721703}
+  mp_obj: {fileID: 1680297875}
   kaisin: 0
   tukon: 0
 --- !u!4 &2116341367
