@@ -5,12 +5,12 @@ using UnityEngine;
 public class  PlayerContoroller : MonoBehaviour {
 
 	public static Dictionary<string, int> player_status = new Dictionary<string, int> () {
-		{"hp", 25},
+		{"hp", 525},
 		{"mhp", 25},
 		{"mp", 0},
 		{"mmp", 0},
 		{"at", 2},
-		{"df", 1},
+		{"df", 100},
 		{"ag", 4},
 		{"lv", 1},
 		{"exp", 0},

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour {
 
@@ -9,20 +10,22 @@ public class BattleManager : MonoBehaviour {
 	public GameObject name_obj;
 	public GameObject hp_obj;
 	public GameObject mp_obj;
-	public string kaisin = "";
-	public string tukon = "";
+	public string kaisin;
+	public string tukon;
 
 	void Start(){
 		name_obj.GetComponent<Text> ().text = PlayerContoroller.player_name;
 		hp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status["hp"].ToString ();
 		mp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status["mp"].ToString ();
+		Debug.Log ("kaisin " + kaisin);
 	}
 
 
 	// たたかう が押された時に発火
 	public void Fight(){
 
-		
+		kaisin = "";
+		tukon = "";
 		int p_damage = P_damage ();
 		int e_damage = E_damage ();
 
@@ -30,40 +33,46 @@ public class BattleManager : MonoBehaviour {
 		if (first == 1) { // player が先手
 
 			EnemyController.enemy_status["hp"] -= p_damage;
-			if (EnemyController.enemy_status ["hp"] <= 0)
+
+			if (EnemyController.enemy_status ["hp"] <= 0) { // エネミーのhpが0になったとき
 				Enemy_die ();
+				log_obj.GetComponent<Text>().text = PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n" + 
+					EnemyController.monster_name + "をたおした！\n" + "<color=#fce700>" + EnemyController.enemy_status["get_exp"] + "</color>の経験値と<color=#fce700>" + EnemyController.enemy_status["get_money"] + "</color>のゴールドを手に入れた！";
+//				Invoke ("BackField", 2.0f);
+			} 
 
 			PlayerContoroller.player_status ["hp"] -= e_damage;
-			if (PlayerContoroller.player_status ["hp"] <= 0)
+			if (PlayerContoroller.player_status ["hp"] <= 0) { // player のhpが0になったとき
 				Player_die ();
-			
-			log_obj.GetComponent<Text> ().text = PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n" +
-				EnemyController.monster_name + "のこうげき\n" + tukon + PlayerContoroller.player_name + "に<color=#ff0000>" + e_damage + "</color>のダメージ\n";
+			} 
+
+			if (PlayerContoroller.player_status ["hp"] >= 0 && EnemyController.enemy_status ["hp"] >= 0) {
+				log_obj.GetComponent<Text> ().text = PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n" +
+					EnemyController.monster_name + "のこうげき\n" + tukon + PlayerContoroller.player_name + "に<color=#ff0000>" + e_damage + "</color>のダメージ\n";
+			}
 			
 		} else {
+			
 			PlayerContoroller.player_status ["hp"] -= e_damage;
-			if (PlayerContoroller.player_status ["hp"] <= 0)
+			if (PlayerContoroller.player_status ["hp"] <= 0) {
 				Player_die ();
+			}
 
 
 			EnemyController.enemy_status["hp"] -= p_damage;
-			if (EnemyController.enemy_status ["hp"] <= 0)
+			if (EnemyController.enemy_status ["hp"] <= 0) {
 				Enemy_die ();
+				log_obj.GetComponent<Text>().text = PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n" + 
+					EnemyController.monster_name + "をたおした！\n" + "<color=#fce700>" + EnemyController.enemy_status["get_exp"] + "</color>の経験値と<color=#fce700>" + EnemyController.enemy_status["get_money"] + "</color>のゴールドを手に入れた！";
+			}
 
-			log_obj.GetComponent<Text> ().text = EnemyController.monster_name + "のこうげき\n" + tukon + PlayerContoroller.player_name + "に<color=#ff0000>" + e_damage + "</color>のダメージ\n" +
-				PlayerContoroller.player_name + "のこうげき\n"+ kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n";
+			if (PlayerContoroller.player_status ["hp"] >= 0 && EnemyController.enemy_status ["hp"] >= 0) {
+				log_obj.GetComponent<Text> ().text = EnemyController.monster_name + "のこうげき\n" + tukon + PlayerContoroller.player_name + "に<color=#ff0000>" + e_damage + "</color>のダメージ\n" +
+					PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n";
+			}
 		}
 
 		hp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status ["hp"].ToString (); // HP 更新
-
-		if (kaisin != "0" && tukon != "0") {
-			kaisin = "";
-			tukon = "";
-		} else if (kaisin != "0") {
-			kaisin = "";
-		} else {
-			tukon = "";
-		}
 
 	}
 
@@ -122,9 +131,30 @@ public class BattleManager : MonoBehaviour {
 
 	public void Enemy_die(){
 		Debug.Log ("Eenemy died");
+		PlayerContoroller.player_status["exp"] += EnemyController.enemy_status["get_exp"];
+		PlayerContoroller.player_status ["money"] += EnemyController.enemy_status ["get_money"];
+		Check_lvup ();
+
 	}
+
+	public void Check_lvup(){
+		foreach (int key in ExpController.exp_table.Keys) {
+			if (PlayerContoroller.player_status ["lv"] == key) {
+				if (PlayerContoroller.player_status ["exp"] >= ExpController.exp_table [key]) {
+					PlayerContoroller.player_status ["lv"] = key + 1;
+					Debug.Log ("レベルアップ！");
+				}
+			}
+		}
+
+	}
+		
 
 	public void Miss(){
 		Debug.Log ("Miss");
+	}
+
+	private void BackField(){
+		SceneManager.LoadScene ("Scene/" + SceneManager2d.current_scene);
 	}
 }
