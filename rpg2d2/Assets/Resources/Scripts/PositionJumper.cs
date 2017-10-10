@@ -20,13 +20,13 @@ public class PositionJumper : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter2D () {
-		Debug.Log("入った！");
-		GameObject player = GameObject.Find("Player");
-		Vector3 pos = player.transform.position;
-		pos.x = nextX;
-		pos.y = nextY;
-		player.transform.position = pos;
-	
+	void OnTriggerEnter2D (Collider2D other) {
+		if(other.CompareTag ("Player")){
+			GameObject player = GameObject.Find("Player");
+			Vector3 pos = player.transform.position;
+			pos.x = nextX;
+			pos.y = nextY;
+			player.transform.position = pos;
+		}
 	}
 }
