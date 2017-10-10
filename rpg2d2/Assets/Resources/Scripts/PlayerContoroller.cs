@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class  PlayerContoroller : MonoBehaviour {
-	public static int HP = 30;
-	public static int Max_HP = 30;
-	public static int MP = 13;
-	public static int Max_MP = 13;
-	public static int Attack = 12;
-	public static int Guard = 12;
-	public static int Agility = 12;
+
+	public static Dictionary<string, int> player_status = new Dictionary<string, int> () {
+		{"hp", 525},
+		{"mhp", 25},
+		{"mp", 0},
+		{"mmp", 0},
+		{"at", 2},
+		{"df", 100},
+		{"ag", 4},
+		{"lv", 1},
+		{"exp", 0},
+		{"money", 0}
+	};
+
+	public static int[] have_items = {};
+	public static string player_name = "sample";
 
 	public string objectNameTag;
 	public bool StrongBoxFlg;
