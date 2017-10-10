@@ -6,13 +6,6 @@ public class OpenBoxContoroller : MonoBehaviour {
 
 	public string treasure_name = "item00";
 	private Sprite[] sp;
-	// スプライトの取得
-	// @param fileName ファイル名
-	// @param spriteName スプライト名
-//	public static Sprite GetSprite(string fileName, string spriteName) {
-//		Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);
-//		return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals(spriteName));
-//	}
 
 	void Start(){
 		sp = Resources.LoadAll<Sprite>("Sprites/juelBox");
