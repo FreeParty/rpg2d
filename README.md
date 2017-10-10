@@ -9,7 +9,7 @@ free production game.
   - ドット絵世界  
     - http://yms.main.jp/index.html  
 - 音楽素材  
-  - 魔王魂  
+  - 魔王魂  
     - http://maoudamashii.jokersounds.com/  
 
 # 作成マップ
