@@ -10,14 +10,17 @@ public class BattleManager : MonoBehaviour {
 	public GameObject name_obj;
 	public GameObject hp_obj;
 	public GameObject mp_obj;
-	public string kaisin;
-	public string tukon;
+	public GameObject a_button;
+	public GameObject b_button;
+	public GameObject sound_box;
+	public GameObject commands;
+	private string kaisin;
+	private string tukon;
 
 	void Start(){
 		name_obj.GetComponent<Text> ().text = PlayerContoroller.player_name;
 		hp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status["hp"].ToString ();
 		mp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status["mp"].ToString ();
-		Debug.Log ("kaisin " + kaisin);
 	}
 
 
@@ -31,14 +34,13 @@ public class BattleManager : MonoBehaviour {
 
 		int first = compare_ag ();
 		if (first == 1) { // player が先手
-
+			sound_box.GetComponent<BattleSoundsController> ().Attack ();
 			EnemyController.enemy_status["hp"] -= p_damage;
 
 			if (EnemyController.enemy_status ["hp"] <= 0) { // エネミーのhpが0になったとき
-				Enemy_die ();
 				log_obj.GetComponent<Text>().text = PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n" + 
 					EnemyController.monster_name + "をたおした！\n" + "<color=#fce700>" + EnemyController.enemy_status["get_exp"] + "</color>の経験値と<color=#fce700>" + EnemyController.enemy_status["get_money"] + "</color>のゴールドを手に入れた！";
-//				Invoke ("BackField", 2.0f);
+				Enemy_die ();
 			} 
 
 			PlayerContoroller.player_status ["hp"] -= e_damage;
@@ -52,7 +54,8 @@ public class BattleManager : MonoBehaviour {
 			}
 			
 		} else {
-			
+
+			sound_box.GetComponent<BattleSoundsController> ().Attack ();
 			PlayerContoroller.player_status ["hp"] -= e_damage;
 			if (PlayerContoroller.player_status ["hp"] <= 0) {
 				Player_die ();
@@ -61,9 +64,9 @@ public class BattleManager : MonoBehaviour {
 
 			EnemyController.enemy_status["hp"] -= p_damage;
 			if (EnemyController.enemy_status ["hp"] <= 0) {
-				Enemy_die ();
 				log_obj.GetComponent<Text>().text = PlayerContoroller.player_name + "のこうげき\n" + kaisin + EnemyController.monster_name + "に<color=#ff0000>" + p_damage + "</color>のダメージ\n" + 
 					EnemyController.monster_name + "をたおした！\n" + "<color=#fce700>" + EnemyController.enemy_status["get_exp"] + "</color>の経験値と<color=#fce700>" + EnemyController.enemy_status["get_money"] + "</color>のゴールドを手に入れた！";
+				Enemy_die ();
 			}
 
 			if (PlayerContoroller.player_status ["hp"] >= 0 && EnemyController.enemy_status ["hp"] >= 0) {
@@ -121,28 +124,28 @@ public class BattleManager : MonoBehaviour {
 		return e_damage;
 	}
 
-	public int compare_ag(){
+	public int compare_ag(){ // 素早さを比較して早い方を返す 1: player ,2: enemy
 		return 	PlayerContoroller.player_status ["ag"] > EnemyController.enemy_status ["ag"] ? 1 : 2;
 	}
 
-	public void Player_die(){
+	public void Player_die(){ // player死亡時に呼ばれる
 		Debug.Log ("player is died");
 	}
 
-	public void Enemy_die(){
-		Debug.Log ("Eenemy died");
+	public void Enemy_die(){ // enemy 死亡時に呼ばれる
 		PlayerContoroller.player_status["exp"] += EnemyController.enemy_status["get_exp"];
 		PlayerContoroller.player_status ["money"] += EnemyController.enemy_status ["get_money"];
 		Check_lvup ();
 
 	}
 
-	public void Check_lvup(){
+	public void Check_lvup(){ // レベルアップ処理
 		foreach (int key in ExpController.exp_table.Keys) {
 			if (PlayerContoroller.player_status ["lv"] == key) {
 				if (PlayerContoroller.player_status ["exp"] >= ExpController.exp_table [key]) {
 					PlayerContoroller.player_status ["lv"] = key + 1;
-					Debug.Log ("レベルアップ！");
+					StartCoroutine (Play_lvup ());
+					log_obj.GetComponent<Text>().text = PlayerContoroller.player_name + " にレベルが<color=#fce700>" + PlayerContoroller.player_status["lv"] + "</color>に上がった！\n";
 				}
 			}
 		}
@@ -152,6 +155,11 @@ public class BattleManager : MonoBehaviour {
 
 	public void Miss(){
 		Debug.Log ("Miss");
+	}
+
+	IEnumerator Play_lvup(){
+		sound_box.GetComponent<BattleSoundsController> ().LvUp ();
+		yield return new WaitForSeconds (2.0f);
 	}
 
 	private void BackField(){

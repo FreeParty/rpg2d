@@ -17,7 +17,7 @@ public class ButtonA_ClickBattleController : MonoBehaviour {
 		
 	}
 
-	public void onPushButton()
+	private void onPushButton()
 	{
 		int current_command = CommandsController.current_command; 
 
