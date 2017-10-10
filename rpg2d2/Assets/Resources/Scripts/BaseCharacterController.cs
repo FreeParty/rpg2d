@@ -49,6 +49,7 @@ public class BaseCharacterController : MonoBehaviour {
 
 			if(x == 0 && y == 0);
 			else{
+                GetComponent<EncountController>().RandomEncount();
 				walk_state_init ();
 				if(Mathf.Abs(x) < Mathf.Abs(y)){
 					if(0 < y){
