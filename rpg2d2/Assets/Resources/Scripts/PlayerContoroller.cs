@@ -20,13 +20,10 @@ public class  PlayerContoroller : MonoBehaviour {
 	public static int[] have_items = {};
 	public static string player_name = "sample";
 
-	public string objectNameTag;
-	public bool StrongBoxFlg;
+    GameObject player_used;
+    GameObject touching;
 
-	GameObject player_used;
-
-
-	void Awake(){
+    void Awake(){
 		DontDestroyOnLoad(this);
 		player_used =  GameObject.Find ("Player_used");
 		if (player_used) {
@@ -36,33 +33,33 @@ public class  PlayerContoroller : MonoBehaviour {
 		}
 	}
 	void Start(){
-		objectNameTag = "HAA";
 	}
 
-	public void CheckObject(){ // Calling if push A button
-		if(objectNameTag == "StrongBox"){
-			StrongBoxFlg = true;
-		}
-	}
+    public void CheckObject()
+    {
+        if (touching)
+        {
+            switch (touching.name)
+            {
+                case "StrongBox":
+                    OpenBoxContoroller op = touching.GetComponent<OpenBoxContoroller>();
+                    op.OpenBox();
+                    break;
+                default:
+                    Debug.Log(touching.name);
+                    break;
 
-	void OnCollisionEnter2D(Collision2D coll){
-		objectNameTag = coll.gameObject.tag;
-	}
+            }
+        }
+    }
 
-	void OnCollisionExit2D(Collision2D coll){
-		objectNameTag = "";
-	}
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        touching = coll.gameObject;
+    }
 
-
-	void OnCollisionStay2D(Collision2D coll) {
-
-		if (coll.gameObject.tag == "StrongBox" && StrongBoxFlg) {
-			OpenBoxContoroller op = coll.gameObject.GetComponent<OpenBoxContoroller> ();
-			op.OnOpenedBox ();
-			StrongBoxFlg = false;
-		}
-	}
-
-
-
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        touching = null;
+    }
 }
