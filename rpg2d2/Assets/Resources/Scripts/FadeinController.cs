@@ -21,7 +21,7 @@ public class FadeinController : MonoBehaviour {
 		green = fadeImage.color.g;
 		blue = fadeImage.color.b;
 		alfa = fadeImage.color.a;
-		m_encount = GameObject.Find ("GameController/MobileJoystick").GetComponent<EncountController> ();
+		m_encount = GameObject.Find ("Player").GetComponent<EncountController> ();
 	}
 
 	void Update () {
