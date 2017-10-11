@@ -19,6 +19,8 @@ public class SceneJumper : MonoBehaviour {
 		
 	}
 
+
+
 	void OnTriggerEnter2D (Collider2D other) {
 		if(other.CompareTag ("Player")){
 			SceneManager.LoadScene (name);
@@ -27,6 +29,7 @@ public class SceneJumper : MonoBehaviour {
 			pos.x = nextX;
 			pos.y = nextY;
 			player.transform.position = pos;
+			player.name = "Player_used";
 		}
 	
 	}
