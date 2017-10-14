@@ -29,3 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/map_dendai1_1.unity
     guid: 8dd0c6099989c8e4695c365890be5b78
+  - enabled: 1
+    path: Assets/Scene/map_dendai1_2.unity
+    guid: 6476f494b4db75547b1cdb617e154985
+  - enabled: 1
+    path: Assets/Scene/map_dendai1_3.unity
+    guid: 75eb6571872d38e47a81914518bbc304
