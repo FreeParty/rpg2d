@@ -39,7 +39,7 @@ namespace UnityStandardAssets.CrossPlatformInput
             CreateVirtualAxes();
             camera = Camera.main;
 
-            m_StartPos = new Vector2(75, 75);
+            m_StartPos = new Vector2(100, 100);
         }
 
         void UpdateVirtualAxes(Vector2 delta)
@@ -101,18 +101,18 @@ namespace UnityStandardAssets.CrossPlatformInput
                 deltaXY.y = deltaY;
             }
 
-            Vector3 tmp = camera.ScreenToWorldPoint(new Vector3(50, 50, 0) + (Vector3)deltaXY);
-            tmp.z = 0;
-            transform.position = tmp;
+            Vector3 newPos = camera.ScreenToWorldPoint(new Vector3(50, 50, 0) + (Vector3)deltaXY);
+            newPos.z = transform.position.z;
+            transform.position = newPos;
             UpdateVirtualAxes(deltaXY);
         }
 
 
         public void OnPointerUp(PointerEventData data)
         {
-            Vector3 tmp = camera.ScreenToWorldPoint(new Vector3(50, 50, 0));
-            tmp.z = 0;
-            transform.position = tmp;
+            Vector3 newPos = camera.ScreenToWorldPoint(new Vector3(50, 50, 0));
+            newPos.z = transform.position.z;
+            transform.position = newPos;
             UpdateVirtualAxes(Vector2.zero);
         }
 
