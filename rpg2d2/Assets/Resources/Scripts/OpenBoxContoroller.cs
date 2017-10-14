@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OpenBoxContoroller : MonoBehaviour {
 
-	public string treasure_name = "item00";
+	public int item_id = 1;
 	private Sprite[] sp;
     private bool isOpen;
 
@@ -18,8 +18,14 @@ public class OpenBoxContoroller : MonoBehaviour {
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
             GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-            GameObject.Find("LogWindow").GetComponent<LogController>().printText(treasure_name + "を手に入れた！");
+			GameObject.Find("LogWindow").GetComponent<LogController>().printText(ItemName(item_id) + "を手に入れた！");
+			PlayerContoroller.my_items.Add (item_id);
             isOpen = true;
         }
     }
+
+	private string ItemName(int id){
+		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;
+		return item_name;
+	}
 }
