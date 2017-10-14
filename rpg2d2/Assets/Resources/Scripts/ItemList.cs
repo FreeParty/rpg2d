@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class ItemList : MonoBehaviour {
 
-	public static List<Items> myItems = new List<Items>(){
+	public static List<Items> item_table = new List<Items>(){
 		new Items (0, "なし", 0, (int)scene.Default, (int)eff.Default, 0),
 		new Items (1, "やくそう", 0, (int)scene.Battle, (int)eff.Hp_heal, 30),
 		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)eff.Hp_damage, 30),
 	};
 
 	void Start(){
-//		myItems.Add (new Items (0, "なし", 0, (int)scene.Battle, (int)eff.HP_heal, 0));
-		Debug.Log ("name" + myItems [2].item_name);
+		Debug.Log ("name" + item_table [2].item_name);
 	}
 
 	enum eff {
