@@ -24,7 +24,7 @@ public class OpenBoxContoroller : MonoBehaviour {
         }
     }
 
-	private string ItemName(int id){
+	public static string ItemName(int id){
 		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;
 		return item_name;
 	}

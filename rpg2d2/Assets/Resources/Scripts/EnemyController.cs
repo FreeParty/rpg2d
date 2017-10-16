@@ -14,9 +14,10 @@ public class EnemyController : MonoBehaviour {
 		{"df", 1},
 		{"ag", 1},
 		{"get_exp", 0},
-		{"get_money", 0},
+		{"get_money", 5},
 		{"type", 0},
 		{"drop", 0},
+		{"drop_pro", 0},
 	};
 
 	public static string monster_name = "0";
@@ -46,7 +47,6 @@ public class EnemyController : MonoBehaviour {
 			setEnemyStatus (monster_list, monster_num, reccurent_scene);
 			break;
 		default:
-			Debug.Log ("default");
 			break;
 		}
 	}
@@ -74,6 +74,7 @@ public class EnemyController : MonoBehaviour {
 		enemy_status ["drop"] = int.Parse (ml [mn, 8]);
 		enemy_status ["get_exp"] = int.Parse (ml [mn, 9]);
 		enemy_status ["get_money"] = int.Parse (ml [mn, 10]);
+		enemy_status ["drop_pro"] = int.Parse (ml [mn, 11]);
 	}
 
 

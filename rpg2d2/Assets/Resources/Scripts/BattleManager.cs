@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,10 +20,10 @@ public class BattleManager : MonoBehaviour {
 
 	void Start(){
 
-		Debug.Log ("hoge " + StatusData.LvupPlayerStatus [2,0]);
 		name_obj.GetComponent<Text> ().text = PlayerContoroller.player_name;
 		hp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status["hp"].ToString ();
 		mp_obj.GetComponent<Text> ().text = PlayerContoroller.player_status["mp"].ToString ();
+
 	}
 
 
@@ -38,19 +39,16 @@ public class BattleManager : MonoBehaviour {
 		if (first == 1) { // player が先手
 			sound_box.GetComponent<BattleSoundsController> ().Attack ();
 			EnemyController.enemy_status["hp"] -= p_damage;
+			PlayerContoroller.player_status ["hp"] -= e_damage;
 
 			if (EnemyController.enemy_status ["hp"] <= 0) { // エネミーのhpが0になったとき
 				log_obj.GetComponent<Text>().text = string.Format("{0}のこうげき\n{1}{2}に<color=#ff0000>{3}</color>のダメージ\n{2}をたおした！\n<color=#fce700>{4}</color>の経験値と<color=#fce700>{5}</color>のゴールドを手に入れた！", 
 					PlayerContoroller.player_name, kaisin, EnemyController.monster_name, p_damage, EnemyController.enemy_status["get_exp"], EnemyController.enemy_status["get_money"]);
-				Enemy_die ();
-			} 
-
-			PlayerContoroller.player_status ["hp"] -= e_damage;
-			if (PlayerContoroller.player_status ["hp"] <= 0) { // player のhpが0になったとき
+				PlayerContoroller.player_status ["hp"] += e_damage;
+				StartCoroutine(Enemy_die ());
+			} else if (PlayerContoroller.player_status ["hp"] <= 0) { // player のhpが0になったとき
 				Player_die ();
-			} 
-
-			if (PlayerContoroller.player_status ["hp"] >= 0 && EnemyController.enemy_status ["hp"] >= 0) {
+			} else {
 				log_obj.GetComponent<Text>().text = string.Format("{0}のこうげき\n{1}{2}に<color=#ff0000>{3}</color>のダメージ\n{2}のこうげき\n{4}{0}に<color=#ff0000>{5}</color>のダメージ\n", 
 					PlayerContoroller.player_name, kaisin, EnemyController.monster_name, p_damage, tukon, e_damage);
 			}
@@ -59,22 +57,17 @@ public class BattleManager : MonoBehaviour {
 
 			sound_box.GetComponent<BattleSoundsController> ().Attack ();
 			PlayerContoroller.player_status ["hp"] -= e_damage;
+			EnemyController.enemy_status["hp"] -= p_damage;
+
 			if (PlayerContoroller.player_status ["hp"] <= 0) {
 				Player_die ();
-			}
-
-
-			EnemyController.enemy_status["hp"] -= p_damage;
-			if (EnemyController.enemy_status ["hp"] <= 0) {
+			} else if (EnemyController.enemy_status ["hp"] <= 0) {
 				log_obj.GetComponent<Text>().text = string.Format("{0}のこうげき\n{1}{2}に<color=#ff0000>{3}</color>のダメージ\n{2}のこうげき\n{4}{0}に<color=#ff0000>{5}</color>のダメージ\n{0}をたおした！\n<color=#fce700>{6}</color>の経験値と<color=#fce700>{7}</color>のゴールドを手に入れた！", 
 					EnemyController.monster_name, tukon, PlayerContoroller.player_name, e_damage, kaisin, p_damage, EnemyController.enemy_status["get_exp"], EnemyController.enemy_status["get_money"]);
-				Enemy_die ();
-			}
-
-			if (PlayerContoroller.player_status ["hp"] >= 0 && EnemyController.enemy_status ["hp"] >= 0) {
+				StartCoroutine(Enemy_die ());
+			} else  {
 				log_obj.GetComponent<Text>().text = string.Format("{0}のこうげき\n{1}{2}に<color=#ff0000>{3}</color>のダメージ\n{2}のこうげき\n{4}{0}に<color=#ff0000>{5}</color>のダメージ\n", 
 					EnemyController.monster_name, tukon, PlayerContoroller.player_name, e_damage, kaisin, p_damage);
-
 			}
 		}
 
@@ -88,18 +81,17 @@ public class BattleManager : MonoBehaviour {
 		int p_damage = 0;
 
 		// 会心の一撃
-		if (Random.Range (1, 3) == 1) {
-			Debug.Log ("aaaa");
-			p_damage = (int)(PlayerContoroller.player_status ["at"] * Random.Range (0.6f, 1.5f)) + Random.Range (1, PlayerContoroller.player_status ["ag"]);
+		if (UnityEngine.Random.Range (1, 3) == 1) {
+			p_damage = (int)(PlayerContoroller.player_status ["at"] * UnityEngine.Random.Range (0.6f, 1.5f)) + UnityEngine.Random.Range (1, PlayerContoroller.player_status ["ag"]);
 			kaisin = "<color=#fce700>会心の一撃！ </color>";
 			return p_damage;
 		}
 
 
 		if (PlayerContoroller.player_status ["at"] - EnemyController.enemy_status ["df"] > 0) {
-			p_damage = (int)(PlayerContoroller.player_status ["at"] - EnemyController.enemy_status ["df"] * Random.Range (0.6f, 1.5f)) + Random.Range (1, PlayerContoroller.player_status ["ag"]);
+			p_damage = (int)(PlayerContoroller.player_status ["at"] - EnemyController.enemy_status ["df"] * UnityEngine.Random.Range (0.6f, 1.5f)) + UnityEngine.Random.Range (1, PlayerContoroller.player_status ["ag"]);
 		} else {
-			p_damage = (int)(Random.Range(1, 3) * Random.Range (0.6f, 1.5f));
+			p_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range (0.6f, 1.5f));
 		}
 
 		return p_damage;
@@ -111,17 +103,17 @@ public class BattleManager : MonoBehaviour {
 		int e_damage = 0;
 
 		// 痛恨の一撃
-		if (Random.Range (1, 32) == 1) {
-			e_damage = (int)(EnemyController.enemy_status ["at"] * Random.Range (0.6f, 1.5f)) + Random.Range (1, EnemyController.enemy_status ["ag"]);
+		if (UnityEngine.Random.Range (1, 32) == 1) {
+			e_damage = (int)(EnemyController.enemy_status ["at"] * UnityEngine.Random.Range (0.6f, 1.5f)) + UnityEngine.Random.Range (1, EnemyController.enemy_status ["ag"]);
 			tukon = "<color=#fce700>痛恨の一撃！ </color>";
 			return e_damage;
 		}
 
 
 		if (EnemyController.enemy_status ["at"] - PlayerContoroller.player_status ["df"] > 0) {
-			e_damage = (int)(EnemyController.enemy_status ["at"] - PlayerContoroller.player_status ["df"] * Random.Range (0.6f, 1.5f)) + Random.Range (1, EnemyController.enemy_status ["ag"]);
+			e_damage = (int)(EnemyController.enemy_status ["at"] - PlayerContoroller.player_status ["df"] * UnityEngine.Random.Range (0.6f, 1.5f)) + UnityEngine.Random.Range (1, EnemyController.enemy_status ["ag"]);
 		} else {
-			e_damage = (int)(Random.Range(1, 3) * Random.Range (0.6f, 1.5f));
+			e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range (0.6f, 1.5f));
 		}
 
 		return e_damage;
@@ -135,35 +127,46 @@ public class BattleManager : MonoBehaviour {
 		Debug.Log ("player is died");
 	}
 
-	public void Enemy_die(){ // enemy 死亡時に呼ばれる
+	IEnumerator Enemy_die(){ // enemy 死亡時に呼ばれる
+		int counter = 0;
+		DisableCommands();
 		PlayerContoroller.player_status["exp"] += EnemyController.enemy_status["get_exp"];
 		PlayerContoroller.player_status ["money"] += EnemyController.enemy_status ["get_money"];
-		Check_lvup ();
-
+		// StartCoroutine(HelperEnumerator(Test1Enumerator(), () => counter++));
+		yield return new WaitForSeconds (1.0f);
+		StartCoroutine(HelperEnumerator(Check_lvup(), () => counter++));
+		yield return new WaitUntil(() => counter == 1);
+		StartCoroutine(HelperEnumerator(Check_drop(), () => counter++));
+		yield return new WaitUntil(() => counter == 2);
+		BackField ();
 	}
 
-	public void Check_lvup(){ // レベルアップ処理
+	IEnumerator Check_lvup(){ // レベルアップ判定
 		foreach (int key in ExpController.exp_table.Keys) {
 			if (PlayerContoroller.player_status ["lv"] == key) {
 				if (PlayerContoroller.player_status ["exp"] >= ExpController.exp_table [key]) {
-					PlayerContoroller.player_status ["lv"] = key + 1;
-					StartCoroutine (Play_lvup ());
-				}
+					PlayerContoroller.player_status ["lv"] += 1;
+					yield return StartCoroutine(Play_lvup ());
+				} 
 			}
 		}
-
-	}
-		
+	}		
 
 	public void Miss(){
 		Debug.Log ("Miss");
+	}
+
+	private void DisableCommands(){
+		GameObject[] commands = GameObject.FindGameObjectsWithTag ("BattleCommands");
+		foreach (GameObject obj in commands) {
+			obj.GetComponent<Button> ().enabled = false;
+		}
 	}
 
 	IEnumerator Play_lvup(){
 		sound_box.GetComponent<BattleSoundsController> ().LvUp ();
 		yield return new WaitForSeconds (2.0f);
 		for (int i = 0; i < StatusData.LvupPlayerStatus.GetLength(0); i++) {
-			Debug.Log ("num " + StatusData.LvupPlayerStatus.GetLength(0));
 			if (PlayerContoroller.player_status ["lv"] == StatusData.LvupPlayerStatus [i, 0]) {
 				PlayerContoroller.player_status ["mhp"] += StatusData.LvupPlayerStatus [i, 1];
 				PlayerContoroller.player_status ["mmp"] += StatusData.LvupPlayerStatus [i, 2];
@@ -174,9 +177,46 @@ public class BattleManager : MonoBehaviour {
 					PlayerContoroller.player_name, PlayerContoroller.player_status ["lv"], StatusData.LvupPlayerStatus [i, 1], StatusData.LvupPlayerStatus [i, 2], StatusData.LvupPlayerStatus [i, 3], StatusData.LvupPlayerStatus [i, 4], StatusData.LvupPlayerStatus [i, 5]);
 			}
 		}
+		yield return new WaitForSeconds (1.5f);
+	}
+
+
+	IEnumerator Check_drop(){
+		int random = UnityEngine.Random.Range(0,100);
+		switch (EnemyController.enemy_status ["drop_pro"]) {
+		case 1:
+			if (random <= 	99)
+				StartCoroutine(Drop ());
+			break;
+		case 2:
+			if (random <= 99)
+				StartCoroutine(Drop ());
+			break;
+		case 3:
+			if (random <= 99)
+				StartCoroutine(Drop ());
+			break;
+		default:
+			break;
+		}
+		yield return new WaitForSeconds (2.0f);
+	}
+
+	IEnumerator Drop(){
+		PlayerContoroller.my_items.Add (EnemyController.enemy_status ["drop"]);
+		log_obj.GetComponent<Text>().text = string.Format ("{0}は{1}を落としていった！\n{2}は{1}を手に入れた", 
+			EnemyController.monster_name, OpenBoxContoroller.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name);
+		yield return new WaitForSeconds (3.0f);
 	}
 
 	private void BackField(){
 		SceneManager.LoadScene ("Scene/" + SceneManager2d.current_scene);
 	}
+
+	IEnumerator HelperEnumerator(IEnumerator enumerator, Action callback)
+	{
+		yield return enumerator;
+		callback();
+	}
+
 }

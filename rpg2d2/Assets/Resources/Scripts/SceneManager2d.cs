@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class SceneManager2d : MonoBehaviour {
 
-	public static string current_scene;
+	public static string current_scene = "main";
 	public static bool isEncount;
 
 	// Use this for initialization
