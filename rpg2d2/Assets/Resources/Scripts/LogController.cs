@@ -5,26 +5,45 @@ using UnityEngine.UI;
 
 public class LogController : MonoBehaviour
 {
-    // Use this for initialization
     private bool printed;
+    private int counter;
+    private string[] log;
 
+    // Use this for initialization
     void Start()
     {
-        printed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (printed && Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {
-            gameObject.SetActive(false);
+            if (counter == log.Length)
+            {
+                gameObject.SetActive(false);
+                if(callback != null) callback();
+            }
+            else
+            {
+                GetComponentInChildren<Text>().text = log[counter++];
+            }
         }
     }
 
-    public void printText(string str)
+    public void printText(string[] str)
     {
-        GetComponentInChildren<Text>().text = str;
-        printed = true;
+        counter = 0;
+        log = str;
+        GetComponentInChildren<Text>().text = log[counter++];
+        print(counter);
+    }
+
+    public delegate void Callback();
+
+    public Callback callback
+    {
+        get;
+        set;
     }
 }

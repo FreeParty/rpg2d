@@ -40,16 +40,13 @@ public class  PlayerContoroller : MonoBehaviour {
     {
         if (touching)
         {
-            switch (touching.name)
+            if (touching.GetComponent<OpenBoxContoroller>() != null)
             {
-                case "StrongBox":
-                    OpenBoxContoroller op = touching.GetComponent<OpenBoxContoroller>();
-                    op.OpenBox();
-                    break;
-                default:
-                    Debug.Log(touching.name);
-                    break;
-
+                touching.GetComponent<OpenBoxContoroller>().OpenBox();
+            }
+            if(touching.GetComponent<Messeage>() != null)
+            {
+                touching.GetComponent<Messeage>().Show();
             }
         }
     }
