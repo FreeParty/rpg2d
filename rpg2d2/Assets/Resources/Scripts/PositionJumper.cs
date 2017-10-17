@@ -27,6 +27,11 @@ public class PositionJumper : MonoBehaviour {
 			pos.x = nextX;
 			pos.y = nextY;
 			player.transform.position = pos;
+			StartCoroutine("waitPosition");
 		}
+	}
+
+	IEnumerator waitPosition(){
+		yield return new WaitForSeconds(1);
 	}
 }
