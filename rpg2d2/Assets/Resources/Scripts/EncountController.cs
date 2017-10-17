@@ -15,7 +15,6 @@ public class EncountController : MonoBehaviour {
     {
         GameObject.Find("Controller").SetActive(false);// 仮想コントローラー
         GameObject.Find("StatusWindow").SetActive(false);
-        SceneManager2d.isEncount = true;
         FadeinController m_fade = GameObject.Find("Window").GetComponent<FadeinController>();
         m_fade.alfa = 0;
         m_fade.isFadeOut = true;
@@ -35,7 +34,6 @@ public class EncountController : MonoBehaviour {
 
 	public void InsertBattleScene()
 	{
-		SceneManager2d.current_scene = SceneManager.GetActiveScene ().name;
 		SceneManager.LoadScene("Scene/battle");
 	}
 		

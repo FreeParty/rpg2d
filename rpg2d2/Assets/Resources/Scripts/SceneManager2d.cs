@@ -7,7 +7,6 @@ using UnityEngine;
  * 戦闘シーンに入った時にフィールドによってモンスターを切り替えるため、どのシーンでエンカウントしたかを保持します(EnemyController.cs)
  * 
  * isEncount はエンカウントしたかを判断する真偽値です
- * この変数によってエンカウントした時に仮想スティックのスクリプトを一時的に無効にします(joystick.cs)
  */
 
 public class SceneManager2d : MonoBehaviour {
