@@ -14,7 +14,7 @@ public class  PlayerContoroller : MonoBehaviour {
 		{"mdf", 100},
 		{"df", 100},
 		{"mag", 4},
-		{"ag", 4},
+		{"ag", 3},
 		{"lv", 1},
 		{"exp", 0},
 		{"money", 0}

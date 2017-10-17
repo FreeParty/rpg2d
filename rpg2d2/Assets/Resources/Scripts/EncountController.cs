@@ -14,7 +14,7 @@ public class EncountController : MonoBehaviour {
 
 	public void RandomEncount()
 	{
-		int num = Random.Range (1, 1100);
+		int num = Random.Range (1, 100);
 		if (num == 50) 
 		{
             GameObject.Find("Controller").SetActive(false);// 仮想コントローラー

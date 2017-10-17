@@ -11,7 +11,7 @@ public class ItemList : MonoBehaviour {
 	};
 
 	void Start(){
-		Debug.Log ("name" + item_table [2].item_name);
+//		Debug.Log ("name" + item_table [2].item_name);
 	}
 
 	enum eff {
