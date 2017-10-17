@@ -5,9 +5,9 @@ using UnityEngine;
 public class ItemList : MonoBehaviour {
 
 	public static List<Items> item_table = new List<Items>(){
-		new Items (0, "なし", 0, (int)scene.Default, (int)Eff.Default, 0,""),
-		new Items (1, "やくそう", 0, (int)scene.Battle, (int)Eff.Hp_heal, 30,"HPを30回復する"),
-		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)Eff.Hp_damage, 30,"相手に30ダメージを与える"),
+		new Items (0, "なし", 0, (int)scene.Default, (int)Eff.Default, 0,"Images/test",""),
+		new Items (1, "やくそう", 0, (int)scene.Battle, (int)Eff.Hp_heal, 30,"Images/test","HPを30回復する"),
+		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)Eff.Hp_damage, 30,"Images/test","相手に30ダメージを与える"),
 	};
 
 	void Start(){
@@ -42,9 +42,10 @@ public class ItemList : MonoBehaviour {
 		public int item_scene;
 		public int item_type;
 		public int item_effect;
+        public string item_img;
         public string item_desc;
 
-        public Items(int id, string name, int cost, int scene, int type, int effect,string desc)
+        public Items(int id, string name, int cost, int scene, int type, int effect,string img,string desc)
         {
 			item_id = id;
 			item_name = name;
@@ -52,6 +53,7 @@ public class ItemList : MonoBehaviour {
 			item_scene = scene;
 			item_type = type;
 			item_effect = effect;
+            item_img = img;
             item_desc = desc;
         }
 	}
