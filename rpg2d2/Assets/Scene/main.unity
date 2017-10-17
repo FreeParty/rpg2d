@@ -186,7 +186,7 @@ TilemapRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
+  m_StitchSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -45622,7 +45622,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
 --- !u!20 &573932754 stripped
 Camera:
@@ -45756,7 +45756,7 @@ TilemapRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
+  m_StitchSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -95074,113 +95074,9 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 2002489739}
-    m_ColliderPaths:
-    - - X: 40000000
-        Y: 45000000
-      - X: 40000000
-        Y: 30000000
-      - X: 25000000
-        Y: 30000000
-      - X: 25000000
-        Y: -45000000
-      - X: 40000000
-        Y: -45000000
-      - X: 40000000
-        Y: -90000000
-      - X: 155000000
-        Y: -90000000
-      - X: 155000000
-        Y: 45000000
-  - m_Collider: {fileID: 391671913}
-    m_ColliderPaths:
-    - - X: 610000000
-        Y: -35000000
-      - X: 620000000
-        Y: -35000000
-      - X: 620000000
-        Y: 445000000
-      - X: 630000000
-        Y: 445000000
-      - X: 630000000
-        Y: 760000000
-      - X: -275000000
-        Y: 760000000
-      - X: -275000000
-        Y: -355000000
-      - X: 610000000
-        Y: -355000000
-    - - X: 370000000
-        Y: 300000000
-      - X: 370000000
-        Y: 360000000
-      - X: 320000000
-        Y: 360000000
-      - X: 320000000
-        Y: 380000000
-      - X: 300000000
-        Y: 380000000
-      - X: 300000000
-        Y: 385000000
-      - X: 345000000
-        Y: 385000000
-      - X: 345000000
-        Y: 375000000
-      - X: 450000000
-        Y: 375000000
-      - X: 450000000
-        Y: 385000000
-      - X: 485000000
-        Y: 385000000
-      - X: 485000000
-        Y: 300000000
-    - - X: -60000000
-        Y: 120000000
-      - X: -60000000
-        Y: 355000000
-      - X: -55000000
-        Y: 355000000
-      - X: -55000000
-        Y: 365000000
-      - X: -35000000
-        Y: 365000000
-      - X: -35000000
-        Y: 155000000
-      - X: -15000000
-        Y: 155000000
-      - X: -15000000
-        Y: 120000000
+  m_ColliderPaths: []
   m_CompositePaths:
-    m_Paths:
-    - - {x: 61, y: -3.5}
-      - {x: 62, y: -3.5}
-      - {x: 62, y: 44.5}
-      - {x: 63, y: 44.5}
-      - {x: 63, y: 76}
-      - {x: -27.5, y: 76}
-      - {x: -27.5, y: -35.5}
-      - {x: 61, y: -35.5}
-    - - {x: 37, y: 30}
-      - {x: 37, y: 36}
-      - {x: 32, y: 36}
-      - {x: 32, y: 38}
-      - {x: 30, y: 38}
-      - {x: 30, y: 38.5}
-      - {x: 34.5, y: 38.5}
-      - {x: 34.5, y: 37.5}
-      - {x: 45, y: 37.5}
-      - {x: 45, y: 38.5}
-      - {x: 48.5, y: 38.5}
-      - {x: 48.5, y: 30}
-    - - {x: -6, y: 12}
-      - {x: -6, y: 35.5}
-      - {x: -5.5, y: 35.5}
-      - {x: -5.5, y: 36.5}
-      - {x: -3.5, y: 36.5}
-      - {x: -3.5, y: 15.5}
-      - {x: -1.5, y: 15.5}
-      - {x: -1.5, y: 12}
+    m_Paths: []
   m_VertexDistance: 0.0005
 --- !u!50 &916548676
 Rigidbody2D:
@@ -95380,7 +95276,7 @@ TilemapRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
+  m_StitchSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -96705,6 +96601,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a091672eed00342a3921cf6862809755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1687388194 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1724769101858898, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+    type: 2}
+  m_PrefabInternal: {fileID: 1717226796}
+--- !u!114 &1687388202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1687388194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30b525188cee47fca7dfb60a4990100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flg: 1
 --- !u!1001 &1717226796
 Prefab:
   m_ObjectHideFlags: 0
@@ -96715,12 +96628,12 @@ Prefab:
     - target: {fileID: 224897934154684584, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 42
+      value: 725.6916
       objectReference: {fileID: 0}
     - target: {fileID: 224897934154684584, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 863.9186
       objectReference: {fileID: 0}
     - target: {fileID: 224897934154684584, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
@@ -96805,7 +96718,7 @@ Prefab:
     - target: {fileID: 224071499107401818, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 125
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 224071499107401818, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
@@ -96815,7 +96728,7 @@ Prefab:
     - target: {fileID: 224691363419052782, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 125
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 224691363419052782, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
@@ -96825,7 +96738,7 @@ Prefab:
     - target: {fileID: 224732986272735370, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 125
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 224732986272735370, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
@@ -96835,7 +96748,7 @@ Prefab:
     - target: {fileID: 224580267236744220, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 125
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 224580267236744220, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
         type: 2}
@@ -96892,6 +96805,70 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -593.1408
       objectReference: {fileID: 0}
+    - target: {fileID: 1724360161695014, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1615676085571176, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056411621863950, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700054303076964, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862576696494834, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700054303076964, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114546891239212416, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114546891239212416, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862576696494834, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223619915938212286, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114800538726216052, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223619915938212286, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223619915938212286, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114603794638174284, guid: 5577bcc472ff2d348b2fe552ae4bcf28,
+        type: 2}
+      propertyPath: window
+      value: 
+      objectReference: {fileID: 1687388194}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5577bcc472ff2d348b2fe552ae4bcf28, type: 2}
   m_IsPrefabParent: 0
@@ -97025,7 +97002,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
 --- !u!483693784 &2002489740
 TilemapRenderer:
@@ -97052,7 +97029,7 @@ TilemapRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
+  m_StitchSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

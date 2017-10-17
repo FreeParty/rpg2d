@@ -8,6 +8,8 @@ public class LogController : MonoBehaviour
     private bool printed;
     private int counter;
     private string[] log;
+	public GameObject window;
+	private bool flg = true;
 
     // Use this for initialization
     void Start()
@@ -33,6 +35,7 @@ public class LogController : MonoBehaviour
 
     public void printText(string[] str)
     {
+		ChangeMode ();
         counter = 0;
         log = str;
         GetComponentInChildren<Text>().text = log[counter++];
@@ -46,4 +49,14 @@ public class LogController : MonoBehaviour
         get;
         set;
     }
+
+	public void ChangeMode(){
+		if (flg) {
+			window.GetComponent<Canvas> ().renderMode = RenderMode.ScreenSpaceOverlay;
+		} else {
+			window.GetComponent<Canvas> ().renderMode = RenderMode.ScreenSpaceCamera;
+		}
+
+		flg = !flg;
+	}
 }
