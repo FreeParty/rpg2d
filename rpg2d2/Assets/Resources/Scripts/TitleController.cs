@@ -10,7 +10,6 @@ public class TitleController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(GameObject.Find("Player"));
     }
 
     // Update is called once per frame
