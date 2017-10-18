@@ -18,7 +18,6 @@ public class ItemController : MonoBehaviour {
     public void Use()
     {
         ToggleGroup toggleGroup = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
-        print(toggleGroup.AnyTogglesOn());
         if (toggleGroup.AnyTogglesOn())
         {
             foreach(Toggle itemObj in toggleGroup.ActiveToggles())
@@ -44,8 +43,8 @@ public class ItemController : MonoBehaviour {
                 }
             }
             GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
-            GameObject.Find("ItemList").SetActive(false);
             GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
+            MenuController.CloseMenu();
         }
     }
 
@@ -68,8 +67,8 @@ public class ItemController : MonoBehaviour {
                 }
             }
             GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
-            GameObject.Find("ItemList").SetActive(false);
             GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
+            MenuController.CloseMenu();
         }
     }
 }

@@ -21,9 +21,10 @@ public class MenuController : MonoBehaviour
 
     }
 
-    public void Menu()
+    public static void CloseMenu()
     {
-        if(GameObject.Find("MenuButtons") != null)
+
+        if (GameObject.Find("MenuButtons") != null)
         {
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
             GameObject.Find("MenuButtons").SetActive(false);
@@ -32,6 +33,14 @@ public class MenuController : MonoBehaviour
             {
                 GameObject.Find("ItemList").SetActive(false);
             }
+        }
+    }
+
+    public void Menu()
+    {
+        if(GameObject.Find("MenuButtons") != null)
+        {
+            CloseMenu();
         }
         else
         {
@@ -50,24 +59,33 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            GameObject.Find("Window").transform.Find("ItemList").gameObject.SetActive(true);
-            Transform parent = GameObject.Find("ItemContainer").transform;
-            foreach (Transform item in parent)
+            if (PlayerContoroller.my_items.Count > 0)
             {
-                Destroy(item.gameObject);
-            }
+                GameObject.Find("Window").transform.Find("ItemList").gameObject.SetActive(true);
+                Transform parent = GameObject.Find("ItemContainer").transform;
+                foreach (Transform item in parent)
+                {
+                    Destroy(item.gameObject);
+                }
 
-            ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
-            PlayerContoroller.my_items.Sort();
-            foreach (int itemNo in PlayerContoroller.my_items)
-            {
-                GameObject item = Instantiate(ItemButton) as GameObject;
-                item.GetComponentInChildren<ItemToggleController>().itemNo = itemNo;
-                item.GetComponentInChildren<Toggle>().group = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
-                item.GetComponentInChildren<Text>().text = ItemList.item_table[itemNo].item_name;
-                item.transform.SetParent(parent,false);
+                ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
+                PlayerContoroller.my_items.Sort();
+                foreach (int itemNo in PlayerContoroller.my_items)
+                {
+                    GameObject item = Instantiate(ItemButton) as GameObject;
+                    item.GetComponentInChildren<ItemToggleController>().itemNo = itemNo;
+                    item.GetComponentInChildren<Toggle>().group = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
+                    item.GetComponentInChildren<Text>().text = ItemList.item_table[itemNo].item_name;
+                    item.transform.SetParent(parent, false);
+                }
+                GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐを閉じる";
             }
-            GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐを閉じる";
+            else
+            {
+                GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+                GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "どうぐを持っていません。" });
+                CloseMenu();
+            }
         }
     }
 
