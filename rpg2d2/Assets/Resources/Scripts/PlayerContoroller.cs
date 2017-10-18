@@ -29,7 +29,6 @@ public class  PlayerContoroller : MonoBehaviour {
     void Awake(){
 		DontDestroyOnLoad(this);
 		player_used =  GameObject.Find ("Player_used");
-        print (player_used != null) ;
 		if (player_used) {
 			player_used.GetComponent<Animator> ().enabled = true;
 			Destroy (GameObject.Find ("Player"));
