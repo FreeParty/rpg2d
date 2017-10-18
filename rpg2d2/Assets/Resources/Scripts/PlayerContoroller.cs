@@ -20,7 +20,7 @@ public class  PlayerContoroller : MonoBehaviour {
 		{"money", 0}
 	};
 
-	public static List<int> my_items = new List<int>();
+    public static List<int> my_items = new List<int>();
 	public static string player_name = "sample";
 
     GameObject player_used;
@@ -29,6 +29,7 @@ public class  PlayerContoroller : MonoBehaviour {
     void Awake(){
 		DontDestroyOnLoad(this);
 		player_used =  GameObject.Find ("Player_used");
+        print (player_used != null) ;
 		if (player_used) {
 			player_used.GetComponent<Animator> ().enabled = true;
 			Destroy (GameObject.Find ("Player"));
