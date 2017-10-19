@@ -14,7 +14,8 @@ public class EncountController : MonoBehaviour {
     public void Encount()
     {
         GameObject.Find("Controller").SetActive(false);// 仮想コントローラー
-        GameObject.Find("StatusWindow").SetActive(false);
+        if(GameObject.Find("StatusWindow")) GameObject.Find("StatusWindow").SetActive(false);
+        GameObject.Find("MenuWindow").SetActive(false);
         FadeinController m_fade = GameObject.Find("Window").GetComponent<FadeinController>();
         m_fade.alfa = 0;
         m_fade.isFadeOut = true;
