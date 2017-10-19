@@ -26,6 +26,10 @@ public class MenuController : MonoBehaviour
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
             GameObject.Find("MenuButtons").SetActive(false);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
+            if (GameObject.Find("ItemList") != null)
+            {
+                GameObject.Find("ItemList").SetActive(false);
+            }
         }
         else
         {
@@ -48,13 +52,16 @@ public class MenuController : MonoBehaviour
             Transform parent = GameObject.Find("ItemContainer").transform;
             foreach (Transform item in parent)
             {
-                GameObject.Destroy(item.gameObject);
+                Destroy(item.gameObject);
             }
 
             ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
+            PlayerContoroller.my_items.Sort();
             foreach (int itemNo in PlayerContoroller.my_items)
             {
                 GameObject item = Instantiate(ItemButton) as GameObject;
+                item.GetComponentInChildren<ItemToggleController>().itemNo = itemNo;
+                item.GetComponentInChildren<Toggle>().group = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
                 item.GetComponentInChildren<Text>().text = ItemList.item_table[itemNo].item_name;
                 item.transform.SetParent(parent,false);
             }
