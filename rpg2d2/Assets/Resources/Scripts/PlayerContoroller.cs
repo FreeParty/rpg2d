@@ -34,7 +34,7 @@ public class  PlayerContoroller : MonoBehaviour {
 			Destroy (GameObject.Find ("Player"));
 			player_used.name = "Player";
 		}
-    }
+	}
 
     public void CheckObject()
     {

@@ -36,6 +36,7 @@ public class LogController : MonoBehaviour
         counter = 0;
         log = str;
         GetComponentInChildren<Text>().text = log[counter++];
+        print(counter);
     }
 
     public delegate void Callback();
