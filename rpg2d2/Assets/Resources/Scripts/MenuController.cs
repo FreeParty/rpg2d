@@ -42,9 +42,11 @@ public class MenuController : MonoBehaviour
         if(GameObject.Find("MenuButtons") != null)
         {
             CloseMenu();
+            GameObject.Find("Window").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         }
         else
         {
+            GameObject.Find("Window").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 220);
             GameObject.Find("MenuWindow").transform.Find("MenuButtons").gameObject.SetActive(true);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "閉じる";
