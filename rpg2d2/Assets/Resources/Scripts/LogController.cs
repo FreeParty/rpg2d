@@ -9,8 +9,7 @@ public class LogController : MonoBehaviour
     private int counter;
     private string[] log;
     private float timeElapsed;
-
-    public GameObject window;
+    
     private bool flg = true;
 
     // Use this for initialization
@@ -33,7 +32,8 @@ public class LogController : MonoBehaviour
             if (printed)
             {
                 gameObject.SetActive(false);
-                if(callback != null) callback();
+                ChangeMode();
+                if (callback != null) callback();
             }
             else if(GetComponentInChildren<Text>().text.Length == log[counter].Length)
             {
@@ -69,13 +69,12 @@ public class LogController : MonoBehaviour
     {
         if (flg)
         {
-            window.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            GameObject.Find("Window").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
         }
         else
         {
-            window.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+            GameObject.Find("Window").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         }
-
         flg = !flg;
     }
 }
