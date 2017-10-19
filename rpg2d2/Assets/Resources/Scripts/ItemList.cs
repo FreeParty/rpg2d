@@ -5,16 +5,16 @@ using UnityEngine;
 public class ItemList : MonoBehaviour {
 
 	public static List<Items> item_table = new List<Items>(){
-		new Items (0, "なし", 0, (int)scene.Default, (int)eff.Default, 0),
-		new Items (1, "やくそう", 0, (int)scene.Battle, (int)eff.Hp_heal, 30),
-		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)eff.Hp_damage, 30),
+		new Items (0, "なし", 0, (int)scene.Default, (int)Eff.Default, 0,"Images/test",""),
+		new Items (1, "やくそう", 0, (int)scene.Battle, (int)Eff.Hp_heal, 30,"Images/test","HPを30回復する"),
+		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)Eff.Hp_damage, 30,"Images/test","相手に30ダメージを与える"),
 	};
 
 	void Start(){
 //		Debug.Log ("name" + item_table [2].item_name);
 	}
 
-	enum eff {
+	public enum Eff {
 		Default,
 		Hp_heal,
 		Hp_damage,
@@ -42,15 +42,19 @@ public class ItemList : MonoBehaviour {
 		public int item_scene;
 		public int item_type;
 		public int item_effect;
+        public string item_img;
+        public string item_desc;
 
-		public Items(int id, string name, int cost, int scene, int type, int effect){
+        public Items(int id, string name, int cost, int scene, int type, int effect,string img,string desc)
+        {
 			item_id = id;
 			item_name = name;
 			item_cost = cost;
 			item_scene = scene;
 			item_type = type;
 			item_effect = effect;
-
-		}
+            item_img = img;
+            item_desc = desc;
+        }
 	}
 }

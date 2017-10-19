@@ -20,7 +20,7 @@ public class  PlayerContoroller : MonoBehaviour {
 		{"money", 0}
 	};
 
-	public static List<int> my_items = new List<int>();
+    public static List<int> my_items = new List<int>();
 	public static string player_name = "sample";
 
     GameObject player_used;
@@ -34,7 +34,7 @@ public class  PlayerContoroller : MonoBehaviour {
 			Destroy (GameObject.Find ("Player"));
 			player_used.name = "Player";
 		}
-	}
+    }
 
     public void CheckObject()
     {
