@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StatusController : MonoBehaviour {
-
 	// Use this for initialization
 	void Start () {
         Print();
@@ -17,10 +17,9 @@ public class StatusController : MonoBehaviour {
 
     public void Print()
     {
-        Transform statusWindow = GameObject.Find("Window").transform.Find("StatusWindow");
-        statusWindow.Find("name").GetComponent<Text>().text = PlayerContoroller.player_name;
-        statusWindow.Find("Lv").GetComponent<Text>().text = "LV : " + PlayerContoroller.player_status["lv"];
-        statusWindow.Find("Hp").GetComponent<Text>().text = "HP : " + PlayerContoroller.player_status["hp"] + " / " + PlayerContoroller.player_status["mhp"];
-        statusWindow.Find("Mp").GetComponent<Text>().text = "MP : " + PlayerContoroller.player_status["mp"] + " / " + PlayerContoroller.player_status["mmp"];
+        GameObject.Find("name").GetComponent<Text>().text = PlayerContoroller.player_name;
+        GameObject.Find("Lv").GetComponent<Text>().text = "LV : " + PlayerContoroller.player_status["lv"];
+        GameObject.Find("Hp").GetComponent<Text>().text = "HP : " + PlayerContoroller.player_status["hp"] + " / " + PlayerContoroller.player_status["mhp"];
+        GameObject.Find("Mp").GetComponent<Text>().text = "MP : " + PlayerContoroller.player_status["mp"] + " / " + PlayerContoroller.player_status["mmp"];
     }
 }
