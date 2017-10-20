@@ -70,11 +70,6 @@ public class LogController : MonoBehaviour
     public LogController then(Callback function)
     {
         callbackList.Add(function);
-
-        foreach(Callback func in callbackList)
-        {
-            print(function.Method.Name);
-        }
         return this;
     }
 
