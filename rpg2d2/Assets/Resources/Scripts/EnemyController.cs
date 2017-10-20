@@ -21,8 +21,7 @@ public class EnemyController : MonoBehaviour {
 	};
 
 	public static string monster_name = "0";
-
-	public Text mytext;
+    
 	private Sprite sp;
 
 	// Use this for initialization
@@ -60,7 +59,7 @@ public class EnemyController : MonoBehaviour {
 
 	private void setEnemyStatus(string [,] ml, int mn, string rc){
 		monster_name = ml[mn, 1];
-		mytext.text = monster_name + " があらわれた！！\n"; // 名前をlogにセット
+        GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { monster_name + " があらわれた！！\n" }).then(new LogController.Callback(BattleManager.ToggleCommands)); // 名前をlogにセット
 		sp = GetSprite ("enemys/" + rc, ml[mn, 0]);
 		GetComponent<Image> ().sprite = sp;
 		enemy_status["hp"] = int.Parse(ml [mn, 2]);

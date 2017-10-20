@@ -18,7 +18,14 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
 
+    private static void CloseItemList()
+    {
+        GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
+        GameObject.Find("ItemImage").GetComponent<Image>().sprite = null;
+        GameObject.Find("ItemList").SetActive(false);
+        GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
     }
 
     public static void CloseMenu()
@@ -26,27 +33,24 @@ public class MenuController : MonoBehaviour
 
         if (GameObject.Find("MenuButtons") != null)
         {
+            if (GameObject.Find("ItemList") != null)
+            {
+                CloseItemList();
+            }
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
             GameObject.Find("MenuButtons").SetActive(false);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
-            if (GameObject.Find("ItemList") != null)
-            {
-                GameObject.Find("ItemList").SetActive(false);
-            }
         }
     }
 
     public void Menu()
     {
-		LogController.ChangeMode ();
         if(GameObject.Find("MenuButtons") != null)
         {
             CloseMenu();
-            GameObject.Find("Window").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         }
         else
         {
-            GameObject.Find("Window").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 220);
             GameObject.Find("MenuWindow").transform.Find("MenuButtons").gameObject.SetActive(true);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "閉じる";
@@ -57,8 +61,7 @@ public class MenuController : MonoBehaviour
     {
         if (GameObject.Find("ItemList") != null)
         {
-            GameObject.Find("ItemList").SetActive(false);
-            GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
+            CloseItemList();
         }
         else
         {
