@@ -25,21 +25,15 @@ public class LogController : MonoBehaviour
             if (counter == log.Length - 1 && GetComponentInChildren<Text>().text.Length == log[counter].Length) printed = true;
             timeElapsed = 0;
         }
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (printed)
             {
                 gameObject.SetActive(false);
-                if (callbacksList.Count > 0)
-                {
-                    Callbacks function = callbacksList[0];
-                    callbacksList.Remove(callbacksList[0]);
-                    function();
-                }
-                else if (callbackList.Count > 0)
+                if (callbackList.Count > 0)
                 {
                     Callback function = callbackList[0];
-                    callbackList.Remove(callbackList[0]);
+                    callbackList.RemoveAt(0);
                     function();
                 }
             }
@@ -66,38 +60,23 @@ public class LogController : MonoBehaviour
     }
 
     public delegate void Callback();
-    public delegate LogController Callbacks();
 
     public void cancel(Callback function)
     {
         callbackList = new List<Callback>();
-        callbacksList = new List<Callbacks>();
         if (function != null) callbackList.Add(function);
     }
 
     public LogController then(Callback function)
     {
         callbackList.Add(function);
-        return this;
-    }
-    public LogController then(Callbacks functions)
-    {
-        callbacksList.Add(functions);
-        return this;
-    }
 
-    private Callback callback
-    {
-        get;
-        set;
+        foreach(Callback func in callbackList)
+        {
+            print(function.Method.Name);
+        }
+        return this;
     }
 
     private List<Callback> callbackList = new List<Callback>();
-    private List<Callbacks> callbacksList = new List<Callbacks>();
-
-    private Callbacks callbacks
-    {
-        get;
-        set;
-    }
 }

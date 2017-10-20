@@ -30,7 +30,6 @@ public class EnemyController : MonoBehaviour {
 
 	}
 
-
 	/*
 	 * Resources/enemys/シーン名 のディレクトリにモンスターの画像を格納してください
 	 * また、シーンを複数作っていて、そのシーンによって出現するモンスターを切り替えたい場合、シーン名と上のシーン名を統一してください
