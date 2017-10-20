@@ -12,9 +12,13 @@ public class BattleManager : MonoBehaviour
      * GetComponent<LogController>().printText(messages)はLogControllerを返す
      * LogControllerにはthenというメソッドがあり、そこに関数を入れるとログの表示が完了後実行される
      * thenの引数にはvoid型の関数と、LogController型の関数を指定できる
+     * 
      * void型の関数の場合GetComponent<LogController>().printText(messages).then(callback1).then(callback2)...とつなげられる
+     * void型のcallbackの型はLogController.Callback
+     * 
      * LogController型の関数の場合
      * LogControllerFunc1().then(LogControllerFunc2).then(LogControllerFunc3)...とつなげられる
+     * LogController型のcallbackの型はLogController.Callbacks(もともとLogController型の関数のみ何重ものメソッドチェーンに対応していたがための命名　紛らわしい)
      * void型とLogController型の交互に指定することもできる（が、実行順序がLogController型の関数を実行し終わってからvoid型と現時点でなっており、順序は保証されない）
      * LogControllerFunc1().then(LogControllerFunc2).then(new LogController.Callback(callback1))
      * のようにvoid型の関数はnew LogController.Callback(...)で囲んでね
