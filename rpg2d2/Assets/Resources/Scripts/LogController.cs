@@ -25,7 +25,7 @@ public class LogController : MonoBehaviour
             if (counter == log.Length - 1 && GetComponentInChildren<Text>().text.Length == log[counter].Length) printed = true;
             timeElapsed = 0;
         }
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (printed)
             {
