@@ -25,7 +25,7 @@ public class ButtonA_ClickBattleController : MonoBehaviour {
 		switch (current_command) 
 		{
 		case 1: 
-			obj.GetComponent<BattleManager> ().Fight ();
+			//obj.GetComponent<BattleManager> ().Fight ();
 			break;
 		case 3:
 			// xxxx は逃げ出した
