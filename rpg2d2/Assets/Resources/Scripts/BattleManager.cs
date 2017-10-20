@@ -7,6 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+
+    /*
+     * GetComponent<LogController>().printText(messages)はLogControllerを返す
+     * LogControllerにはthenというメソッドがあり、そこに関数を入れるとログの表示が完了後実行される
+     * thenの引数にはvoid型の関数と、LogController型の関数を指定できる
+     * void型の関数の場合GetComponent<LogController>().printText(messages).then(callback1).then(callback2)...とつなげられる
+     * LogController型の関数の場合
+     * LogControllerFunc1().then(LogControllerFunc2).then(LogControllerFunc3)...とつなげられる
+     * void型とLogController型の交互に指定することもできる（が、実行順序がLogController型の関数を実行し終わってからvoid型と現時点でなっており、順序は保証されない）
+     * LogControllerFunc1().then(LogControllerFunc2).then(new LogController.Callback(callback1))
+     * のようにvoid型の関数はnew LogController.Callback(...)で囲んでね
+     * 
+     */
     public GameObject log_obj;
     public GameObject name_obj;
     public GameObject hp_obj;
@@ -200,7 +213,7 @@ public class BattleManager : MonoBehaviour
         PlayerContoroller.player_status["exp"] += EnemyController.enemy_status["get_exp"];
         PlayerContoroller.player_status["money"] += EnemyController.enemy_status["get_money"];
 
-        LogController.Callback callback;
+        LogController.Callback callback;//メッセージ表示後実行する関数
         if (Check_lvup())
         {
             callback = Play_lvup;
@@ -254,7 +267,7 @@ public class BattleManager : MonoBehaviour
                 PlayerContoroller.player_status["mag"] += StatusData.LvupPlayerStatus[i, 5];
                 StatusUpdate();
                 
-                LogController.Callback callback;
+                LogController.Callback callback;//メッセージ表示後実行する関数
                 if (Check_drop())
                 {
                     callback = Drop;
@@ -306,3 +319,4 @@ public class BattleManager : MonoBehaviour
         SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
     }
 }
+ 
