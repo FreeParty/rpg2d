@@ -84,7 +84,14 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            messages = new string[] { EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
+            if (e_damage.damage > 0)
+            {
+                messages = new string[] { EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
+            }
+            else
+            {
+                messages = new string[] { EnemyController.monster_name + "は攻撃をかわした！" };
+            }
         }
 
         if(EnemyController.enemy_status["hp"] <= 0)
@@ -110,7 +117,14 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            messages = new string[] { EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+            if (p_damage.damage > 0)
+            {
+                messages = new string[] { EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+            }
+            else
+            {
+                messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
+            }
         }
 
         if (PlayerContoroller.player_status["hp"] <= 0)
