@@ -103460,6 +103460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item_id: 1
+  isOpen: 0
 --- !u!1 &1563556626 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1153730242980890, guid: 0ade75f8e504341dda070491143edfb4,

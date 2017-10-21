@@ -153,7 +153,7 @@ public class BattleManager : MonoBehaviour
     }
     public static void ToggleCommands()
     {
-        
+
         if (GameObject.Find("Commands") != null)
         {
             GameObject.Find("Commands").SetActive(false);
@@ -219,16 +219,18 @@ public class BattleManager : MonoBehaviour
             e_damage = (int)(EnemyController.enemy_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
             tsukon = true;
         }
-
-        if (EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] > 0)
-        {
-            e_damage = (int)(EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
-        }
         else
         {
-            e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
-        }
 
+            if (EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] > 0)
+            {
+                e_damage = (int)(EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
+            }
+            else
+            {
+                e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
+            }
+        }
         return new IntAndBool()
         {
             damage = e_damage,
@@ -299,7 +301,7 @@ public class BattleManager : MonoBehaviour
                 PlayerContoroller.player_status["mdf"] += StatusData.LvupPlayerStatus[i, 4];
                 PlayerContoroller.player_status["mag"] += StatusData.LvupPlayerStatus[i, 5];
                 StatusUpdate();
-                
+
                 LogController.Callback callback;//メッセージ表示後実行する関数
                 if (Check_drop())
                 {
@@ -352,4 +354,3 @@ public class BattleManager : MonoBehaviour
         SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
     }
 }
- 

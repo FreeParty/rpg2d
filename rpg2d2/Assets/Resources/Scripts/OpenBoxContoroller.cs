@@ -6,11 +6,18 @@ public class OpenBoxContoroller : MonoBehaviour {
 
 	public int item_id = 1;
 	private Sprite[] sp;
-    private bool isOpen;
+    public bool isOpen = false;
 
     void Start(){
 		sp = Resources.LoadAll<Sprite>("Sprites/juelBox");
-        isOpen = false;
+        if (isOpen)
+        {
+            GetComponent<SpriteRenderer>().sprite = sp[1];
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = sp[0];
+        }
     }
 
 	public void OpenBox(){
