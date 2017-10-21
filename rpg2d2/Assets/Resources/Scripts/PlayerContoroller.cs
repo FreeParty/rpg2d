@@ -22,18 +22,19 @@ public class  PlayerContoroller : MonoBehaviour {
 
     public static List<int> my_items = new List<int>();
 	public static string player_name = "sample";
-
-    GameObject player_used;
+    
     GameObject touching;
 
-    void Awake(){
-		DontDestroyOnLoad(this);
-		player_used =  GameObject.Find ("Player_used");
-		if (player_used) {
-			player_used.GetComponent<Animator> ().enabled = true;
-			Destroy (GameObject.Find ("Player"));
-			player_used.name = "Player";
-		}
+    void Start(){
+        if (GameObject.Find("Player") != gameObject)
+        {
+            GameObject.Find("Player").GetComponent<Transform>().position = GetComponent<Transform>().position;
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this);
+        }
     }
 
     public void CheckObject()
@@ -53,7 +54,10 @@ public class  PlayerContoroller : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        touching = coll.gameObject;
+        if (coll.gameObject.GetComponent<OpenBoxContoroller>() != null || coll.gameObject.GetComponent<Messeage>() != null)
+        {
+            touching = coll.gameObject;
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)

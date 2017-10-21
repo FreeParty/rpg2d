@@ -9,7 +9,7 @@ public class NextCursorController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<Text> ();
-		StartCoroutine (Flash (0.7f));
+		StartCoroutine (Flash (1.0f));
 	}
 	
 	IEnumerator Flash(float num){

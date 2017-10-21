@@ -43,13 +43,13 @@ public class BattleManager : MonoBehaviour
         }
         if (name_obj == null)
         {
-            name_obj = GameObject.Find("name");
+            name_obj = GameObject.Find("Name");
         }
         name_obj.GetComponent<Text>().text = PlayerContoroller.player_name;
 
         if (name_obj == null)
         {
-            name_obj = GameObject.Find("name");
+            name_obj = GameObject.Find("Name");
         }
         if (hp_obj == null)
         {
@@ -153,7 +153,7 @@ public class BattleManager : MonoBehaviour
     }
     public static void ToggleCommands()
     {
-        
+
         if (GameObject.Find("Commands") != null)
         {
             GameObject.Find("Commands").SetActive(false);
@@ -178,60 +178,62 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public IntAndBool P_damage()
+    public IntAndBool E_damage()
     { // プレイヤーが与えるダメージ
-        int p_damage = 0;
+        int e_damage = 0;
         bool kaishin = false;
 
         // 会心の一撃
         if (UnityEngine.Random.Range(1, 3) == 1)
         {
-            p_damage = (int)(PlayerContoroller.player_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
+            e_damage = (int)(PlayerContoroller.player_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
             kaishin = true;
         }
         else
         {
             if (PlayerContoroller.player_status["at"] - EnemyController.enemy_status["df"] > 0)
             {
-                p_damage = (int)(PlayerContoroller.player_status["at"] - EnemyController.enemy_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
+                e_damage = (int)(PlayerContoroller.player_status["at"] - EnemyController.enemy_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
+            }
+            else
+            {
+                e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
+            }
+        }
+
+        return new IntAndBool()
+        {
+            damage = e_damage,
+            isCelanHit = kaishin
+        };
+    }
+
+    public IntAndBool P_damage()
+    {
+        int p_damage = 0;
+        bool tsukon = false;
+
+        // 痛恨の一撃
+        if (UnityEngine.Random.Range(1, 32) == 1)
+        {
+            p_damage = (int)(EnemyController.enemy_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
+            tsukon = true;
+        }
+        else
+        {
+
+            if (EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] > 0)
+            {
+                p_damage = (int)(EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
             }
             else
             {
                 p_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
             }
         }
-
         return new IntAndBool()
         {
             damage = p_damage,
-            isCelanHit = kaishin
-        };
-    }
-
-    public IntAndBool E_damage()
-    {
-        int e_damage = 0;
-        bool tsukon = false;
-
-        // 痛恨の一撃
-        if (UnityEngine.Random.Range(1, 32) == 1)
-        {
-            e_damage = (int)(EnemyController.enemy_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
-            tsukon = true;
-        }
-
-        if (EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] > 0)
-        {
-            e_damage = (int)(EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
-        }
-        else
-        {
-            e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
-        }
-
-        return new IntAndBool()
-        {
-            damage = e_damage,
             isCelanHit = tsukon
         };
     }
@@ -299,7 +301,7 @@ public class BattleManager : MonoBehaviour
                 PlayerContoroller.player_status["mdf"] += StatusData.LvupPlayerStatus[i, 4];
                 PlayerContoroller.player_status["mag"] += StatusData.LvupPlayerStatus[i, 5];
                 StatusUpdate();
-                
+
                 LogController.Callback callback;//メッセージ表示後実行する関数
                 if (Check_drop())
                 {
@@ -352,4 +354,3 @@ public class BattleManager : MonoBehaviour
         SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
     }
 }
- 
