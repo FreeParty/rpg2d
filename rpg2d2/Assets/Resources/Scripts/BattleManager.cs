@@ -11,19 +11,15 @@ public class BattleManager : MonoBehaviour
     /*
      * GetComponent<LogController>().printText(messages)はLogControllerを返す
      * LogControllerにはthenというメソッドがあり、そこに関数を入れるとログの表示が完了後実行される
-     * thenの引数にはvoid型の関数と、LogController型の関数を指定できる
+     * void型の引数なしの関数を指定できる
      * 
-     * void型の関数の場合GetComponent<LogController>().printText(messages).then(callback1).then(callback2)...とつなげられる
-     * void型のcallbackの型はLogController.Callback
+     * 使い方はGetComponent<LogController>().printText(messages).then(callback1).then(callback2)...とつなげる
+     * void型のcallback関数の型はLogController.Callback
      * 
-     * LogController型の関数の場合
-     * LogControllerFunc1().then(LogControllerFunc2).then(LogControllerFunc3)...とつなげられる
-     * LogController型のcallbackの型はLogController.Callbacks(もともとLogController型の関数のみ何重ものメソッドチェーンに対応していたがための命名　紛らわしい)
-     * void型とLogController型の交互に指定することもできる（が、実行順序がLogController型の関数を実行し終わってからvoid型と現時点でなっており、順序は保証されない）
-     * LogControllerFunc1().then(LogControllerFunc2).then(new LogController.Callback(callback1))
-     * のようにvoid型の関数はnew LogController.Callback(...)で囲んでね
-     * 
+     * また、メソッドcancelはそれまでに登録したコールバック関数を削除する。
+     * 引数にvoid型の引数なしの関数を指定すると、コールバック関数を削除したうえで代わりにその関数を実行する。
      */
+
     public GameObject log_obj;
     public GameObject name_obj;
     public GameObject hp_obj;
@@ -63,6 +59,10 @@ public class BattleManager : MonoBehaviour
         {
             mp_obj = GameObject.Find("p_mp");
         }
+        if (sound_box == null)
+        {
+            sound_box = GameObject.Find("BattleSounds");
+        }
         StatusUpdate();
     }
 
@@ -71,13 +71,12 @@ public class BattleManager : MonoBehaviour
         GameObject.Find("StatusWindowInBattle").GetComponent<StatusController>().Print();
     }
 
-    public LogController AttackToEnemy()
+    public void AttackToEnemy()
     {
         IntAndBool e_damage = E_damage();
         EnemyController.enemy_status["hp"] -= e_damage.damage;
 
         string[] messages;
-
         if (e_damage.isCelanHit)
         {
             messages = new string[] { "会心の一撃！\n" + EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
@@ -87,23 +86,31 @@ public class BattleManager : MonoBehaviour
             messages = new string[] { EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
         }
 
-        if(EnemyController.enemy_status["hp"] <= 0)
-        {
-            log_obj.GetComponent<LogController>().cancel(new LogController.Callback(Enemy_die));
-        }
-
         log_obj.SetActive(true);
-        return log_obj.GetComponent<LogController>().printText(messages);
+        if (EnemyController.enemy_status["hp"] > 0)
+        {
+            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
+            {
+                log_obj.GetComponent<LogController>().printText(messages).then(AttackToPlayer);
+            }
+            else //AttackToPlayer => AttackToEnemy => ToggleCommands
+            {
+                log_obj.GetComponent<LogController>().printText(messages).then(ToggleCommands);
+            }
+        }
+        else
+        {
+            log_obj.GetComponent<LogController>().printText(messages).cancel(Enemy_die);
+        }
     }
 
-    public LogController AttackToPlayer()
+    public void AttackToPlayer()
     {
         IntAndBool p_damage = P_damage();
         PlayerContoroller.player_status["hp"] -= p_damage.damage;
         StatusUpdate();
 
         string[] messages;
-
         if (p_damage.isCelanHit)
         {
             messages = new string[] { "痛恨の一撃！\n" + EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
@@ -113,15 +120,23 @@ public class BattleManager : MonoBehaviour
             messages = new string[] { EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
         }
 
-        if (PlayerContoroller.player_status["hp"] <= 0)
-        {
-            log_obj.GetComponent<LogController>().cancel(new LogController.Callback(Player_die));
-        }
-
         log_obj.SetActive(true);
-        return log_obj.GetComponent<LogController>().printText(new string[] { PlayerContoroller.player_name + "は" + p_damage.damage + "のダメージをうけた" });
+        if (PlayerContoroller.player_status["hp"] > 0)
+        {
+            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
+            {
+                log_obj.GetComponent<LogController>().printText(messages).then(ToggleCommands);
+            }
+            else //AttackToPlayer => AttackToEnemy => ToggleCommands
+            {
+                log_obj.GetComponent<LogController>().printText(messages).then(AttackToEnemy);
+            }
+        }
+        else
+        {
+            log_obj.GetComponent<LogController>().printText(messages).cancel(Player_die);
+        }
     }
-
     public static void ToggleCommands()
     {
         
@@ -141,11 +156,11 @@ public class BattleManager : MonoBehaviour
         ToggleCommands();
         if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //Playerが先手
         {
-            AttackToEnemy().then(AttackToPlayer).then(new LogController.Callback(ToggleCommands));
+            AttackToEnemy();
         }
         else
         {
-            AttackToPlayer().then(AttackToEnemy).then(new LogController.Callback(ToggleCommands));
+            AttackToPlayer();
         }
     }
 
