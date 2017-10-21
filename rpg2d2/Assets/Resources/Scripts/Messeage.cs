@@ -30,13 +30,11 @@ public class Messeage : MonoBehaviour
 
     public void Show()
     {
-        GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-
         LogController.Callback callback = null;
         if (encount)
         {
             callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
         }
-        GameObject.Find("LogWindow").GetComponent<LogController>().printText(messeage).then(callback);
+        LogController.logController.printText(messeage).then(callback);
     }
 }

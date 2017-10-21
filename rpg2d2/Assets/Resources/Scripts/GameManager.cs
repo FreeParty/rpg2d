@@ -21,6 +21,16 @@ public class GameManager : MonoBehaviour
         else
         {
             DontDestroyOnLoad(this);
+            if(SceneManager.GetActiveScene().name != "battle" && SceneManager.GetActiveScene().name != "title")
+            {
+                LogController.logController = GameObject.Find("Window").transform.Find("LogWindow").gameObject.GetComponent<LogController>();
+                AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            }
+            else if(SceneManager.GetActiveScene().name == "battle")
+            {
+                LogController.logController = GameObject.Find("BattleField").transform.Find("LogWindow").gameObject.GetComponent<LogController>();
+                AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            }
         }
         strongBoxes = new Dictionary<string, bool>();
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -41,6 +51,8 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name != "battle" && scene.name != "title")
         {
+            LogController.logController = GameObject.Find("Window").transform.Find("LogWindow").gameObject.GetComponent<LogController>();
+            AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             GameObject.Find("Player").GetComponent<Animator>().enabled = true;
             if (isStateShow)
             {
@@ -54,6 +66,11 @@ public class GameManager : MonoBehaviour
                     strongBox.GetComponent<OpenBoxContoroller>().isOpen = strongBoxes[strongBox.name];
                 }
             }
+        }
+        else if(scene.name == "battle")
+        {
+            LogController.logController = GameObject.Find("BattleField").transform.Find("LogWindow").gameObject.GetComponent<LogController>();
+            AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
         }
     }
 

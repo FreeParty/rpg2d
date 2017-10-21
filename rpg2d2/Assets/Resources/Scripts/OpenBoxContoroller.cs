@@ -24,8 +24,7 @@ public class OpenBoxContoroller : MonoBehaviour {
         if (!isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
-            GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-            GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[]{ItemName(item_id) + "を手に入れた！","やった！"});
+            LogController.logController.printText(new string[]{ItemName(item_id) + "を手に入れた！","やった！"});
 			PlayerContoroller.my_items.Add (item_id);
             isOpen = true;
         }

@@ -11,7 +11,6 @@ public class MenuController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -68,12 +67,12 @@ public class MenuController : MonoBehaviour
             {
                 GameObject.Find("Window").transform.Find("ItemList").gameObject.SetActive(true);
                 Transform parent = GameObject.Find("ItemContainer").transform;
+                ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
                 foreach (Transform item in parent)
                 {
                     Destroy(item.gameObject);
                 }
-
-                ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
+                
                 PlayerContoroller.my_items.Sort();
                 foreach (int itemNo in PlayerContoroller.my_items)
                 {
@@ -87,8 +86,7 @@ public class MenuController : MonoBehaviour
             }
             else
             {
-                GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-                GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "どうぐを持っていません。" });
+                LogController.logController.printText(new string[] { "どうぐを持っていません。" });
                 CloseMenu();
             }
         }
@@ -108,19 +106,44 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    public void SaveCallback(string answer)
+    {
+        CloseMenu();
+        switch (answer)
+        {
+            case "はい":
+                GameObject.Find("GameManager").GetComponent<GameManager>().Save();
+                AlertController.alertController.ShowAlert("セーブ", "セーブが完了しました。\nゲームを終了しますか？", new string[] { "はい", "いいえ" }, EndCallback);
+                break;
+            case "いいえ":
+                break;
+        }
+    }
+
+    public void EndCallback(string answer)
+    {
+        CloseMenu();
+        switch (answer)
+        {
+            case "はい":
+                End();
+                break;
+            case "いいえ":
+                break;
+        }
+    }
+    
     public void Save()
     {
-        CloseItemList();
-        GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
-        GameObject.Find("MenuButtons").SetActive(false);
-        GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
-        GameObject.Find("GameManager").GetComponent<GameManager>().Save();
-        GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-        GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "セーブしました。" });
+        AlertController.alertController.ShowAlert("セーブ","これまでの記録をセーブしますか？",new string[]{"はい","いいえ"}, SaveCallback);
     }
 
     public void End()
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
+    }
+
+    public void ShowAlert(string title, string body, List<string> answers)
+    {
     }
 }
