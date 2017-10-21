@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LogController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class LogController : MonoBehaviour
             if (printed)
             {
                 gameObject.SetActive(false);
+                toggleController();
                 if (callbackList.Count > 0)
                 {
                     Callback function = callbackList[0];
@@ -56,6 +58,7 @@ public class LogController : MonoBehaviour
         log = str;
         GetComponentInChildren<Text>().text = log[counter].Substring(0, 1);
         printed = false;
+        toggleController();
         return this;
     }
 
@@ -74,4 +77,19 @@ public class LogController : MonoBehaviour
     }
 
     private List<Callback> callbackList = new List<Callback>();
+
+    public void toggleController()
+    {
+        if (SceneManager.GetActiveScene().name != "battle")
+        {
+            if (GameObject.Find("Controller") != null)
+            {
+                GameObject.Find("Controller").SetActive(false);
+            }
+            else
+            {
+                GameObject.Find("Window").transform.Find("Controller").gameObject.SetActive(true);
+            }
+        }
+    }
 }

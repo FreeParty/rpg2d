@@ -28,14 +28,25 @@ public class Messeage : MonoBehaviour
 
     }
 
+    public void toggleController()
+    {
+        if (GameObject.Find("Controller") != null)
+        {
+            GameObject.Find("Controller").SetActive(false);
+        }
+        else
+        {
+            GameObject.Find("Window").transform.Find("Controller").gameObject.SetActive(true);
+        }
+    }
+
     public void Show()
     {
         GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-
         LogController.Callback callback = null;
         if (encount)
         {
-            callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
+            callback += GameObject.Find("Player").GetComponent<EncountController>().Encount;
         }
         GameObject.Find("LogWindow").GetComponent<LogController>().printText(messeage).then(callback);
     }
