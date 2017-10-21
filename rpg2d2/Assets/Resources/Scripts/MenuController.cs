@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 
 public class MenuController : MonoBehaviour
 {
@@ -22,21 +21,20 @@ public class MenuController : MonoBehaviour
 
     private static void CloseItemList()
     {
-        GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
-        GameObject.Find("ItemImage").GetComponent<Image>().sprite = null;
-        GameObject.Find("ItemList").SetActive(false);
-        GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
+        if (GameObject.Find("ItemList") != null)
+        {
+            GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
+            GameObject.Find("ItemImage").GetComponent<Image>().sprite = null;
+            GameObject.Find("ItemList").SetActive(false);
+            GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
+        }
     }
 
     public static void CloseMenu()
     {
-
         if (GameObject.Find("MenuButtons") != null)
         {
-            if (GameObject.Find("ItemList") != null)
-            {
-                CloseItemList();
-            }
+            CloseItemList();
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
             GameObject.Find("MenuButtons").SetActive(false);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
@@ -45,7 +43,7 @@ public class MenuController : MonoBehaviour
 
     public void Menu()
     {
-        if(GameObject.Find("MenuButtons") != null)
+        if (GameObject.Find("MenuButtons") != null)
         {
             CloseMenu();
         }
@@ -111,87 +109,17 @@ public class MenuController : MonoBehaviour
 
     public void Save()
     {
-        string player_status = JsonUtility.ToJson(new Serialization<string,int>(PlayerContoroller.player_status),true);
-        string player_position = JsonUtility.ToJson(GameObject.Find("Player").GetComponent<Transform>().position, true);
-        string my_items = JsonUtility.ToJson(new Serialization<int>(PlayerContoroller.my_items), true);
-        string player_name = PlayerContoroller.player_name;
-        string scene_name = SceneManager.GetActiveScene().name;
-        Dictionary<string, string> data = new Dictionary<string, string>();
-        data.Add("player_status", player_status);
-        data.Add("player_position", player_position);
-        data.Add("player_name", player_name);
-        data.Add("scene_name", scene_name);
-        data.Add("my_items", my_items);
-
-        string json = JsonUtility.ToJson(new Serialization<string, string>(data),true);
-        PlayerPrefs.SetString("save", json);
+        CloseItemList();
         GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
         GameObject.Find("MenuButtons").SetActive(false);
         GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
-        if (GameObject.Find("ItemList") != null)
-        {
-            GameObject.Find("ItemList").SetActive(false);
-        }
+        GameObject.Find("GameManager").GetComponent<GameManager>().Save();
         GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
         GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "セーブしました。" });
     }
 
-    // List<T>
-    [Serializable]
-    public class Serialization<T>
-    {
-        [SerializeField]
-        List<T> target;
-        public List<T> ToList() { return target; }
-
-        public Serialization(List<T> target)
-        {
-            this.target = target;
-        }
-    }
-
-    // Dictionary<TKey, TValue>
-    [Serializable]
-    public class Serialization<TKey, TValue> : ISerializationCallbackReceiver
-    {
-        [SerializeField]
-        List<TKey> keys;
-        [SerializeField]
-        List<TValue> values;
-
-        Dictionary<TKey, TValue> target;
-        public Dictionary<TKey, TValue> ToDictionary() { return target; }
-
-        public Serialization(Dictionary<TKey, TValue> target)
-        {
-            this.target = target;
-        }
-
-        public void OnBeforeSerialize()
-        {
-            keys = new List<TKey>(target.Keys);
-            values = new List<TValue>(target.Values);
-        }
-
-        public void OnAfterDeserialize()
-        {
-            var count = Math.Min(keys.Count, values.Count);
-            target = new Dictionary<TKey, TValue>(count);
-            for (var i = 0; i < count; ++i)
-            {
-                target.Add(keys[i], values[i]);
-            }
-        }
-    }
-
     public void End()
     {
-        #if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
-        #elif UNITY_WEBPLAYER
-			Application.OpenURL("http://www.yahoo.co.jp/");
-        #else
-            Application.Quit();
-        #endif
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
     }
 }
