@@ -20,7 +20,6 @@ public class EncountController : MonoBehaviour {
         m_fade.alfa = 0;
         m_fade.isFadeOut = true;
         player.GetComponent<Animator>().enabled = false;
-        player.name = "Player_used";
     }
 
 
@@ -35,7 +34,7 @@ public class EncountController : MonoBehaviour {
 
 	public void InsertBattleScene()
 	{
-		SceneManager.LoadScene("Scene/battle");
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle");
 	}
 		
 }
