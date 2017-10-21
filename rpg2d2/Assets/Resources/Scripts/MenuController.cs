@@ -109,17 +109,38 @@ public class MenuController : MonoBehaviour
 
     public void Save()
     {
-        GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
-        GameObject.Find("MenuButtons").SetActive(false);
-        GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
-        CloseItemList();
-        GameObject.Find("GameManager").GetComponent<GameManager>().Save();
-        GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
-        GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "セーブしました。" });
+        if (GameObject.Find("GameManager") != null)
+        {
+            CloseItemList();
+            GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
+            GameObject.Find("MenuButtons").SetActive(false);
+            GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
+            GameObject.Find("GameManager").GetComponent<GameManager>().Save();
+            GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+            GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "セーブしました。" });
+        }
+        else
+        {
+            GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+            GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "タイトルから実行するとセーブできます。別にしようとすればできるけどね" });
+        }
     }
 
     public void End()
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
+        if (GameObject.Find("GameManager") != null)
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
+        }
+        else
+        {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #elif UNITY_WEBPLAYER
+			    Application.OpenURL("http://www.yahoo.co.jp/");
+            #else
+			    Application.Quit();
+            #endif
+        }
     }
 }
