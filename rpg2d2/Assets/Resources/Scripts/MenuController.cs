@@ -102,6 +102,7 @@ public class MenuController : MonoBehaviour
         else
         {
             GameObject.Find("Window").transform.Find("StatusWindow").gameObject.SetActive(true);
+            GameObject.Find("StatusWindow").GetComponent<StatusController>().Print();
             GameObject.Find("Status").GetComponentInChildren<Text>().text = "ステータスを非表示";
         }
     }

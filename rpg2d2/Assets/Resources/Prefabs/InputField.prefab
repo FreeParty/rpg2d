@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1e4022664b3be43b625eba30837312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultInput: 
 --- !u!114 &114215365291330824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,10 +195,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: a67c39ac016b17e4cabcee9da507e3d2, type: 3}
-    m_FontSize: 14
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
