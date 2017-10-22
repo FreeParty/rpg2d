@@ -68,12 +68,12 @@ public class LogController : MonoBehaviour
     public void cancel(Callback function)
     {
         callbackList = new List<Callback>();
-        if (function != null) callbackList.Add(function);
+        then(function);
     }
 
     public LogController then(Callback function)
     {
-        callbackList.Add(function);
+        if(function != null) callbackList.Add(function);
         return this;
     }
 
