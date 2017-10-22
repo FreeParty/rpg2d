@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class AlertController : MonoBehaviour {
 
     public static AlertController alertController;
-    public GameObject answerButton;
 
     // Use this for initialization
     void Start () {
-        answerButton = (GameObject)Resources.Load("Prefabs/AnswerButton");
     }
 	
 	// Update is called once per frame
@@ -22,30 +20,46 @@ public class AlertController : MonoBehaviour {
     
     public void Reset()
     {
-        GameObject.Find("Title").GetComponent<Text>().text = null;
+        GameObject.Find("AlertTitle").GetComponent<Text>().text = null;
         GameObject.Find("Question").GetComponent<Text>().text = null;
         gameObject.SetActive(false);
     }
 
-    public void ShowAlert(string title,string body,string[] answers,Callback callback)
+    public void ShowAlertByOptions(string title,string body,string[] options,Callback callback)
     {
         gameObject.SetActive(true);
         GameObject.Find("Title").GetComponent<Text>().text = title;
         GameObject.Find("Question").GetComponent<Text>().text = body;
 
-        Transform parent = GameObject.Find("Answers").transform;
-        answerButton = (GameObject)Resources.Load("Prefabs/AnswerButton");
+        Transform parent = GameObject.Find("Options").transform;
+        GameObject optionButton = (GameObject)Resources.Load("Prefabs/OptionButton");
         foreach (Transform item in parent)
         {
             Destroy(item.gameObject);
         }
 
-        foreach (string answerStr in answers)
+        foreach (string option in options)
         {
-            GameObject answer = Instantiate(answerButton) as GameObject;
-            answer.GetComponentInChildren<Text>().text = answerStr;
+            GameObject answer = Instantiate(optionButton) as GameObject;
+            answer.GetComponentInChildren<Text>().text = option;
             answer.transform.SetParent(parent, false);
             answer.GetComponent<AnswerController>().callback = callback;
         }
+    }
+    public void ShowAlertByInput(string title, string body, Callback callback)
+    {
+        gameObject.SetActive(true);
+        GameObject.Find("AlertTitle").GetComponent<Text>().text = title;
+        GameObject.Find("Question").GetComponent<Text>().text = body;
+
+        Transform parent = GameObject.Find("Options").transform;
+        foreach (Transform item in parent)
+        {
+            Destroy(item.gameObject);
+        }
+        GameObject inputField = (GameObject)Resources.Load("Prefabs/InputField");
+        GameObject input = Instantiate(inputField) as GameObject;
+        input.transform.SetParent(parent, false);
+        GameObject.Find("Enter").GetComponent<InputController>().callback = callback;
     }
 }

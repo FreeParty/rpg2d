@@ -246,7 +246,7 @@ public class BattleManager : MonoBehaviour
 
     public void AlertCallback()
     {
-        AlertController.alertController.ShowAlert("コンティニュー", "最後にセーブした地点からやり直しますか？", new string[] { "はい", "いいえ" }, EndCallback);
+        AlertController.alertController.ShowAlertByOptions("コンティニュー", "最後にセーブした地点からやり直しますか？", new string[] { "はい", "いいえ" }, EndCallback);
     }
 
 

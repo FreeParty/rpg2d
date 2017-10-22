@@ -106,24 +106,24 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void SaveCallback(string answer)
+    public void SaveCallback(string option)
     {
         CloseMenu();
-        switch (answer)
+        switch (option)
         {
             case "はい":
                 GameObject.Find("GameManager").GetComponent<GameManager>().Save();
-                AlertController.alertController.ShowAlert("セーブ", "セーブが完了しました。\nゲームを終了しますか？", new string[] { "はい", "いいえ" }, EndCallback);
+                AlertController.alertController.ShowAlertByOptions("セーブ", "セーブが完了しました。\nゲームを終了しますか？", new string[] { "はい", "いいえ" }, EndCallback);
                 break;
             case "いいえ":
                 break;
         }
     }
 
-    public void EndCallback(string answer)
+    public void EndCallback(string option)
     {
         CloseMenu();
-        switch (answer)
+        switch (option)
         {
             case "はい":
                 End();
@@ -135,7 +135,7 @@ public class MenuController : MonoBehaviour
     
     public void Save()
     {
-        AlertController.alertController.ShowAlert("セーブ","これまでの記録をセーブしますか？",new string[]{"はい","いいえ"}, SaveCallback);
+        AlertController.alertController.ShowAlertByOptions("セーブ","これまでの記録をセーブしますか？",new string[]{"はい","いいえ"}, SaveCallback);
     }
 
     public void End()

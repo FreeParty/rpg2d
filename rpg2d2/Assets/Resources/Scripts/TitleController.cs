@@ -18,9 +18,15 @@ public class TitleController : MonoBehaviour
 
     }
 
+    public void NewGameCallback(string playerName)
+    {
+        PlayerContoroller.player_name = playerName;
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName);
+    }
+
     public void NewGame()
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName);
+        AlertController.alertController.ShowAlertByInput("ニューゲーム", "名前を入力してください。", NewGameCallback);
     }
 
     public void Continue()

@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
             {
                 LogController.logController = GameObject.Find("BattleField").transform.Find("LogWindow").gameObject.GetComponent<LogController>();
                 AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            }else if (SceneManager.GetActiveScene().name == "title")
+            {
+                AlertController.alertController = GameObject.Find("Title").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             }
         }
         strongBoxes = new Dictionary<string, bool>();
@@ -71,6 +74,10 @@ public class GameManager : MonoBehaviour
         {
             LogController.logController = GameObject.Find("BattleField").transform.Find("LogWindow").gameObject.GetComponent<LogController>();
             AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+        }else if (scene.name != "title")
+        {
+            AlertController.alertController = GameObject.Find("Title").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            //プレイヤーの初期化
         }
     }
 

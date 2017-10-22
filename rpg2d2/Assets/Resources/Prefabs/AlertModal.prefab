@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222924791834845234}
   - component: {fileID: 114642720130258610}
   m_Layer: 5
-  m_Name: Title
+  m_Name: AlertTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114438029148630248}
   - component: {fileID: 114723790842994228}
   m_Layer: 5
-  m_Name: Answers
+  m_Name: Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,7 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7fcf6485d9d2042a01e87823197808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answerButton: {fileID: 0}
 --- !u!114 &114642720130258610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,7 +353,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1752705391492190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
