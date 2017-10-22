@@ -28,7 +28,7 @@ public class AlertController : MonoBehaviour {
     public void ShowAlertByOptions(string title,string body,string[] options,Callback callback)
     {
         gameObject.SetActive(true);
-        GameObject.Find("Title").GetComponent<Text>().text = title;
+        GameObject.Find("AlertTitle").GetComponent<Text>().text = title;
         GameObject.Find("Question").GetComponent<Text>().text = body;
 
         Transform parent = GameObject.Find("Options").transform;
@@ -46,7 +46,7 @@ public class AlertController : MonoBehaviour {
             answer.GetComponent<AnswerController>().callback = callback;
         }
     }
-    public void ShowAlertByInput(string title, string body, Callback callback)
+    public void ShowAlertByInput(string title, string body,string defaultInput ,Callback callback)
     {
         gameObject.SetActive(true);
         GameObject.Find("AlertTitle").GetComponent<Text>().text = title;
@@ -60,6 +60,8 @@ public class AlertController : MonoBehaviour {
         GameObject inputField = (GameObject)Resources.Load("Prefabs/InputField");
         GameObject input = Instantiate(inputField) as GameObject;
         input.transform.SetParent(parent, false);
+        GameObject.Find("Placeholder").GetComponent<Text>().text = defaultInput;
         GameObject.Find("Enter").GetComponent<InputController>().callback = callback;
+        GameObject.Find("Enter").GetComponent<InputController>().defaultInput = defaultInput;
     }
 }

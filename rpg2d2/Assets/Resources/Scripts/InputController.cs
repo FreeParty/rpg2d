@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InputController : MonoBehaviour {
 
     public AlertController.Callback callback;
+    public string defaultInput;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +20,16 @@ public class InputController : MonoBehaviour {
 
     public void Enter()
     {
-        callback(GameObject.Find("InputBody").GetComponent<Text>().text);
+        string input = GameObject.Find("InputBody").GetComponent<Text>().text;
+        if (input.Length > 0)
+        {
+            callback(GameObject.Find("InputBody").GetComponent<Text>().text);
+            AlertController.alertController.Reset();
+        }
+        else
+        {
+            callback(defaultInput);
+        }
         AlertController.alertController.Reset();
     }
 }
