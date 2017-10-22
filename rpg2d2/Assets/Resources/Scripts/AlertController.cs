@@ -20,9 +20,12 @@ public class AlertController : MonoBehaviour {
     
     public void Reset()
     {
-        GameObject.Find("AlertTitle").GetComponent<Text>().text = null;
-        GameObject.Find("Question").GetComponent<Text>().text = null;
-        gameObject.SetActive(false);
+        if (GameObject.Find("AlertModal"))
+        {
+            GameObject.Find("AlertTitle").GetComponent<Text>().text = null;
+            GameObject.Find("Question").GetComponent<Text>().text = null;
+            gameObject.SetActive(false);
+        }
     }
 
     public void ShowAlertByOptions(string title,string body,string[] options,Callback callback)

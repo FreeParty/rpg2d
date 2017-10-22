@@ -75,12 +75,14 @@ public class BattleManager : MonoBehaviour
         if (e_damage.isCelanHit)
         {
             messages = new string[] { "会心の一撃！\n" + EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
+            sound_box.GetComponent<BattleSoundsController>().Attack();
         }
         else
         {
             if (e_damage.damage > 0)
             {
                 messages = new string[] { EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
+                sound_box.GetComponent<BattleSoundsController>().Attack();
             }
             else
             {
@@ -115,12 +117,14 @@ public class BattleManager : MonoBehaviour
         if (p_damage.isCelanHit)
         {
             messages = new string[] { "痛恨の一撃！\n" + EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+            sound_box.GetComponent<BattleSoundsController>().Attack();
         }
         else
         {
             if (p_damage.damage > 0)
             {
                 messages = new string[] { EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+                sound_box.GetComponent<BattleSoundsController>().Attack();
             }
             else
             {
