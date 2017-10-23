@@ -24,6 +24,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         GameObject joystic;
         Vector2 m_StartPos;
         Camera camera;
+        float startTime;
         bool m_UseX; // Toggle for using the x axis
         bool m_UseY; // Toggle for using the Y axis
         CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
@@ -117,6 +118,10 @@ namespace UnityStandardAssets.CrossPlatformInput
             joystic.transform.position = newPos;
             UpdateVirtualAxes(Vector2.zero);
             joystic.GetComponent<Image>().enabled = false;
+            if(Time.time - startTime < 0.8)
+            {
+                GameObject.Find("Player").GetComponent<PlayerContoroller>().CheckObject();
+            } 
         }
 
 
@@ -126,6 +131,7 @@ namespace UnityStandardAssets.CrossPlatformInput
             Vector3 newPos = camera.ScreenToWorldPoint(data.position - (joystic.GetComponent<RectTransform>().sizeDelta / 2));
             newPos.z = transform.position.z;
             joystic.transform.position = newPos;
+            startTime = Time.time;
         }
 
         void OnDisable()
