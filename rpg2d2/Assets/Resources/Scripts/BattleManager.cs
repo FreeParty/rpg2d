@@ -28,6 +28,8 @@ public class BattleManager : MonoBehaviour
     public GameObject sound_box;
     public GameObject commands;
 
+    int runcounter = 0;
+
     public class IntAndBool
     {
         public int damage;
@@ -183,7 +185,40 @@ public class BattleManager : MonoBehaviour
             LogController.logController.printText(messages).cancel(Player_die);
         }
     }
+    public void AttackToPlayer_Run()
+    {
+        IntAndBool p_damage = P_damage();
+        PlayerContoroller.player_status["hp"] -= p_damage.damage;
+        StatusUpdate();
 
+        string[] messages;
+        if (p_damage.isCelanHit)
+        {
+            messages = new string[] { "痛恨の一撃！\n" + EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+            sound_box.GetComponent<BattleSoundsController>().Attack();
+        }
+        else
+        {
+            if (p_damage.damage > 0)
+            {
+                messages = new string[] { EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+                sound_box.GetComponent<BattleSoundsController>().Attack();
+            }
+            else
+            {
+                messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
+            }
+        }
+        
+        if (PlayerContoroller.player_status["hp"] > 0)
+        {
+            LogController.logController.printText(messages).then(ToggleCommands);
+        }
+        else
+        {
+            LogController.logController.printText(messages).cancel(Player_die);
+        }
+    }
 
 
     public static void ToggleCommands()
@@ -218,6 +253,40 @@ public class BattleManager : MonoBehaviour
     {
         ToggleCommands();
 	AttackToPlayer_Guard();
+    }
+
+    // にげる が押された時に発火
+    public void Runaway()
+    {
+	Boolean runflag = false;
+        ToggleCommands();
+	if(EnemyController.enemy_status["type"] == 0){	//ボスフラグ判定
+		if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //確定逃げ
+			runflag = true;
+		else{
+			switch(runcounter){
+				case 0:
+					if(UnityEngine.Random.Range(0, 3) == 1) runflag = true;
+					runcounter++;
+					break;
+				case 1:
+					if(UnityEngine.Random.Range(0, 4) > 0) runflag = true;
+					runcounter++;
+					break;
+				case 2:
+					runflag = true;
+					break;
+			}
+		}
+
+	        if (runflag){
+			runcounter = 0;
+			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
+		}else
+			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。\nしかし 回り込まれてしまった！" }).then(AttackToPlayer_Run);
+	}
+	else
+		LogController.logController.printText(new string[] { EnemyController.monster_name + "からは逃げることはできない！" }).then(AttackToPlayer_Run);
     }
 
     public IntAndBool E_damage()

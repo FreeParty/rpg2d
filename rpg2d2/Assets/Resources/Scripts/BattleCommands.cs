@@ -29,8 +29,9 @@ public class BattleCommands : MonoBehaviour
 
     public void Run()
     {
-        BattleManager.ToggleCommands();
-        LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
+	mng.GetComponent<BattleManager>().Runaway();
+        //BattleManager.ToggleCommands();
+        //LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
     }
 
     public void Guard()
