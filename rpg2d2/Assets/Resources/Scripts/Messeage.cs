@@ -30,7 +30,7 @@ public class Messeage : MonoBehaviour
 	public IEnumerator Show(){
 
 		// TestData読み込み(ロード)
-		yield return FileManager.ReadFileText(r => data_str = r, "/Text/test.txt");
+		yield return FileManager.ReadFileText(r => data_str = r, "/Text/" + fileName);
 
 		LogController.Callback callback = null;
 		if (encount)
