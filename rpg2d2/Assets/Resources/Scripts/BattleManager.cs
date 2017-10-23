@@ -148,6 +148,44 @@ public class BattleManager : MonoBehaviour
             LogController.logController.printText(messages).cancel(Player_die);
         }
     }
+    public void AttackToPlayer_Guard()
+    {
+        IntAndBool p_damage = P_damage();
+	int guard_damage = p_damage.damage *3/4;
+        PlayerContoroller.player_status["hp"] -= guard_damage;
+        StatusUpdate();
+
+        string[] messages;
+        if (p_damage.isCelanHit)
+        {
+            messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n痛恨の一撃！\n" + EnemyController.monster_name + "から" + guard_damage + "のダメージを受けた。" };
+            sound_box.GetComponent<BattleSoundsController>().Attack();
+        }
+        else
+        {
+            if (guard_damage > 0)
+            {
+                messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n"+EnemyController.monster_name + "から" + guard_damage + "のダメージを受けた。" };
+                sound_box.GetComponent<BattleSoundsController>().Attack();
+            }
+            else
+            {
+                messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n"+PlayerContoroller.player_name + "は攻撃を防いだ！" };
+            }
+        }
+        
+        if (PlayerContoroller.player_status["hp"] > 0)
+        {
+	    LogController.logController.printText(messages).then(ToggleCommands);
+        }
+        else
+        {
+            LogController.logController.printText(messages).cancel(Player_die);
+        }
+    }
+
+
+
     public static void ToggleCommands()
     {
 
@@ -173,6 +211,13 @@ public class BattleManager : MonoBehaviour
         {
             AttackToPlayer();
         }
+    }
+
+    // ぼうぎょ が押された時に発火
+    public void Guard()
+    {
+        ToggleCommands();
+	AttackToPlayer_Guard();
     }
 
     public IntAndBool E_damage()

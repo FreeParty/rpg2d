@@ -35,7 +35,7 @@ public class BattleCommands : MonoBehaviour
 
     public void Guard()
     {
-
+        mng.GetComponent<BattleManager>().Guard();
     }
 
     public void Item()
