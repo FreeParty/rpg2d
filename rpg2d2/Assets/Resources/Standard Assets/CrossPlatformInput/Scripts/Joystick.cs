@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.CrossPlatformInput
 {
@@ -20,6 +21,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
         public string verticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
 
+        GameObject joystic;
         Vector2 m_StartPos;
         Camera camera;
         bool m_UseX; // Toggle for using the x axis
@@ -38,8 +40,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         {
             CreateVirtualAxes();
             camera = Camera.main;
-
-            m_StartPos = new Vector2(100, 100);
+            joystic = GameObject.Find("MobileJoystick");
         }
 
         void UpdateVirtualAxes(Vector2 delta)
@@ -101,24 +102,30 @@ namespace UnityStandardAssets.CrossPlatformInput
                 deltaXY.y = deltaY;
             }
 
-            Vector3 newPos = camera.ScreenToWorldPoint(new Vector3(50, 50, 0) + (Vector3)deltaXY);
+            joystic.GetComponent<Image>().enabled = true;
+            Vector3 newPos = camera.ScreenToWorldPoint(m_StartPos + deltaXY - (joystic.GetComponent<RectTransform>().sizeDelta / 2));
             newPos.z = transform.position.z;
-            transform.position = newPos;
+            joystic.transform.position = newPos;
             UpdateVirtualAxes(deltaXY);
         }
 
 
         public void OnPointerUp(PointerEventData data)
         {
-            Vector3 newPos = camera.ScreenToWorldPoint(new Vector3(50, 50, 0));
+            Vector3 newPos = camera.ScreenToWorldPoint(m_StartPos - (joystic.GetComponent<RectTransform>().sizeDelta / 2));
             newPos.z = transform.position.z;
-            transform.position = newPos;
+            joystic.transform.position = newPos;
             UpdateVirtualAxes(Vector2.zero);
+            joystic.GetComponent<Image>().enabled = false;
         }
 
 
         public void OnPointerDown(PointerEventData data)
         {
+            m_StartPos = data.position;
+            Vector3 newPos = camera.ScreenToWorldPoint(data.position - (joystic.GetComponent<RectTransform>().sizeDelta / 2));
+            newPos.z = transform.position.z;
+            joystic.transform.position = newPos;
         }
 
         void OnDisable()
