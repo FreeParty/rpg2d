@@ -46,7 +46,7 @@ public class MenuController : MonoBehaviour
         if (GameObject.Find("MenuButtons") != null)
         {
             CloseMenu();
-            GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = true;
+            GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = false;
             GameObject.Find("MenuModal").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
         else
@@ -54,7 +54,7 @@ public class MenuController : MonoBehaviour
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 220);
             GameObject.Find("MenuWindow").transform.Find("MenuButtons").gameObject.SetActive(true);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "閉じる";
-            GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = false;
+            GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = true;
             GameObject.Find("MenuModal").GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
         }
     }
