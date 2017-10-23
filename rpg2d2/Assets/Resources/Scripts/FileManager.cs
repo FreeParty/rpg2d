@@ -19,7 +19,7 @@ using System.Collections.Generic;
 /// <summary>
 /// ファイルマネージャー
 /// </summary>
-public class FIleManager
+public class FileManager
 {
     // StreamingAssetsパス
 #if UNITY_EDITOR
