@@ -12,14 +12,11 @@ public class Messeage : MonoBehaviour
     private string path;
     private string[] messeage;
     public bool encount = false;
+	public string[] data_str;
+
     // Use this for initialization
     void Start()
     {
-        path = Application.dataPath + "/Resources/Text/" + fileName;
-        StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-        messeage = sr.ReadToEnd()
-            .Replace("#プレイヤー名#", PlayerContoroller.player_name)
-            .Split(new string[] { "\n@改ページ@\n" }, StringSplitOptions.RemoveEmptyEntries);
     }
 
     // Update is called once per frame
@@ -28,15 +25,20 @@ public class Messeage : MonoBehaviour
 
     }
 
-    public void Show()
-    {
-        GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+	public IEnumerator Show(){
 
-        LogController.Callback callback = null;
-        if (encount)
-        {
-            callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
-        }
-        GameObject.Find("LogWindow").GetComponent<LogController>().printText(messeage).then(callback);
-    }
+		// TestData読み込み(ロード)
+		yield return FIleManager.ReadFileText(r => data_str = r, "/Text/test.txt");
+
+		GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+
+		LogController.Callback callback = null;
+		if (encount)
+		{
+			callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
+		}
+		GameObject.Find("LogWindow").GetComponent<LogController>().printText(data_str).then(callback);
+
+
+	}
 }
