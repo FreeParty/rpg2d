@@ -46,7 +46,7 @@ public class  PlayerContoroller : MonoBehaviour {
             }
             if(touching.GetComponent<Messeage>() != null)
             {
-				StartCoroutine(touching.GetComponent<Messeage>().Show());
+                touching.GetComponent<Messeage>().Show();
             }
         }
     }
