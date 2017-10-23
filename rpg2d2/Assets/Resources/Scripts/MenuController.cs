@@ -129,7 +129,7 @@ public class MenuController : MonoBehaviour
         switch (option)
         {
             case "はい":
-                End();
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
                 break;
             case "いいえ":
                 CloseMenu();
@@ -144,7 +144,7 @@ public class MenuController : MonoBehaviour
 
     public void End()
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
+        AlertController.alertController.ShowAlertByOptions("終了", "本当にゲームを終了しますか？", new string[] { "はい", "いいえ" }, EndCallback);
     }
 
     public void ShowAlert(string title, string body, List<string> answers)
