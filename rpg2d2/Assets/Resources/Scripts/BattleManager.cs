@@ -19,8 +19,7 @@ public class BattleManager : MonoBehaviour
      * また、メソッドcancelはそれまでに登録したコールバック関数を削除する。
      * 引数にvoid型の引数なしの関数を指定すると、コールバック関数を削除したうえで代わりにその関数を実行する。
      */
-
-    public GameObject log_obj;
+     
     public GameObject name_obj;
     public GameObject hp_obj;
     public GameObject mp_obj;
@@ -37,19 +36,15 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        if (log_obj == null)
-        {
-            log_obj = GameObject.Find("BattleField").transform.Find("LogWindow").gameObject;
-        }
         if (name_obj == null)
         {
-            name_obj = GameObject.Find("name");
+            name_obj = GameObject.Find("Name");
         }
         name_obj.GetComponent<Text>().text = PlayerContoroller.player_name;
 
         if (name_obj == null)
         {
-            name_obj = GameObject.Find("name");
+            name_obj = GameObject.Find("Name");
         }
         if (hp_obj == null)
         {
@@ -80,34 +75,35 @@ public class BattleManager : MonoBehaviour
         if (e_damage.isCelanHit)
         {
             messages = new string[] { "会心の一撃！\n" + EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
+            sound_box.GetComponent<BattleSoundsController>().Attack();
         }
         else
         {
             if (e_damage.damage > 0)
             {
                 messages = new string[] { EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
+                sound_box.GetComponent<BattleSoundsController>().Attack();
             }
             else
             {
                 messages = new string[] { EnemyController.monster_name + "は攻撃をかわした！" };
             }
         }
-
-        log_obj.SetActive(true);
+        
         if (EnemyController.enemy_status["hp"] > 0)
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
             {
-                log_obj.GetComponent<LogController>().printText(messages).then(AttackToPlayer);
+                LogController.logController.printText(messages).then(AttackToPlayer);
             }
             else //AttackToPlayer => AttackToEnemy => ToggleCommands
             {
-                log_obj.GetComponent<LogController>().printText(messages).then(ToggleCommands);
+                LogController.logController.printText(messages).then(ToggleCommands);
             }
         }
         else
         {
-            log_obj.GetComponent<LogController>().printText(messages).cancel(Enemy_die);
+            LogController.logController.printText(messages).cancel(Enemy_die);
         }
     }
 
@@ -121,39 +117,40 @@ public class BattleManager : MonoBehaviour
         if (p_damage.isCelanHit)
         {
             messages = new string[] { "痛恨の一撃！\n" + EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+            sound_box.GetComponent<BattleSoundsController>().Attack();
         }
         else
         {
             if (p_damage.damage > 0)
             {
                 messages = new string[] { EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
+                sound_box.GetComponent<BattleSoundsController>().Attack();
             }
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
             }
         }
-
-        log_obj.SetActive(true);
+        
         if (PlayerContoroller.player_status["hp"] > 0)
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
             {
-                log_obj.GetComponent<LogController>().printText(messages).then(ToggleCommands);
+                LogController.logController.printText(messages).then(ToggleCommands);
             }
             else //AttackToPlayer => AttackToEnemy => ToggleCommands
             {
-                log_obj.GetComponent<LogController>().printText(messages).then(AttackToEnemy);
+                LogController.logController.printText(messages).then(AttackToEnemy);
             }
         }
         else
         {
-            log_obj.GetComponent<LogController>().printText(messages).cancel(Player_die);
+            LogController.logController.printText(messages).cancel(Player_die);
         }
     }
     public static void ToggleCommands()
     {
-        
+
         if (GameObject.Find("Commands") != null)
         {
             GameObject.Find("Commands").SetActive(false);
@@ -178,67 +175,88 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public IntAndBool P_damage()
+    public IntAndBool E_damage()
     { // プレイヤーが与えるダメージ
-        int p_damage = 0;
+        int e_damage = 0;
         bool kaishin = false;
 
         // 会心の一撃
         if (UnityEngine.Random.Range(1, 3) == 1)
         {
-            p_damage = (int)(PlayerContoroller.player_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
+            e_damage = (int)(PlayerContoroller.player_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
             kaishin = true;
         }
         else
         {
             if (PlayerContoroller.player_status["at"] - EnemyController.enemy_status["df"] > 0)
             {
-                p_damage = (int)(PlayerContoroller.player_status["at"] - EnemyController.enemy_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
+                e_damage = (int)(PlayerContoroller.player_status["at"] - EnemyController.enemy_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, PlayerContoroller.player_status["ag"]);
+            }
+            else
+            {
+                e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
+            }
+        }
+
+        return new IntAndBool()
+        {
+            damage = e_damage,
+            isCelanHit = kaishin
+        };
+    }
+
+    public IntAndBool P_damage()
+    {
+        int p_damage = 0;
+        bool tsukon = false;
+
+        // 痛恨の一撃
+        if (UnityEngine.Random.Range(1, 32) == 1)
+        {
+            p_damage = (int)(EnemyController.enemy_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
+            tsukon = true;
+        }
+        else
+        {
+
+            if (EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] > 0)
+            {
+                p_damage = (int)(EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
             }
             else
             {
                 p_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
             }
         }
-
         return new IntAndBool()
         {
             damage = p_damage,
-            isCelanHit = kaishin
-        };
-    }
-
-    public IntAndBool E_damage()
-    {
-        int e_damage = 0;
-        bool tsukon = false;
-
-        // 痛恨の一撃
-        if (UnityEngine.Random.Range(1, 32) == 1)
-        {
-            e_damage = (int)(EnemyController.enemy_status["at"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
-            tsukon = true;
-        }
-
-        if (EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] > 0)
-        {
-            e_damage = (int)(EnemyController.enemy_status["at"] - PlayerContoroller.player_status["df"] * UnityEngine.Random.Range(0.6f, 1.5f)) + UnityEngine.Random.Range(1, EnemyController.enemy_status["ag"]);
-        }
-        else
-        {
-            e_damage = (int)(UnityEngine.Random.Range(1, 3) * UnityEngine.Random.Range(0.6f, 1.5f));
-        }
-
-        return new IntAndBool()
-        {
-            damage = e_damage,
             isCelanHit = tsukon
         };
     }
 
+    public void EndCallback(string answer)
+    {
+        switch (answer)
+        {
+            case "はい":
+                GameObject.Find("GameManager").GetComponent<GameManager>().Load();
+                break;
+            case "いいえ":
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main");
+                break;
+        }
+    }
+
+    public void AlertCallback()
+    {
+        AlertController.alertController.ShowAlertByOptions("コンティニュー", "最後にセーブした地点からやり直しますか？", new string[] { "はい", "いいえ" }, EndCallback);
+    }
+
+
     public void Player_die()
     { // player死亡時に呼ばれる
-        Debug.Log("player is died");
+        LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は死んでしまった。" }).then(AlertCallback);
     }
 
     public void Enemy_die()
@@ -259,9 +277,8 @@ public class BattleManager : MonoBehaviour
         {
             callback = BackField;
         }
-
-        log_obj.SetActive(true);
-        log_obj.GetComponent<LogController>().printText(new string[] { EnemyController.monster_name + "を倒した。", "経験値を" + EnemyController.enemy_status["get_exp"] + "獲得した。\n" + EnemyController.enemy_status["get_money"] + "円を手に入れた。" })
+        
+        LogController.logController.printText(new string[] { EnemyController.monster_name + "を倒した。", "経験値を" + EnemyController.enemy_status["get_exp"] + "獲得した。\n" + EnemyController.enemy_status["get_money"] + "円を手に入れた。" })
             .then(callback);
     }
 
@@ -299,7 +316,7 @@ public class BattleManager : MonoBehaviour
                 PlayerContoroller.player_status["mdf"] += StatusData.LvupPlayerStatus[i, 4];
                 PlayerContoroller.player_status["mag"] += StatusData.LvupPlayerStatus[i, 5];
                 StatusUpdate();
-                
+
                 LogController.Callback callback;//メッセージ表示後実行する関数
                 if (Check_drop())
                 {
@@ -309,9 +326,8 @@ public class BattleManager : MonoBehaviour
                 {
                     callback = BackField;
                 }
-
-                log_obj.SetActive(true);
-                log_obj.GetComponent<LogController>().printText(new string[] { "レベルアップ！",string.Format ("{0}のレベルが{1}にあがった！\n HP+{2} MP+{3}, ちから+{4} ぼうぎょ+{5} すばやさ+{6}",
+                
+                LogController.logController.printText(new string[] { "レベルアップ！",string.Format ("{0}のレベルが{1}にあがった！\n HP+{2} MP+{3}, ちから+{4} ぼうぎょ+{5} すばやさ+{6}",
                     PlayerContoroller.player_name, PlayerContoroller.player_status["lv"], StatusData.LvupPlayerStatus[i, 1], StatusData.LvupPlayerStatus[i, 2], StatusData.LvupPlayerStatus[i, 3], StatusData.LvupPlayerStatus[i, 4], StatusData.LvupPlayerStatus[i, 5])})
                     .then(callback);
                 break;
@@ -341,8 +357,7 @@ public class BattleManager : MonoBehaviour
     public void Drop()
     {
         PlayerContoroller.my_items.Add(EnemyController.enemy_status["drop"]);
-        log_obj.SetActive(true);
-        log_obj.GetComponent<LogController>().printText(new string[]{string.Format(string.Format ("{0}は{1}を落としていった！\n{2}は{1}を手に入れた",
+        LogController.logController.printText(new string[]{string.Format(string.Format ("{0}は{1}を落としていった！\n{2}は{1}を手に入れた",
             EnemyController.monster_name, OpenBoxContoroller.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name))})
             .then(new LogController.Callback(BackField));
     }
@@ -352,4 +367,3 @@ public class BattleManager : MonoBehaviour
         SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
     }
 }
- 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Messeage : MonoBehaviour
@@ -12,11 +13,12 @@ public class Messeage : MonoBehaviour
     private string path;
     private string[] messeage;
     public bool encount = false;
-	public string[] data_str;
+	  public string[] data_str;
 
     // Use this for initialization
     void Start()
     {
+    
     }
 
     // Update is called once per frame
