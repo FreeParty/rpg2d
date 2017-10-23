@@ -30,17 +30,13 @@ public class Messeage : MonoBehaviour
 	public IEnumerator Show(){
 
 		// TestData読み込み(ロード)
-		yield return FIleManager.ReadFileText(r => data_str = r, "/Text/test.txt");
-
-		GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+		yield return FileManager.ReadFileText(r => data_str = r, "/Text/" + fileName);
 
 		LogController.Callback callback = null;
 		if (encount)
 		{
 			callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
 		}
-		GameObject.Find("LogWindow").GetComponent<LogController>().printText(data_str).then(callback);
-
-
+		LogController.logController.GetComponent<LogController>().printText(data_str).then(callback);
 	}
 }
