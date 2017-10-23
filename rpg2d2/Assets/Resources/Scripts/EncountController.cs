@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class EncountController : MonoBehaviour {
@@ -17,7 +18,8 @@ public class EncountController : MonoBehaviour {
         m_fade.alfa = 0;
         m_fade.isFadeOut = true;
         GameObject.Find("MenuModal").SetActive(false);
-        GameObject.Find("MobileJoystick").SetActive(false);
+        GameObject.Find("Controller").SetActive(false);
+        GameObject.Find("Window").GetComponent<GraphicRaycaster>().enabled = false;
         StartCoroutine("InsertBattleScene");
     }
 
