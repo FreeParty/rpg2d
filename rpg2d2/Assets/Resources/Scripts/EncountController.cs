@@ -16,6 +16,8 @@ public class EncountController : MonoBehaviour {
         FadeinController m_fade = GameObject.Find("Window").GetComponent<FadeinController>();
         m_fade.alfa = 0;
         m_fade.isFadeOut = true;
+        GameObject.Find("MenuModal").SetActive(false);
+        GameObject.Find("MobileJoystick").SetActive(false);
         StartCoroutine("InsertBattleScene");
     }
 

@@ -63,8 +63,7 @@ public class BattleCommands : MonoBehaviour
         }
         else
         {
-            GameObject.Find("BattleField").transform.Find("LogWindow").gameObject.SetActive(true);
-            GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { "どうぐを持っていません。" }).then(new LogController.Callback(BattleManager.ToggleCommands));
+            LogController.logController.printText(new string[] { "どうぐを持っていません。" }).then(new LogController.Callback(BattleManager.ToggleCommands));
         }
     }
 }
