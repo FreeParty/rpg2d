@@ -16,6 +16,7 @@ namespace UnityStandardAssets.CrossPlatformInput
             OnlyVertical // Only vertical suityokju 2
         }
 
+        private bool isDrag;
         private int MovementRange;
         public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
         public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
@@ -25,7 +26,6 @@ namespace UnityStandardAssets.CrossPlatformInput
         GameObject joysticRange;
         Vector2 m_StartPos;
         Camera camera;
-        float startTime;
         bool m_UseX; // Toggle for using the x axis
         bool m_UseY; // Toggle for using the Y axis
         CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
@@ -128,6 +128,8 @@ namespace UnityStandardAssets.CrossPlatformInput
             newPos.z = joystic.transform.position.z;
             joystic.transform.position = newPos;
             UpdateVirtualAxes(deltaXY);
+
+            isDrag = true;
         }
 
 
@@ -137,7 +139,7 @@ namespace UnityStandardAssets.CrossPlatformInput
             joysticRange.GetComponent<Image>().enabled = false;
 
             UpdateVirtualAxes(Vector2.zero);
-            if (Time.time - startTime < 0.8)
+            if (!isDrag)
             {
                 GameObject.Find("Player").GetComponent<PlayerContoroller>().CheckObject();
             } 
@@ -154,7 +156,7 @@ namespace UnityStandardAssets.CrossPlatformInput
             newPos = camera.ScreenToWorldPoint(data.position);
             newPos.z = joysticRange.transform.position.z;
             joysticRange.transform.position = newPos;
-            startTime = Time.time;
+            isDrag = false;
         }
 
         void OnDisable()
