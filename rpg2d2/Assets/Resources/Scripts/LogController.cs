@@ -9,6 +9,8 @@ public class LogController : MonoBehaviour
     private int counter;
     private string[] log;
     private float timeElapsed;
+    public static LogController logController;
+    Text logBody;
 
     // Use this for initialization
     void Start()
@@ -19,42 +21,45 @@ public class LogController : MonoBehaviour
     void Update()
     {
         timeElapsed += Time.deltaTime;
-        if (!printed && timeElapsed > 0.1 && GetComponentInChildren<Text>().text.Length < log[counter].Length)
+        if (!printed && timeElapsed > 0.1 && logBody.text.Length < log[counter].Length)
         {
-            GetComponentInChildren<Text>().text = log[counter].Substring(0, GetComponentInChildren<Text>().text.Length + 1);
-            if (counter == log.Length - 1 && GetComponentInChildren<Text>().text.Length == log[counter].Length) printed = true;
+            logBody.text = log[counter].Substring(0, logBody.text.Length + 1);
+            if (counter == log.Length - 1 && logBody.text.Length == log[counter].Length) printed = true;
             timeElapsed = 0;
         }
-        if (Input.GetMouseButtonDown(0))
+    }
+
+    public void Next()
+    {
+        if (printed)
         {
-            if (printed)
+            gameObject.SetActive(false);
+            if (callbackList.Count > 0)
             {
-                gameObject.SetActive(false);
-                if (callbackList.Count > 0)
-                {
-                    Callback function = callbackList[0];
-                    callbackList.RemoveAt(0);
-                    function();
-                }
+                Callback function = callbackList[0];
+                callbackList.RemoveAt(0);
+                function();
             }
-            else if (GetComponentInChildren<Text>().text.Length == log[counter].Length)
-            {
-                counter++;
-                GetComponentInChildren<Text>().text = "";
-            }
-            else
-            {
-                GetComponentInChildren<Text>().text = log[counter];
-                if (counter == log.Length - 1) printed = true;
-            }
+        }
+        else if (GetComponentInChildren<Text>().text.Length == log[counter].Length)
+        {
+            counter++;
+            GetComponentInChildren<Text>().text = "";
+        }
+        else
+        {
+            GetComponentInChildren<Text>().text = log[counter];
+            if (counter == log.Length - 1) printed = true;
         }
     }
 
     public LogController printText(string[] str)
     {
+        gameObject.SetActive(true);
         counter = 0;
         log = str;
-        GetComponentInChildren<Text>().text = log[counter].Substring(0, 1);
+        logBody = GameObject.Find("LogBody").GetComponent<Text>();
+        logBody.text = log[counter].Substring(0, 1);
         printed = false;
         return this;
     }
@@ -64,12 +69,12 @@ public class LogController : MonoBehaviour
     public void cancel(Callback function)
     {
         callbackList = new List<Callback>();
-        if (function != null) callbackList.Add(function);
+        then(function);
     }
 
     public LogController then(Callback function)
     {
-        callbackList.Add(function);
+        if(function != null) callbackList.Add(function);
         return this;
     }
 

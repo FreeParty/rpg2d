@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class EncountController : MonoBehaviour {
@@ -13,14 +14,13 @@ public class EncountController : MonoBehaviour {
 
     public void Encount()
     {
-        GameObject.Find("Controller").SetActive(false);// 仮想コントローラー
-        if(GameObject.Find("StatusWindow")) GameObject.Find("StatusWindow").SetActive(false);
-        GameObject.Find("MenuWindow").SetActive(false);
         FadeinController m_fade = GameObject.Find("Window").GetComponent<FadeinController>();
         m_fade.alfa = 0;
         m_fade.isFadeOut = true;
-        player.GetComponent<Animator>().enabled = false;
-        player.name = "Player_used";
+        GameObject.Find("MenuModal").SetActive(false);
+        GameObject.Find("Controller").SetActive(false);
+        GameObject.Find("Window").GetComponent<GraphicRaycaster>().enabled = false;
+        StartCoroutine("InsertBattleScene");
     }
 
 
@@ -33,9 +33,10 @@ public class EncountController : MonoBehaviour {
         }
 	}
 
-	public void InsertBattleScene()
+    IEnumerator InsertBattleScene()
 	{
-		SceneManager.LoadScene("Scene/battle");
+        yield return new WaitUntil(() => GameObject.Find("Window").GetComponent<FadeinController>().isFadeOut == false);
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle");
 	}
 		
 }
