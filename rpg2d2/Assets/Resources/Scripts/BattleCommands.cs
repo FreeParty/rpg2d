@@ -29,9 +29,8 @@ public class BattleCommands : MonoBehaviour
 
     public void Run()
     {
-        GameObject.Find("BattleField").transform.Find("LogWindow").gameObject.SetActive(true);
         BattleManager.ToggleCommands();
-        GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
+        LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
     }
 
     public void Guard()

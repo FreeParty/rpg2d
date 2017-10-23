@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Messeage : MonoBehaviour
@@ -17,9 +18,12 @@ public class Messeage : MonoBehaviour
     {
         path = Application.dataPath + "/Resources/Text/" + fileName;
         StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-        messeage = sr.ReadToEnd()
-            .Replace("#プレイヤー名#", PlayerContoroller.player_name)
-            .Split(new string[] { "\n@改ページ@\n" }, StringSplitOptions.RemoveEmptyEntries);
+        MatchCollection matches = Regex.Matches(sr.ReadToEnd().Replace("#プレイヤー名#", PlayerContoroller.player_name), @"\[(.+?)\]", RegexOptions.Singleline);
+        messeage = new string[matches.Count];
+        for(int i = 0; i < messeage.Length; i++)
+        {
+            messeage[i] = matches[i].Value.Substring(1, matches[i].Value.Length - 2);
+        }
     }
 
     // Update is called once per frame

@@ -27,28 +27,29 @@ public class LogController : MonoBehaviour
             if (counter == log.Length - 1 && logBody.text.Length == log[counter].Length) printed = true;
             timeElapsed = 0;
         }
-        if (Input.GetMouseButtonDown(0))
+    }
+
+    public void Next()
+    {
+        if (printed)
         {
-            if (printed)
+            gameObject.SetActive(false);
+            if (callbackList.Count > 0)
             {
-                gameObject.SetActive(false);
-                if (callbackList.Count > 0)
-                {
-                    Callback function = callbackList[0];
-                    callbackList.RemoveAt(0);
-                    function();
-                }
+                Callback function = callbackList[0];
+                callbackList.RemoveAt(0);
+                function();
             }
-            else if (GetComponentInChildren<Text>().text.Length == log[counter].Length)
-            {
-                counter++;
-                GetComponentInChildren<Text>().text = "";
-            }
-            else
-            {
-                GetComponentInChildren<Text>().text = log[counter];
-                if (counter == log.Length - 1) printed = true;
-            }
+        }
+        else if (GetComponentInChildren<Text>().text.Length == log[counter].Length)
+        {
+            counter++;
+            GetComponentInChildren<Text>().text = "";
+        }
+        else
+        {
+            GetComponentInChildren<Text>().text = log[counter];
+            if (counter == log.Length - 1) printed = true;
         }
     }
 

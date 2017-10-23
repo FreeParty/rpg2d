@@ -28,7 +28,6 @@ public class  PlayerContoroller : MonoBehaviour {
     void Start(){
         if (GameObject.Find("Player") != gameObject)
         {
-            GameObject.Find("Player").GetComponent<Transform>().position = GetComponent<Transform>().position;
             Destroy(gameObject);
         }
         else
