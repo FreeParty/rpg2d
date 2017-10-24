@@ -129,7 +129,7 @@ public class MenuController : MonoBehaviour
         switch (option)
         {
             case "はい":
-                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title",true);
                 break;
             case "いいえ":
                 CloseMenu();

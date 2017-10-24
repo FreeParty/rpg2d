@@ -14,7 +14,7 @@ public class EncountController : MonoBehaviour {
 
     public void Encount()
     {
-        StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle"));
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle",true);
     }
 
 

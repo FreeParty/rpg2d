@@ -28,13 +28,16 @@ public class GameManager : MonoBehaviour
                 root = GameObject.Find("Window");
                 LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
                 AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                mainSceneName = SceneManager.GetActiveScene().name;
             }
             else if(SceneManager.GetActiveScene().name == "battle")
             {
                 root = GameObject.Find("BattleField");
                 LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
                 AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-            }else if (SceneManager.GetActiveScene().name == "title")
+                mainSceneName = "title";
+            }
+            else if (SceneManager.GetActiveScene().name == "title")
             {
                 root = GameObject.Find("Title");
                 AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
@@ -49,17 +52,22 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public IEnumerator SceneChange(string sceneName)
+    void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene("Scene/" + sceneName);
+    }
+
+    public void SceneChange(string sceneName,bool isFade)
     {
         OnSceneUnloaded(SceneManager.GetActiveScene());
-        if (GameObject.Find("MenuModal")) GameObject.Find("MenuModal").SetActive(false);
-        if(GameObject.Find("Controller")) GameObject.Find("Controller").SetActive(false);
-        root.GetComponent<GraphicRaycaster>().enabled = false;
-        FadeinController m_fade = root.GetComponent<FadeinController>();
-        m_fade.alfa = 0;
-        m_fade.isFadeOut = true;
-        yield return new WaitUntil(() => root.GetComponent<FadeinController>().isFadeOut == false);
-        SceneManager.LoadScene("Scene/" + sceneName);
+        if (isFade)
+        {
+            StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(LoadScene, sceneName));
+        }
+        else
+        {
+            LoadScene(sceneName);
+        }
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -190,7 +198,7 @@ public class GameManager : MonoBehaviour
         PlayerContoroller.player_name = player_name;
         PlayerContoroller.my_items = my_items;
         GameObject.Find("Player").GetComponent<Transform>().position = player_position;
-        SceneChange(scene_name);
+        SceneChange(scene_name,true);
     }
 
     // List<T>
