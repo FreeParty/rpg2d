@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     Dictionary<string, bool> strongBoxes;
     bool isStateShow = false;
+    public Scene mainScene;
 
     // Use this for initialization
     void Start()
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
         }
         strongBoxes = new Dictionary<string, bool>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.activeSceneChanged += OnactiveSceneChanged;
     }
 
     // Update is called once per frame
@@ -97,6 +99,14 @@ public class GameManager : MonoBehaviour
                     strongBoxes.Add(strongBox.name, strongBox.GetComponent<OpenBoxContoroller>().isOpen);
                 }
             }
+        }
+    }
+
+    public void OnactiveSceneChanged(Scene prevScene,Scene nextScene)
+    {
+        if(nextScene.name == "battle")
+        {
+            mainScene = prevScene;
         }
     }
 

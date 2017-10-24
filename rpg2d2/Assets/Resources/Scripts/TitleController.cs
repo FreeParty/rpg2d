@@ -6,7 +6,7 @@ using System;
 
 public class TitleController : MonoBehaviour
 {
-    public string firstSceneName = "main";
+    private string firstSceneName = "map_station";
     // Use this for initialization
     void Start()
     {
