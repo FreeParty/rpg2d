@@ -14,13 +14,7 @@ public class EncountController : MonoBehaviour {
 
     public void Encount()
     {
-        FadeinController m_fade = GameObject.Find("Window").GetComponent<FadeinController>();
-        m_fade.alfa = 0;
-        m_fade.isFadeOut = true;
-        GameObject.Find("MenuModal").SetActive(false);
-        GameObject.Find("Controller").SetActive(false);
-        GameObject.Find("Window").GetComponent<GraphicRaycaster>().enabled = false;
-        StartCoroutine("InsertBattleScene");
+        StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle"));
     }
 
 
@@ -32,11 +26,4 @@ public class EncountController : MonoBehaviour {
             Encount();
         }
 	}
-
-    IEnumerator InsertBattleScene()
-	{
-        yield return new WaitUntil(() => GameObject.Find("Window").GetComponent<FadeinController>().isFadeOut == false);
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle");
-	}
-		
 }

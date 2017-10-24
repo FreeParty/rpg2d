@@ -424,7 +424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db304becbb5ea2646a65e8ab32382a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSceneName: main
 --- !u!1 &853486354
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +510,8 @@ GameObject:
   - component: {fileID: 1339893934}
   - component: {fileID: 1339893933}
   - component: {fileID: 1339893938}
+  - component: {fileID: 1339893937}
+  - component: {fileID: 1339893939}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -597,12 +598,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1339893937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1339893932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca396201451e4470bef7a01270a497e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  red: 0
+  green: 0
+  blue: 0
+  alfa: 0
+  isFadeOut: 0
+  isFadeIn: 1
 --- !u!222 &1339893938
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339893932}
+--- !u!114 &1339893939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1339893932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!1001 &1438061851
 Prefab:
   m_ObjectHideFlags: 0
@@ -1171,7 +1216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db304becbb5ea2646a65e8ab32382a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSceneName: main
 --- !u!1 &2110910909
 GameObject:
   m_ObjectHideFlags: 0

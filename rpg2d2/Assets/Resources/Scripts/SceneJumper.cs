@@ -22,16 +22,10 @@ public class SceneJumper : MonoBehaviour {
 
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if(other.CompareTag ("Player")){
-			SceneManager.LoadScene (name);
-			GameObject player = GameObject.Find("Player");
-			Vector3 pos = player.transform.position;
-			pos.x = nextX;
-			pos.y = nextY;
-			player.transform.position = pos;
-			player.name = "Player_used";
-		}
-	
+		if(other.CompareTag("Player"))
+        {
+            StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name));
+            GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
+        }
 	}
-
 }

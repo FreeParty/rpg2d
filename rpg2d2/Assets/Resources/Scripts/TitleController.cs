@@ -6,7 +6,7 @@ using System;
 
 public class TitleController : MonoBehaviour
 {
-    public string firstSceneName = "main";
+    private string firstSceneName = "map_station";
     // Use this for initialization
     void Start()
     {
@@ -21,7 +21,7 @@ public class TitleController : MonoBehaviour
     public void NewGameCallback(string playerName)
     {
         PlayerContoroller.player_name = playerName;
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName);
+        StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName));
     }
 
     public void NewGame()

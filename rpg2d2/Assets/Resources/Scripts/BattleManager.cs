@@ -478,6 +478,6 @@ public class BattleManager : MonoBehaviour
 
     public static void BackField()
     {
-        SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
+        SceneManager.LoadScene("Scene/" + GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName);
     }
 }

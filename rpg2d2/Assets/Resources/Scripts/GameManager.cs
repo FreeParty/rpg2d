@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     Dictionary<string, bool> strongBoxes;
     bool isStateShow = false;
+    public string mainSceneName;
+    public GameObject root;
 
     // Use this for initialization
     void Start()
@@ -23,16 +25,19 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
             if(SceneManager.GetActiveScene().name != "battle" && SceneManager.GetActiveScene().name != "title")
             {
-                LogController.logController = GameObject.Find("Window").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-                AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                root = GameObject.Find("Window");
+                LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+                AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             }
             else if(SceneManager.GetActiveScene().name == "battle")
             {
-                LogController.logController = GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-                AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                root = GameObject.Find("BattleField");
+                LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+                AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             }else if (SceneManager.GetActiveScene().name == "title")
             {
-                AlertController.alertController = GameObject.Find("Title").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                root = GameObject.Find("Title");
+                AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             }
         }
         strongBoxes = new Dictionary<string, bool>();
@@ -44,9 +49,16 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public void SceneChange(string sceneName)
+    public IEnumerator SceneChange(string sceneName)
     {
         OnSceneUnloaded(SceneManager.GetActiveScene());
+        if (GameObject.Find("MenuModal")) GameObject.Find("MenuModal").SetActive(false);
+        if(GameObject.Find("Controller")) GameObject.Find("Controller").SetActive(false);
+        root.GetComponent<GraphicRaycaster>().enabled = false;
+        FadeinController m_fade = root.GetComponent<FadeinController>();
+        m_fade.alfa = 0;
+        m_fade.isFadeOut = true;
+        yield return new WaitUntil(() => root.GetComponent<FadeinController>().isFadeOut == false);
         SceneManager.LoadScene("Scene/" + sceneName);
     }
 
@@ -54,8 +66,9 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name != "battle" && scene.name != "title")
         {
-            LogController.logController = GameObject.Find("Window").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-            AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            root = GameObject.Find("Window");
+            LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+            AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             GameObject.Find("Player").GetComponent<Animator>().enabled = true;
             if (isStateShow)
             {
@@ -72,11 +85,14 @@ public class GameManager : MonoBehaviour
         }
         else if(scene.name == "battle")
         {
-            LogController.logController = GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-            AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-        }else if (scene.name == "title")
+            root = GameObject.Find("BattleField");
+            LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+            AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+        }
+        else if (scene.name == "title")
         {
-            AlertController.alertController = GameObject.Find("Title").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            root = GameObject.Find("Title");
+            AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             //プレイヤーの初期化
         }
     }
@@ -97,9 +113,10 @@ public class GameManager : MonoBehaviour
                     strongBoxes.Add(strongBox.name, strongBox.GetComponent<OpenBoxContoroller>().isOpen);
                 }
             }
+            mainSceneName = scene.name;
         }
     }
-
+    
     public void Save()
     {
         OnSceneUnloaded(SceneManager.GetActiveScene());
