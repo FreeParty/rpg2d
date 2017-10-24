@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     Dictionary<string, bool> strongBoxes;
     bool isStateShow = false;
-    public Scene mainScene;
+    public string mainSceneName;
 
     // Use this for initialization
     void Start()
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     {
         if(nextScene.name == "battle")
         {
-            mainScene = prevScene;
+            mainSceneName = prevScene.name;
         }
     }
 
