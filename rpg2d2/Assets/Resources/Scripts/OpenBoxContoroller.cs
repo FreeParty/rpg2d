@@ -28,6 +28,7 @@ public class OpenBoxContoroller : MonoBehaviour {
     }
 
     public void OpenBox(){
+        print("");
         if (!isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
