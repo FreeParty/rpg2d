@@ -38,5 +38,4 @@ public class EncountController : MonoBehaviour {
         yield return new WaitUntil(() => GameObject.Find("Window").GetComponent<FadeinController>().isFadeOut == false);
         GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle");
 	}
-		
 }

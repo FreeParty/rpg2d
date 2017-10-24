@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
         }
         strongBoxes = new Dictionary<string, bool>();
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.activeSceneChanged += OnactiveSceneChanged;
     }
 
     // Update is called once per frame
@@ -100,18 +99,10 @@ public class GameManager : MonoBehaviour
                     strongBoxes.Add(strongBox.name, strongBox.GetComponent<OpenBoxContoroller>().isOpen);
                 }
             }
+            mainSceneName = scene.name;
         }
     }
-
-    public void OnactiveSceneChanged(Scene prevScene,Scene nextScene)
-    {
-        if(nextScene.name == "battle")
-        {
-            mainSceneName = prevScene.name;
-            print(mainSceneName);
-        }
-    }
-
+    
     public void Save()
     {
         OnSceneUnloaded(SceneManager.GetActiveScene());
