@@ -11,10 +11,28 @@ public class Messeage : MonoBehaviour
 
     public string fileName = "test.txt";
     public bool encount = false;
+    string messeage = "";
 
     // Use this for initialization
     void Start()
     {
+        string path = "";
+#if UNITY_EDITOR
+        path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+#elif UNITY_ANDROID
+    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
+#elif UNITY_IPHONE
+            path = path = Application.dataPath + "/Raw/Text/" + fileName;
+#else
+            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+#endif
+        string messeage = "";
+#if UNITY_EDITOR || UNITY_IPHONE
+        StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
+        messeage = sr.ReadToEnd();
+#elif UNITY_ANDROID
+        StartCoroutine("ReadText", path);
+#endif
     }
 
     // Update is called once per frame
@@ -24,28 +42,17 @@ public class Messeage : MonoBehaviour
     }
 
 	public void Show(){
-        string path = "";
-        #if UNITY_EDITOR
-            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-        #elif UNITY_ANDROID
-    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
-        #elif UNITY_IPHONE
-            path = path = Application.dataPath + "/Raw/Text/" + fileName;
-        #else
-            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-        #endif
-
-        StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-        string[] messeage = sr.ReadToEnd()
+        string[] messeages = messeage
             .Replace("#player_name#", PlayerContoroller.player_name)
             .Replace("\r\n", "\n")
             .Split(new string[] { "\n+_new_+\n" }, StringSplitOptions.RemoveEmptyEntries);
+        
         LogController.Callback callback = null;
 		if (encount)
 		{
 			callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
 		}
-		LogController.logController.GetComponent<LogController>().printText(messeage).then(callback);
+		LogController.logController.GetComponent<LogController>().printText(messeages).then(callback);
 	}
 
     /*
@@ -62,4 +69,12 @@ public class Messeage : MonoBehaviour
 		LogController.logController.GetComponent<LogController>().printText(data_str).then(callback);
 	}
     */
+
+    public IEnumerator ReadText(string path)
+    {
+        WWW www = new WWW(path);
+        yield return www;
+        TextReader txtReader = new StringReader(www.text);
+        messeage = txtReader.ReadToEnd();
+    }
 }
