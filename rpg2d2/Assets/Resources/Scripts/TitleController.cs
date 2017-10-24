@@ -21,7 +21,7 @@ public class TitleController : MonoBehaviour
     public void NewGameCallback(string playerName)
     {
         PlayerContoroller.player_name = playerName;
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName);
+        StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName));
     }
 
     public void NewGame()

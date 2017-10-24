@@ -23,8 +23,9 @@ public class FadeinController : MonoBehaviour {
 		green = fadeImage.color.g;
 		blue = fadeImage.color.b;
 		alfa = fadeImage.color.a;
-        graphicRaycaster = GameObject.Find("Window").GetComponent<GraphicRaycaster>();
+        graphicRaycaster = GetComponent<GraphicRaycaster>();
     }
+    
 
 	void Update () {
 		if(isFadeIn){

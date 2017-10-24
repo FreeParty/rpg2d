@@ -24,14 +24,8 @@ public class SceneJumper : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		if(other.CompareTag("Player"))
         {
-            StartCoroutine("Jump");
+            StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name));
+            GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
         }
 	}
-
-    IEnumerator Jump()
-    {
-        yield return new WaitUntil(() => GameObject.Find("Window").GetComponent<FadeinController>().isFadeOut == false);
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name);
-        GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
-    }
 }
