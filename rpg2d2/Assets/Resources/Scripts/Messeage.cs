@@ -24,7 +24,17 @@ public class Messeage : MonoBehaviour
     }
 
 	public void Show(){
-        string path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+        string path = "";
+        #if UNITY_EDITOR
+            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+        #elif UNITY_ANDROID
+    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
+        #elif UNITY_IPHONE
+            path = path = Application.dataPath + "/Raw/Text/" + fileName;
+        #else
+            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+        #endif
+
         StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
         string[] messeage = sr.ReadToEnd()
             .Replace("#player_name#", PlayerContoroller.player_name)
