@@ -24,7 +24,7 @@ public class MenuController : MonoBehaviour
         {
             GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
             GameObject.Find("ItemImage").GetComponent<Image>().sprite = null;
-            GameObject.Find("ItemImage").GetComponent<Image>().color = new Color(255, 255, 255, 0);
+            GameObject.Find("ItemImage").GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0);
             GameObject.Find("ItemList").SetActive(false);
             GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
         }
