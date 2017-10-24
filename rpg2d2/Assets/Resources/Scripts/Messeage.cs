@@ -16,6 +16,7 @@ public class Messeage : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -27,27 +28,27 @@ public class Messeage : MonoBehaviour
     public IEnumerator Show()
     {
         string path = "";
-#if UNITY_EDITOR
-        path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-#elif UNITY_ANDROID
-    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
-#elif UNITY_IPHONE
-            path = path = Application.dataPath + "/Raw/Text/" + fileName;
-#else
+        #if UNITY_EDITOR
             path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-#endif
+        #elif UNITY_ANDROID
+    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
+        #elif UNITY_IPHONE
+            path = path = Application.dataPath + "/Raw/Text/" + fileName;
+        #else
+            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+        #endif
 
         string messeage = "";
-#if UNITY_EDITOR || UNITY_IPHONE
-        StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-        messeage = sr.ReadToEnd();
-        yield return new WaitForSeconds(0f);
-#elif UNITY_ANDROID
-        WWW www = new WWW(path);
-        yield return www;
-        TextReader txtReader = new StringReader(www.text);
-        messeage = txtReader.ReadToEnd();
-#endif
+        #if UNITY_EDITOR || UNITY_IPHONE
+            StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
+            messeage = sr.ReadToEnd();
+            yield return new WaitForSeconds(0f);
+        #elif UNITY_ANDROID
+            WWW www = new WWW(path);
+            yield return www;
+            TextReader txtReader = new StringReader(www.text);
+            messeage = txtReader.ReadToEnd();
+        #endif
 
         string[] messeages = messeage
             .Replace("#player_name#", PlayerContoroller.player_name)
