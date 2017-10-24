@@ -57,8 +57,7 @@ public class ItemController : MonoBehaviour {
                     }
                 }
             }
-            root.transform.Find("LogWindow").gameObject.SetActive(true);
-            GameObject.Find("LogWindow").GetComponent<LogController>().printText(new string[] { usedItemName + "を使った" }).then(new LogController.Callback(Back));
+            LogController.logController.printText(new string[] { usedItemName + "を使った" }).then(new LogController.Callback(Back));
             statusWindow.GetComponent<StatusController>().Print();
         }
     }
