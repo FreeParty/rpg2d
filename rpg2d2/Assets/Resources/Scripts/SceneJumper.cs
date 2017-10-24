@@ -19,13 +19,16 @@ public class SceneJumper : MonoBehaviour {
 		
 	}
 
-
+    void Jump()
+    {
+       GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
+       GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name, false);
+    }
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if(other.CompareTag("Player"))
         {
-            StartCoroutine(GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name));
-            GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
+            StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(Jump));
         }
 	}
 }

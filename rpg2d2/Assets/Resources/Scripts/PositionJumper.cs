@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //空のGameObjectに当てる
 //Box Collider 2D も当てておく
@@ -22,16 +23,19 @@ public class PositionJumper : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if(other.CompareTag ("Player")){
-			GameObject player = GameObject.Find("Player");
-			Vector3 pos = player.transform.position;
-			pos.x = nextX;
-			pos.y = nextY;
-			player.transform.position = pos;
-			StartCoroutine("waitPosition");
-		}
+            StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(FadeOutCallback));
+        }
 	}
 
-	IEnumerator waitPosition(){
-		yield return new WaitForSeconds(1);
-	}
+    void FadeOutCallback()
+    {
+        GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
+        StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeIn(FadeInCallback));
+    }
+
+    void FadeInCallback()
+    {
+        GameObject root = GameObject.Find("GameManager").GetComponent<GameManager>().root;
+        root.transform.Find("MenuModal").gameObject.SetActive(true);
+    }
 }

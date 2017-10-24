@@ -281,7 +281,7 @@ public class BattleManager : MonoBehaviour
 
 	        if (runflag){
 			runcounter = 0;
-			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
+			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(BackField);
 		}else
 			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。\nしかし 回り込まれてしまった！" }).then(AttackToPlayer_Run);
 	}
@@ -357,7 +357,7 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("GameManager").GetComponent<GameManager>().Load();
                 break;
             case "いいえ":
-                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main");
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main",true);
                 break;
         }
     }
@@ -476,8 +476,8 @@ public class BattleManager : MonoBehaviour
             .then(new LogController.Callback(BackField));
     }
 
-    public static void BackField()
+    public void BackField()
     {
-        SceneManager.LoadScene("Scene/" + GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName);
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName,true);
     }
 }
