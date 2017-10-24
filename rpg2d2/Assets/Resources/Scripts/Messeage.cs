@@ -16,23 +16,6 @@ public class Messeage : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        string path = "";
-#if UNITY_EDITOR
-        path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-#elif UNITY_ANDROID
-    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
-#elif UNITY_IPHONE
-            path = path = Application.dataPath + "/Raw/Text/" + fileName;
-#else
-            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-#endif
-        string messeage = "";
-#if UNITY_EDITOR || UNITY_IPHONE
-        StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-        messeage = sr.ReadToEnd();
-#elif UNITY_ANDROID
-        StartCoroutine("ReadText", path);
-#endif
     }
 
     // Update is called once per frame
