@@ -600,46 +600,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1976352439}
-    - target: {fileID: 114040256139570556, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114383743227957628, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114040256139570556, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114040256139570556, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114040256139570556, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114383743227957628, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: isFadeIn
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 223776968619596316, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114040256139570556, guid: 0a8a18ee34651d4449f4c6b64ebdc343,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a8a18ee34651d4449f4c6b64ebdc343, type: 2}
   m_IsPrefabParent: 0
