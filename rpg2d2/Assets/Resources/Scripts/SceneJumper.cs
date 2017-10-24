@@ -22,7 +22,7 @@ public class SceneJumper : MonoBehaviour {
 
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if(other == GameObject.Find("Player"))
+		if(other.CompareTag("Player"))
         {
             GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name);
             GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);

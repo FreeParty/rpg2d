@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
             {
                 LogController.logController = GameObject.Find("Window").transform.Find("LogModal").gameObject.GetComponent<LogController>();
                 AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                mainSceneName = SceneManager.GetActiveScene().name;
             }
             else if(SceneManager.GetActiveScene().name == "battle")
             {
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
         if(nextScene.name == "battle")
         {
             mainSceneName = prevScene.name;
+            print(mainSceneName);
         }
     }
 
