@@ -3,23 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Messeage : MonoBehaviour
 {
 
     public string fileName = "test.txt";
-    private string path;
-    private string[] messeage;
     public bool encount = false;
+    string messeage = "";
+
     // Use this for initialization
     void Start()
     {
-        path = Application.dataPath + "/Resources/Text/" + fileName;
-        StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-        messeage = sr.ReadToEnd()
-            .Replace("#プレイヤー名#", PlayerContoroller.player_name)
-            .Split(new string[] { "\n@改ページ@\n" }, StringSplitOptions.RemoveEmptyEntries);
+
     }
 
     // Update is called once per frame
@@ -28,15 +25,56 @@ public class Messeage : MonoBehaviour
 
     }
 
-    public void Show()
+    public IEnumerator Show()
     {
-        GameObject.Find("Window").transform.Find("LogWindow").gameObject.SetActive(true);
+        string path = "";
+        #if UNITY_EDITOR
+            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+        #elif UNITY_ANDROID
+    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
+        #elif UNITY_IPHONE
+            path = path = Application.dataPath + "/Raw/Text/" + fileName;
+        #else
+            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
+        #endif
+
+        string messeage = "";
+        #if UNITY_EDITOR || UNITY_IPHONE
+            StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
+            messeage = sr.ReadToEnd();
+            yield return new WaitForSeconds(0f);
+        #elif UNITY_ANDROID
+            WWW www = new WWW(path);
+            yield return www;
+            TextReader txtReader = new StringReader(www.text);
+            messeage = txtReader.ReadToEnd();
+        #endif
+
+        string[] messeages = messeage
+            .Replace("#player_name#", PlayerContoroller.player_name)
+            .Replace("\r\n", "\n")
+            .Split(new string[] { "\n+_new_+\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         LogController.Callback callback = null;
         if (encount)
         {
             callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
         }
-        GameObject.Find("LogWindow").GetComponent<LogController>().printText(messeage).then(callback);
+        LogController.logController.GetComponent<LogController>().printText(messeages).then(callback);
     }
+
+    /*
+     public IEnumerator Show(){
+
+		// TestData読み込み(ロード)
+		yield return FileManager.ReadFileText(r => data_str = r, "/Text/" + fileName);
+
+		LogController.Callback callback = null;
+		if (encount)
+		{
+			callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
+		}
+		LogController.logController.GetComponent<LogController>().printText(data_str).then(callback);
+	}
+    */
 }

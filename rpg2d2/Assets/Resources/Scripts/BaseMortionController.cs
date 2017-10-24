@@ -27,8 +27,6 @@ public class BaseMortionController : MonoBehaviour {
 		//モーション判定用のパラメータ   
 		m_Anim.SetFloat("Direction_X", h_move);
 		m_Anim.SetFloat("Direction_Y", v_move);
-
-
 	}
 
 }
