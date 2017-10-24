@@ -33,7 +33,7 @@ public class GateController : MonoBehaviour {
 			List<int> my_items = PlayerContoroller.my_items;
 			if(my_items.Exists(p => p == key_item_id)){
 				audio.PlayOneShot(sound_enter);
-				Invoke("DestroyGate", wait_enter);
+				ThroughGate();
 			}
 			else{
 				sr.sprite = sprite_not;
@@ -47,9 +47,9 @@ public class GateController : MonoBehaviour {
 	void ResetSprite(){
 		sr.sprite = sprite_standby;
 	}
-	void DestroyGate(){
-		Destroy(gameObject);
-	}
+	void ThroughGate(){
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    }
 
 	public static string ItemName(int id){
 		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;
