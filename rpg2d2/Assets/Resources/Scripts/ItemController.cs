@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ItemController : MonoBehaviour {
+public class ItemController : MonoBehaviour
+{
 
     GameObject statusWindow;
     GameObject root;
@@ -24,10 +25,11 @@ public class ItemController : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void Use()
     {
@@ -35,13 +37,13 @@ public class ItemController : MonoBehaviour {
         if (toggleGroup.AnyTogglesOn())
         {
             string usedItemName = "";
-            foreach(Toggle itemObj in toggleGroup.ActiveToggles())
+            foreach (Toggle itemObj in toggleGroup.ActiveToggles())
             {
                 List<int> my_items = PlayerContoroller.my_items;
                 int itemNo = itemObj.GetComponent<ItemToggleController>().itemNo;
-                for(int i = my_items.Count;i-- >= 0;)
+                for (int i = my_items.Count; i-- >= 0;)
                 {
-                    if(itemNo == my_items[i])
+                    if (itemNo == my_items[i])
                     {
                         ItemList.Items item = ItemList.item_table[itemNo];
                         switch (item.item_type) //　アイテムを使う処理
@@ -49,7 +51,7 @@ public class ItemController : MonoBehaviour {
                             case (int)ItemList.Eff.Hp_heal:
                                 PlayerContoroller.player_status["hp"] += item.item_effect;
                                 break;
-                                
+
                         }
                         usedItemName = item.item_name;
                         my_items.Remove(my_items[i]);
@@ -78,25 +80,37 @@ public class ItemController : MonoBehaviour {
         }
     }
 
-    public void Remove()
+    public void RemoveCallback(string option)
     {
-        ToggleGroup toggleGroup = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
-        if (toggleGroup.AnyTogglesOn())
+        switch (option)
         {
-            foreach (Toggle itemObj in toggleGroup.ActiveToggles())
-            {
-                List<int> my_items = PlayerContoroller.my_items;
-                int itemNo = itemObj.GetComponent<ItemToggleController>().itemNo;
-                for (int i = my_items.Count; i-- >= 0;)
+            case "はい":
+                ToggleGroup toggleGroup = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
+                if (toggleGroup.AnyTogglesOn())
                 {
-                    if (itemNo == my_items[i])
+                    foreach (Toggle itemObj in toggleGroup.ActiveToggles())
                     {
-                        my_items.Remove(my_items[i]);
-                        break;
+                        List<int> my_items = PlayerContoroller.my_items;
+                        int itemNo = itemObj.GetComponent<ItemToggleController>().itemNo;
+                        for (int i = my_items.Count; i-- >= 0;)
+                        {
+                            if (itemNo == my_items[i])
+                            {
+                                my_items.Remove(my_items[i]);
+                                break;
+                            }
+                        }
                     }
                 }
-            }
-            Back();
+                Back();
+                break;
+            case "いいえ":
+                break;
         }
+    }
+
+    public void Remove()
+    {
+        AlertController.alertController.ShowAlertByOptions("捨てる", "本当に捨てますか？", new string[] { "はい", "いいえ" }, RemoveCallback);
     }
 }
