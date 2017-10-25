@@ -6,7 +6,8 @@ public class OpenBoxContoroller : MonoBehaviour {
 
 	public int item_id = 1;
 	private Sprite[] sp;
-    public bool isOpen = false;
+	public bool isOpen = false;
+	AudioSource audio;
 
     void Start(){
         gameObject.tag = "StrongBox";
@@ -31,6 +32,8 @@ public class OpenBoxContoroller : MonoBehaviour {
         if (!isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
+	    audio = GetComponent<AudioSource>();
+	    audio.PlayOneShot(audio.clip);
             LogController.logController.printText(new string[]{ItemList.ItemName(item_id) + "を手に入れた！","やった！"});
 			PlayerContoroller.my_items.Add (item_id);
             isOpen = true;

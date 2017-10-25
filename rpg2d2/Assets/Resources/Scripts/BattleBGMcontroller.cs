@@ -13,7 +13,6 @@ public class BattleBGMcontroller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audioSource = GetComponent<AudioSource> ();
-		Debug.Log(EnemyController.enemy_status["type"]);
 		switch(EnemyController.enemy_status["type"]){
 			default:
 				audioSource.clip = Normal;
