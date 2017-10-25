@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
 	};
 	public static string monster_name = "";
     public static int monster_num = -1;
-    string mainSceneName;
+    string prevSceneName;
 
     // Use this for initialization
     void Start() {
@@ -35,8 +35,8 @@ public class EnemyController : MonoBehaviour {
 
     string[,] GetMonsterList()
     {
-        string mainSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName;
-        switch (mainSceneName)
+        string prevSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName;
+        switch (prevSceneName)
         {
             case "map_west":
                  return EnemiesData.westSceneMonsters;
@@ -74,7 +74,7 @@ public class EnemyController : MonoBehaviour {
 	void setEnemyStatus(string [,] ml, int mn){
 		monster_name = ml[mn, 1];
         GetComponent<Image> ().sprite = GetSprite("enemys/main", ml[0, 0]);
-        //GetComponent<Image> ().sprite = GetSprite("enemys/" + mainSceneName, ml[mn, 0]);
+        //GetComponent<Image> ().sprite = GetSprite("enemys/" + prevSceneName, ml[mn, 0]);
         enemy_status["hp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mp"] = int.Parse(ml [mn, 3]);

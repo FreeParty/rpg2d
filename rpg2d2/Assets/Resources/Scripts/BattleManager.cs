@@ -488,6 +488,6 @@ public class BattleManager : MonoBehaviour
 
     public void BackField()
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName,true);
+        GameObject.Find("GameManager").GetComponent<GameManager>().BackScene(true);
     }
 }
