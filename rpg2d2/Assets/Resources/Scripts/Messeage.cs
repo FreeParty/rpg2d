@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Messeage : MonoBehaviour
@@ -24,36 +23,8 @@ public class Messeage : MonoBehaviour
 
     }
 
-    public IEnumerator Show()
+    public void Show()
     {
-        string path = "";
-        #if UNITY_EDITOR
-            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-        #elif UNITY_ANDROID
-    	    path = "jar:file://" + Application.dataPath + "!/assets/Text/" + fileName;
-        #elif UNITY_IPHONE
-            path = path = Application.dataPath + "/Raw/Text/" + fileName;
-        #else
-            path = Application.dataPath + "/StreamingAssets/Text/" + fileName;
-        #endif
-
-        string messeage = "";
-        #if UNITY_EDITOR || UNITY_IPHONE
-            StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
-            messeage = sr.ReadToEnd();
-            yield return new WaitForSeconds(0f);
-        #elif UNITY_ANDROID
-            WWW www = new WWW(path);
-            yield return www;
-            TextReader txtReader = new StringReader(www.text);
-            messeage = txtReader.ReadToEnd();
-        #endif
-
-        string[] messeages = messeage
-            .Replace("#player_name#", PlayerContoroller.player_name)
-            .Replace("\r\n", "\n")
-            .Split(new string[] { "\n+_new_+\n" }, StringSplitOptions.RemoveEmptyEntries);
-
         LogController.Callback callback = null;
         if (encount)
         {
@@ -66,7 +37,7 @@ public class Messeage : MonoBehaviour
                 callback = GetComponent<SymbolEncountContoller>().Encount;
             }
         }
-        LogController.logController.GetComponent<LogController>().printText(messeages).then(callback);
+        LogController.logController.GetComponent<LogController>().printTextByFileName(fileName).then(callback);
     }
 
     /*

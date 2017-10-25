@@ -7,12 +7,12 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-
     public List<string> strongBoxes { get; private set; }
     public string mainSceneName { get; private set; }
     public GameObject root { get; private set; }
     Dictionary<string, int> defaultStatus;
     bool isStateShow = false;
+    string prevSceneName;
 
     // Use this for initialization
     void Start()
@@ -117,9 +117,10 @@ public class GameManager : MonoBehaviour
             strongBoxes.Clear();
         }
     }
-
+    
     void OnSceneUnloaded(Scene scene)
     {
+        prevSceneName = scene.name;
         if (scene.name != "battle" && scene.name != "title")
         {
             isStateShow = GameObject.Find("StatusWindow") != null;

@@ -38,9 +38,22 @@ public class EnemyController : MonoBehaviour {
         string mainSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName;
         switch (mainSceneName)
         {
+            case "map_west":
+                 return EnemiesData.westSceneMonsters;
+            case "map_east":
+                return EnemiesData.eastSceneMonsters;
+            case "map_dendai2_1":
+                return EnemiesData.dendai2_1SceneMonsters;
+            case "map_dendai2_2":
+                return EnemiesData.dendai2_2SceneMonsters;
+            case "map_dendai1_1":
+                return EnemiesData.dendai1_1SceneMonsters;
+            case "map_dendai1_2":
+                return EnemiesData.dendai1_2SceneMonsters;
+            case "map_dendai1_3":
+                return EnemiesData.dendai1_3SceneMonsters;
             default:
-                mainSceneName = "main";
-                 return EnemiesData.mainSceneMonsters;
+                return EnemiesData.mainSceneMonsters;
         }
 
     }
@@ -60,8 +73,9 @@ public class EnemyController : MonoBehaviour {
 
 	void setEnemyStatus(string [,] ml, int mn){
 		monster_name = ml[mn, 1];
-		GetComponent<Image> ().sprite = GetSprite("enemys/" + mainSceneName, ml[mn, 0]);
-		enemy_status["hp"] = int.Parse(ml [mn, 2]);
+        GetComponent<Image> ().sprite = GetSprite("enemys/main", ml[0, 0]);
+        //GetComponent<Image> ().sprite = GetSprite("enemys/" + mainSceneName, ml[mn, 0]);
+        enemy_status["hp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mp"] = int.Parse(ml [mn, 3]);
 		enemy_status["mmp"] = int.Parse(ml [mn, 3]);
