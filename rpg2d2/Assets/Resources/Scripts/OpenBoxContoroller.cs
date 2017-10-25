@@ -12,7 +12,7 @@ public class OpenBoxContoroller : MonoBehaviour {
         gameObject.tag = "StrongBox";
 		sp = Resources.LoadAll<Sprite>("Sprites/juelBox");
 
-        if (GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes != null && GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes.ContainsKey(gameObject.name))
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes != null && GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes.Contains(gameObject.name))
         {
             isOpen = true;
         }

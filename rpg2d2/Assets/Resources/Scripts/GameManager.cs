@@ -8,7 +8,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
 
-    public Dictionary<string, bool> strongBoxes;
+    public List<string> strongBoxes;
     bool isStateShow = false;
     public string mainSceneName;
     public GameObject root;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
                 AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             }
         }
-        strongBoxes = new Dictionary<string, bool>();
+        strongBoxes = new List<string>();
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         defaultStatus = PlayerContoroller.player_status;
@@ -113,9 +113,9 @@ public class GameManager : MonoBehaviour
             isStateShow = GameObject.Find("StatusWindow") != null;
             foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))
             {
-                if (!strongBoxes.ContainsKey(strongBox.name)) {
+                if (!strongBoxes.Contains(strongBox.name)) {
                     if (strongBox.GetComponent<OpenBoxContoroller>().isOpen) {
-                        strongBoxes.Add(strongBox.name, true);
+                        strongBoxes.Add(strongBox.name);
                     }
                 }
             }
@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
         string player_name = PlayerContoroller.player_name;
         string scene_name = SceneManager.GetActiveScene().name;
         string statusWindow = isStateShow.ToString();
-        string strongBoxStatus = JsonUtility.ToJson(new Serialization<string, bool>(strongBoxes), true);
+        string strongBoxStatus = JsonUtility.ToJson(new Serialization<string>(strongBoxes), true);
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add("player_status", player_status);
         data.Add("player_position", player_position);
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
                     my_items = JsonUtility.FromJson<Serialization<int>>(data[key]).ToList();
                     break;
                 case "strongBoxes":
-                    strongBoxes = JsonUtility.FromJson<Serialization<string, bool>>(data[key]).ToDictionary();
+                    strongBoxes = JsonUtility.FromJson<Serialization<string>>(data[key]).ToList();
                     break;
                 case "isStateShow":
                     if (data[key] == "True")
