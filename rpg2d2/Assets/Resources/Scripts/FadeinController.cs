@@ -6,11 +6,11 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class FadeinController : MonoBehaviour {
 
-	float fadeSpeed = 0.03f;        //透明度が変わるスピードを管理
-    private float red, green, blue, alfa;   //パネルの色、不透明度を管理
+	public float fadeSpeed = 0.03f;        //透明度が変わるスピードを管理
+    float red, green, blue, alfa;   //パネルの色、不透明度を管理
     public bool isFadeIn = false;
-    private bool isFadeOutEnd = true;  //フェードアウト処理の開始、完了を管理するフラグ
-	private bool isFadeInEnd = true;   //フェードイン処理の開始、完了を管理するフラグ
+    bool isFadeOutEnd = true;  //フェードアウト処理の開始、完了を管理するフラグ
+	bool isFadeInEnd = true;   //フェードイン処理の開始、完了を管理するフラグ
     Image fadeImage;                //透明度を変更するパネルのイメージ
 
     void Start()
@@ -39,7 +39,7 @@ public class FadeinController : MonoBehaviour {
         }
     }
 
-    private void disableObject()
+    void disableObject()
     {
         if (GameObject.Find("MenuModal") != null) {
             GameObject.Find("MenuModal").SetActive(false);
@@ -51,7 +51,7 @@ public class FadeinController : MonoBehaviour {
         GetComponent<GraphicRaycaster>().enabled = true;
     }
 
-    private void enableObject()
+    void enableObject()
     {
         GameObject root = GameObject.Find("GameManager").GetComponent<GameManager>().root;
         if (root.transform.Find("MenuModal") != null)
@@ -68,7 +68,7 @@ public class FadeinController : MonoBehaviour {
     public delegate void Callback();
     public delegate void CallbackStrArg(string arg);
 
-    private void startFadeOut()
+    void startFadeOut()
     {
         disableObject();
         alfa = 0;
@@ -126,7 +126,7 @@ public class FadeinController : MonoBehaviour {
     }
    
 
-    public void FadeIn()
+    void FadeIn()
     { // kuro -> siro => alfa=1 -> alfa=0
         if (alfa <= 0)
         {                    //c)完全に透明になったら処理を抜ける
@@ -139,7 +139,7 @@ public class FadeinController : MonoBehaviour {
         }
     }
 
-	public void FadeOut(){ // siro -> kuro => alfa=0 -> alfa=1
+	void FadeOut(){ // siro -> kuro => alfa=0 -> alfa=1
 		if(alfa >= 1){             // d)完全に不透明になったら処理を抜ける
 			isFadeOutEnd = true;
         }
@@ -151,6 +151,6 @@ public class FadeinController : MonoBehaviour {
 	}
 
 	void SetAlpha(){
-		fadeImage.color = new Color(red, green, blue, alfa);
+        fadeImage.color = new Color(red, green, blue, alfa);
 	}
 }

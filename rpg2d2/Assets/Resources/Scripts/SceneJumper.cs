@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI; //パネルのイメージを操作するのに必要
 
 public class SceneJumper : MonoBehaviour {
-	public string name;
+    public string name;
 	public float nextX;
 	public float nextY;
 

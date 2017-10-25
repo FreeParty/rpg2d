@@ -3,13 +3,13 @@ using System.Collections;
 
 public class BaseMortionController : MonoBehaviour {
 
-	private Animator m_Anim;
-	private Rigidbody2D m_Rigidbody2D;
+	Animator m_Anim;
+	Rigidbody2D m_Rigidbody2D;
 
 	[SerializeField]
-	private float move_speed = 7.0f;
+	float move_speed = 7.0f;
 
-	private void Awake()
+	void Start()
 	{
 		m_Anim = GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -22,7 +22,7 @@ public class BaseMortionController : MonoBehaviour {
 	{
 		//  移動方向に力を加える
 		Vector2 direction = new Vector2 (h_move, v_move).normalized;
-		m_Rigidbody2D.velocity = direction * move_speed;
+		m_Rigidbody2D.velocity = direction * (h_move * h_move + v_move * v_move) * move_speed;
 
 		//モーション判定用のパラメータ   
 		m_Anim.SetFloat("Direction_X", h_move);
