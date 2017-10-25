@@ -27,6 +27,7 @@ public class BattleManager : MonoBehaviour
     public GameObject b_button;
     public GameObject sound_box;
     public GameObject commands;
+	ItemController ic;
 
     int runcounter = 0;
 
@@ -61,6 +62,7 @@ public class BattleManager : MonoBehaviour
             sound_box = GameObject.Find("BattleSounds");
         }
         StatusUpdate();
+		ic = GameObject.Find("ItemController").GetComponent<ItemController>();
     }
 
     public void StatusUpdate()
@@ -153,7 +155,7 @@ public class BattleManager : MonoBehaviour
     public void AttackToPlayer_Guard()
     {
         IntAndBool p_damage = P_damage();
-	int guard_damage = p_damage.damage *3/4;
+		int guard_damage = p_damage.damage *3/4;
         PlayerContoroller.player_status["hp"] -= guard_damage;
         StatusUpdate();
 
@@ -252,7 +254,7 @@ public class BattleManager : MonoBehaviour
     public void Guard()
     {
         ToggleCommands();
-	AttackToPlayer_Guard();
+		AttackToPlayer_Guard();
     }
 
     // にげる が押された時に発火
@@ -454,15 +456,20 @@ public class BattleManager : MonoBehaviour
         int random = UnityEngine.Random.Range(0, 100);
         switch (EnemyController.enemy_status["drop_pro"])
         {
+			case 0:
+				if (random <= 99) return true; // 100/100
+				break;
             case 1:
-                if (random <= 99) return true;
+                if (random <= 99) return true; // 10/100
                 break;
             case 2:
-                if (random <= 99) return true;
+                if (random <= 99) return true; // 20/100
                 break;
             case 3:
-                if (random <= 99) return true;
+                if (random <= 99) return true; // 50/100
                 break;
+			default:
+				break;
         }
         return false;
     }
@@ -480,4 +487,28 @@ public class BattleManager : MonoBehaviour
     {
         SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
     }
+
+	public void UseItem(ItemList.Items item)
+	{
+//		ToggleCommands ();
+		int num = 0;
+
+		switch (item.item_type)
+		{
+			case (int)ItemList.Eff.Hp_heal:
+				num = item.item_effect;
+				PlayerContoroller.player_status["hp"] += item.item_effect;
+				LogController.logController.printText(new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then(AttackToPlayer).then(ic.Back);
+				break;
+			case (int)ItemList.Eff.Hp_damage:
+				num = item.item_effect;
+				EnemyController.enemy_status ["hp"] -= num;
+				if (EnemyController.enemy_status ["hp"] < 0) {
+					LogController.logController.printText (new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + num + "のダメージ！"  }).cancel (Enemy_die);
+				} else {
+					LogController.logController.printText (new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + num + "のダメージ！"  }).then (AttackToPlayer);
+				}
+				break;
+		}
+	}
 }

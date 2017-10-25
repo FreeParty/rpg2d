@@ -45624,6 +45624,48 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
+--- !u!1001 &586820781
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -12.806237
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.1457887
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 82.376114
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318806778639414, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1202728ca56ad422187c907663b58b89, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &738017627
 Prefab:
   m_ObjectHideFlags: 0
