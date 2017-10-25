@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
                 root.transform.Find("StatusWindow").gameObject.SetActive(true);
                 GameObject.Find("MenuWindow").transform.Find("MenuButtons").transform.Find("Status").GetComponentInChildren<Text>().text = "ステータスを非表示";
             }
+            mainSceneName = scene.name;
         }
         else if(scene.name == "battle")
         {
@@ -111,7 +112,6 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            mainSceneName = scene.name;
         }
     }
     
