@@ -46,19 +46,16 @@ public class  PlayerContoroller : MonoBehaviour {
             if(touching.GetComponent<Messeage>() != null)
             {
                 StartCoroutine(touching.GetComponent<Messeage>().Show());
-            }
-            if(touching.GetComponent<HealPointController>() != null)
+            }else if (touching.gameObject.GetComponent<SymbolEncountContoller>() != null)
             {
-		touching.GetComponent<HealPointController>().Healing();
+                touching.gameObject.GetComponent<SymbolEncountContoller>().Encount();
             }
         }
     }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.GetComponent<OpenBoxContoroller>() != null ||
-            coll.gameObject.GetComponent<Messeage>() != null || 
-            coll.gameObject.GetComponent<HealPointController>() != null )
+        if (coll.gameObject.GetComponent<OpenBoxContoroller>() != null || coll.gameObject.GetComponent<Messeage>() != null || coll.gameObject.GetComponent<SymbolEncountContoller>() != null)
         {
             touching = coll.gameObject;
         }
