@@ -11,7 +11,6 @@ public class Messeage : MonoBehaviour
 
     public string fileName = "test.txt";
     public bool encount = false;
-    string messeage = "";
 
     // Use this for initialization
     void Start()

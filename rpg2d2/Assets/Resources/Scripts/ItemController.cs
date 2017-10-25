@@ -8,19 +8,16 @@ public class ItemController : MonoBehaviour
 {
 
     GameObject statusWindow;
-    GameObject root;
 
     // Use this for initialization
     void Start()
     {
         if (SceneManager.GetActiveScene().name == "battle")
         {
-            root = GameObject.Find("BattleField");
             statusWindow = GameObject.Find("StatusWindowInBattle");
         }
         else
         {
-            root = GameObject.Find("Window");
             statusWindow = GameObject.Find("Window").transform.Find("StatusWindow").gameObject;
         }
     }

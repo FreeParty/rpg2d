@@ -8,7 +8,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
 
-    Dictionary<string, bool> strongBoxes;
+    public Dictionary<string, bool> strongBoxes;
     bool isStateShow = false;
     public string mainSceneName;
     public GameObject root;
@@ -80,16 +80,10 @@ public class GameManager : MonoBehaviour
             GameObject.Find("Player").GetComponent<Animator>().enabled = true;
             if (isStateShow)
             {
-                GameObject.Find("Window").transform.Find("StatusWindow").gameObject.SetActive(true);
+                root.transform.Find("StatusWindow").gameObject.SetActive(true);
                 GameObject.Find("MenuWindow").transform.Find("MenuButtons").transform.Find("Status").GetComponentInChildren<Text>().text = "ステータスを非表示";
             }
-            foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))
-            {
-                if (strongBoxes.ContainsKey(strongBox.name))
-                {
-                    strongBox.GetComponent<OpenBoxContoroller>().isOpen = strongBoxes[strongBox.name];
-                }
-            }
+            mainSceneName = scene.name;
         }
         else if(scene.name == "battle")
         {
@@ -112,16 +106,12 @@ public class GameManager : MonoBehaviour
             isStateShow = GameObject.Find("StatusWindow") != null;
             foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))
             {
-                if (strongBoxes.ContainsKey(strongBox.name))
-                {
-                    strongBoxes[strongBox.name] = strongBox.GetComponent<OpenBoxContoroller>().isOpen;
-                }
-                else
-                {
-                    strongBoxes.Add(strongBox.name, strongBox.GetComponent<OpenBoxContoroller>().isOpen);
+                if (!strongBoxes.ContainsKey(strongBox.name)) {
+                    if (strongBox.GetComponent<OpenBoxContoroller>().isOpen) {
+                        strongBoxes.Add(strongBox.name, true);
+                    }
                 }
             }
-            mainSceneName = scene.name;
         }
     }
     

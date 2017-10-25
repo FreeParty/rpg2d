@@ -6,14 +6,14 @@ public class GateController : MonoBehaviour {
 
 	public int key_item_id = 0;
 	public Sprite sprite_not;
-	public AudioClip sound_enter;
+    public Sprite sprite_enter;
+    public AudioClip sound_enter;
 	public AudioClip sound_not;
 	public int wait_enter;
 	public int wait_not;
 
 	SpriteRenderer sr;
 	Sprite sprite_standby;
-	bool is_not = false;
 	AudioSource audio;
 
 	// Use this for initialization
@@ -28,13 +28,14 @@ public class GateController : MonoBehaviour {
 		
 	}
 
+    
 	void OnCollisionEnter2D(Collision2D other) {
 		if(other.gameObject.tag == "Player"){
 			List<int> my_items = PlayerContoroller.my_items;
 			if(my_items.Exists(p => p == key_item_id)){
-				audio.PlayOneShot(sound_enter);
-				ThroughGate();
-			}
+                gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+                Enter();
+            }
 			else{
 				sr.sprite = sprite_not;
 				audio.PlayOneShot(sound_not);
@@ -44,12 +45,26 @@ public class GateController : MonoBehaviour {
 		}
 	}
 
-	void ResetSprite(){
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            Enter();
+        }
+    }
+
+    void Enter()
+    {
+        sr.sprite = sprite_enter;
+        audio.PlayOneShot(sound_enter);
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        Invoke("ResetSprite", wait_not);
+    }
+
+    void ResetSprite(){
 		sr.sprite = sprite_standby;
 	}
-	void ThroughGate(){
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
-    }
+
 
 	public static string ItemName(int id){
 		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;

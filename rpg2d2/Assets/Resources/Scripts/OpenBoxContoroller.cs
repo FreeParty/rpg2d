@@ -9,7 +9,14 @@ public class OpenBoxContoroller : MonoBehaviour {
     public bool isOpen = false;
 
     void Start(){
+        gameObject.tag = "StrongBox";
 		sp = Resources.LoadAll<Sprite>("Sprites/juelBox");
+
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes != null && GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes.ContainsKey(gameObject.name))
+        {
+            isOpen = true;
+        }
+
         if (isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
@@ -21,6 +28,7 @@ public class OpenBoxContoroller : MonoBehaviour {
     }
 
     public void OpenBox(){
+        print("");
         if (!isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];

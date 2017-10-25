@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class EncountController : MonoBehaviour {
-	GameObject player;
 
 	void Start()
 	{
-        player = GameObject.Find("Player");
 	}
+
+    void Update()
+    {
+        float x = CrossPlatformInputManager.GetAxis("Horizontal"); // X
+        float y = CrossPlatformInputManager.GetAxis("Vertical"); //y
+        if(x != 0 || y != 0)
+        {
+            RandomEncount();
+        }
+    }
 
     public void Encount()
     {
