@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     bool isStateShow = false;
     public string mainSceneName;
     public GameObject root;
+    private Dictionary<string, int> defaultStatus;
 
     // Use this for initialization
     void Start()
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
         }
         strongBoxes = new Dictionary<string, bool>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        defaultStatus = PlayerContoroller.player_status;
     }
 
     // Update is called once per frame
@@ -95,7 +98,11 @@ public class GameManager : MonoBehaviour
         {
             root = GameObject.Find("Title");
             AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-            //プレイヤーの初期化
+            PlayerContoroller.player_status = defaultStatus;
+            PlayerContoroller.my_items.Clear();
+            GameObject.Find("Player").transform.position = new Vector2(42, 50);
+            isStateShow = false;
+            strongBoxes.Clear();
         }
     }
 
