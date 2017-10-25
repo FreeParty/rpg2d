@@ -14,3 +14,5 @@ Version 2017.2.0f3
 - 音楽素材  
   - 魔王魂  
     - http://maoudamashii.jokersounds.com/  
+  - Wingless Seraph
+    - https://wingless-seraph.net/
