@@ -7,6 +7,11 @@ public class BGMcontroller : MonoBehaviour {
 	private AudioSource audioSource;
 	float startTime;
 
+	public AudioClip encount;
+	public AudioClip menu_open;
+	public AudioClip menu_close;
+	public AudioClip clickSound;
+
 	// Use this for initialization
 	void Start () {
 		startTime = 0;
@@ -18,5 +23,18 @@ public class BGMcontroller : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void EncountSound(){
+		audioSource.PlayOneShot(encount);
+	}
+	public void MenuOpen(){
+		audioSource.PlayOneShot(menu_open);
+	}
+	public void MenuClose(){
+		audioSource.PlayOneShot(menu_close);
+	}
+	public void Click(){
+		audioSource.PlayOneShot(menu_close);
 	}
 }

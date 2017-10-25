@@ -132,3 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0f9ea1bc471d7478650adbb9023622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  encount: {fileID: 8300000, guid: 41011e7974ddd3d42a111ef85e8f71d2, type: 3}
+  menu_open: {fileID: 8300000, guid: eaace26209054b7439d5ead012339296, type: 3}
+  menu_close: {fileID: 8300000, guid: 3f4344533760422499db6ba808a19330, type: 3}
+  clickSound: {fileID: 8300000, guid: eaace26209054b7439d5ead012339296, type: 3}
