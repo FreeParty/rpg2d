@@ -63,6 +63,18 @@ public class GameManager : MonoBehaviour
     public void SceneChange(string sceneName,bool isFade)
     {
         OnSceneUnloaded(SceneManager.GetActiveScene());
+        if (sceneName.Contains("battle"))
+        {
+            if (sceneName.Split('?')[1] == "random")
+            {
+                EnemyController.monster_num = -1;
+            }
+            else
+            {
+                EnemyController.monster_num = int.Parse(sceneName.Split('?')[1]);
+            }
+            sceneName = sceneName.Split('?')[0];
+        }
         if (isFade)
         {
             StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(LoadScene, sceneName));
