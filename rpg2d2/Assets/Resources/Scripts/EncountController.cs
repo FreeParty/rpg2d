@@ -22,8 +22,8 @@ public class EncountController : MonoBehaviour {
 
     public void Encount()
     {
-	GameObject.Find("BGM Source").GetComponent<BGMcontroller>().EncountSound();
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle",true);
+	    GameObject.Find("BGM Source").GetComponent<BGMcontroller>().EncountSound();
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle?random",true);
     }
 
 

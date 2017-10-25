@@ -57,7 +57,14 @@ public class Messeage : MonoBehaviour
         LogController.Callback callback = null;
         if (encount)
         {
-            callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
+            if (GetComponent<SymbolEncountContoller>() == null)
+            {
+                callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
+            }
+            else
+            {
+                callback = GetComponent<SymbolEncountContoller>().Encount;
+            }
         }
         LogController.logController.GetComponent<LogController>().printText(messeages).then(callback);
     }

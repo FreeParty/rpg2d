@@ -18,14 +18,31 @@ public class EnemyController : MonoBehaviour {
 		{"drop", 0},
 		{"drop_pro", 0},
 	};
+	public static string monster_name = "";
+    public static int monster_num = -1;
+    string mainSceneName;
 
-	public static string monster_name = "0";
-	Sprite sp;
-
-	// Use this for initialization
-	void Start() {
-		SetEnemyData();
+    // Use this for initialization
+    void Start() {
+        string[,] monster_list = GetMonsterList();
+        if (monster_num == -1)
+        {
+            monster_num = selectRandomMonster(monster_list);
+        }
+        setEnemyStatus(monster_list, monster_num);
         GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + " があらわれた！！\n" }).then(BattleManager.ToggleCommands); // 名前をlogにセット
+    }
+
+    string[,] GetMonsterList()
+    {
+        string mainSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName;
+        switch (mainSceneName)
+        {
+            default:
+                mainSceneName = "main";
+                 return EnemiesData.mainSceneMonsters;
+        }
+
     }
 
     /*
@@ -33,34 +50,17 @@ public class EnemyController : MonoBehaviour {
 	 * また、シーンを複数作っていて、そのシーンによって出現するモンスターを切り替えたい場合、シーン名と上のシーン名を統一してください
 	 * setEnemyStatus() でエンカウントしたシーンと、そのシーン名に同じResources/enemy/~ からモンスターの画像を引っ張ってきます
 	*/
-    public void SetEnemyData()
-    {
-        string mainSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName;
-        string[,] monster_list;
-        int monster_num;
 
-        switch (mainSceneName)
-        {
-            default:
-                mainSceneName = "main";
-                monster_list = EnemiesData.mainSceneMonsters;
-                break;
-        }
-        monster_num = selectRandomMonster(monster_list);
-        setEnemyStatus(monster_list, monster_num, mainSceneName);
-    }
-
-	int selectRandomMonster(string[,] ml)
+	public int selectRandomMonster(string[,] ml)
 	{
 		return Random.Range(0, ml.GetLength(0));
 	}
 
 //[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]type, [8] drop_no, [9] get_exp, [10] get_money, 
 
-	void setEnemyStatus(string [,] ml, int mn, string rc){
+	void setEnemyStatus(string [,] ml, int mn){
 		monster_name = ml[mn, 1];
-		sp = GetSprite ("enemys/" + rc, ml[mn, 0]);
-		GetComponent<Image> ().sprite = sp;
+		GetComponent<Image> ().sprite = GetSprite("enemys/" + mainSceneName, ml[mn, 0]);
 		enemy_status["hp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mp"] = int.Parse(ml [mn, 3]);
