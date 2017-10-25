@@ -10,7 +10,13 @@ public class ItemList : MonoBehaviour {
 		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)Eff.Hp_damage, 30,"Images/test","相手に30ダメージを与える"),
 	};
 
-	void Start(){
+    public static string ItemName(int id)
+    {
+        string item_name = ItemList.item_table.Find(x => x.item_id == id).item_name;
+        return item_name;
+    }
+
+    void Start(){
 //		Debug.Log ("name" + item_table [2].item_name);
 	}
 

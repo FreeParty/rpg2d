@@ -472,7 +472,7 @@ public class BattleManager : MonoBehaviour
     {
         PlayerContoroller.my_items.Add(EnemyController.enemy_status["drop"]);
         LogController.logController.printText(new string[]{string.Format(string.Format ("{0}は{1}を落としていった！\n{2}は{1}を手に入れた",
-            EnemyController.monster_name, OpenBoxContoroller.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name))})
+            EnemyController.monster_name, ItemList.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name))})
             .then(new LogController.Callback(BackField));
     }
 

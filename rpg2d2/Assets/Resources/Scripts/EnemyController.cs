@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
-
 	public static Dictionary<string, int> enemy_status = new Dictionary<string, int> () {
 		{"hp", 1},
 		{"mhp", 1},
@@ -21,8 +20,7 @@ public class EnemyController : MonoBehaviour {
 	};
 
 	public static string monster_name = "0";
-    
-	private Sprite sp;
+	Sprite sp;
 
 	// Use this for initialization
 	void Start() {
@@ -35,27 +33,27 @@ public class EnemyController : MonoBehaviour {
 	 * setEnemyStatus() でエンカウントしたシーンと、そのシーン名に同じResources/enemy/~ からモンスターの画像を引っ張ってきます
 	*/
 	public void SetEnemyData(){
-		string reccurent_scene = SceneManager2d.current_scene;
+		string mainSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName;
 
-		switch (reccurent_scene) {
+		switch (mainSceneName) {
 		case "main":
 			string[,] monster_list = EnemiesData.mainSceneMonsters;
 			int monster_num = selectRandomMonster (monster_list);
-			setEnemyStatus (monster_list, monster_num, reccurent_scene);
+			setEnemyStatus (monster_list, monster_num, mainSceneName);
 			break;
 		default:
 			break;
 		}
 	}
 
-	private int selectRandomMonster(string[,] ml)
+	int selectRandomMonster(string[,] ml)
 	{
 		return UnityEngine.Random.Range(0, ml.GetLength(0));
 	}
 
 //[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]type, [8] drop_no, [9] get_exp, [10] get_money, 
 
-	private void setEnemyStatus(string [,] ml, int mn, string rc){
+	void setEnemyStatus(string [,] ml, int mn, string rc){
 		monster_name = ml[mn, 1];
         GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + " があらわれた！！\n" }).then(BattleManager.ToggleCommands); // 名前をlogにセット
 		sp = GetSprite ("enemys/" + rc, ml[mn, 0]);
@@ -77,7 +75,7 @@ public class EnemyController : MonoBehaviour {
 
 	// @param fileName ファイル名
 	// @param spriteName スプライト名
-	public static Sprite GetSprite(string fileName, string spriteName) {
+	Sprite GetSprite(string fileName, string spriteName) {
 		Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);
 		return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals(spriteName));
 	}

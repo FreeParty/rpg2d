@@ -8,11 +8,11 @@ using System;
 public class GameManager : MonoBehaviour
 {
 
-    public List<string> strongBoxes;
+    public List<string> strongBoxes { get; private set; }
+    public string mainSceneName { get; private set; }
+    public GameObject root { get; private set; }
+    Dictionary<string, int> defaultStatus;
     bool isStateShow = false;
-    public string mainSceneName;
-    public GameObject root;
-    private Dictionary<string, int> defaultStatus;
 
     // Use this for initialization
     void Start()
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "battle" && scene.name != "title")
         {
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnSceneUnloaded(Scene scene)
+    void OnSceneUnloaded(Scene scene)
     {
         if (scene.name != "battle" && scene.name != "title")
         {

@@ -16,8 +16,8 @@ namespace UnityStandardAssets.CrossPlatformInput
             OnlyVertical // Only vertical suityokju 2
         }
 
-        private bool isDrag;
-        private int MovementRange;
+        bool isDrag;
+        int MovementRange;
         public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
         public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
         public string verticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input

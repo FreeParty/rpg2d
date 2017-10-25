@@ -28,18 +28,12 @@ public class OpenBoxContoroller : MonoBehaviour {
     }
 
     public void OpenBox(){
-        print("");
         if (!isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
-            LogController.logController.printText(new string[]{ItemName(item_id) + "を手に入れた！","やった！"});
+            LogController.logController.printText(new string[]{ItemList.ItemName(item_id) + "を手に入れた！","やった！"});
 			PlayerContoroller.my_items.Add (item_id);
             isOpen = true;
         }
     }
-
-	public static string ItemName(int id){
-		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;
-		return item_name;
-	}
 }

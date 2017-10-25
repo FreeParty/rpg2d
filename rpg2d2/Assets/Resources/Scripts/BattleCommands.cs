@@ -8,7 +8,6 @@ public class BattleCommands : MonoBehaviour
 {
 
     GameObject mng;
-    public GameObject ItemButton;
 
     // Use this for initialization
     void Start()
@@ -30,8 +29,6 @@ public class BattleCommands : MonoBehaviour
     public void Run()
     {
 	mng.GetComponent<BattleManager>().Runaway();
-        //BattleManager.ToggleCommands();
-        //LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
     }
 
     public void Guard()
@@ -51,7 +48,7 @@ public class BattleCommands : MonoBehaviour
                 Destroy(item.gameObject);
             }
 
-            ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
+            GameObject ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
             PlayerContoroller.my_items.Sort();
             foreach (int itemNo in PlayerContoroller.my_items)
             {

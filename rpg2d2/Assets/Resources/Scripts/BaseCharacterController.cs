@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BaseMortionController))]
 public class BaseCharacterController : MonoBehaviour {
 
-    private BaseMortionController m_Character;
-    private Animator m_Anim;
-    private Sprite[] sp;
+    BaseMortionController m_Character;
+    Animator m_Anim;
+    Sprite[] sp;
 
-    private void Awake()
+    private void Start()
     {
         m_Character = GetComponent<BaseMortionController>();
         m_Anim = GetComponent<Animator>();
