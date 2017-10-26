@@ -43,31 +43,34 @@ public class ItemController : MonoBehaviour
                 {
                     if (itemNo == my_items[i])
                     {
+                        string[] messeage;
                         ItemList.Items item = ItemList.item_table[itemNo];
                         switch (item.item_type) // アイテムを使う処理
                         {
                             case (int)ItemList.Eff.Hp_heal:
                                 PlayerContoroller.player_status["hp"] += item.item_effect;
+                                messeage = new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" };
                                 if (SceneManager.GetActiveScene().name != "battle")
                                 {
-                                    LogController.logController.printText(new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" });
+                                    LogController.logController.printText(messeage);
                                 }
                                 else
                                 {
                                     bm.isUsedItem = true;
-                                    LogController.logController.printText(new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" }).then(bm.AttackToPlayer);
+                                    LogController.logController.printText(messeage).then(bm.AttackToPlayer);
                                 }
                                     break;
                             case (int)ItemList.Eff.Hp_damage:
                                 EnemyController.enemy_status["hp"] -= item.item_effect;
                                 bm.isUsedItem = true;
+                                messeage = new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" };
                                 if (EnemyController.enemy_status["hp"] < 0)
                                 {
-                                    LogController.logController.printText(new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" }).cancel(bm.Enemy_die);
+                                    LogController.logController.printText(messeage).cancel(bm.Enemy_die);
                                 }
                                 else
                                 {
-                                    LogController.logController.printText(new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" }).then(bm.AttackToPlayer);
+                                    LogController.logController.printText(messeage).then(bm.AttackToPlayer);
                                 }
                                 break;
                         }
