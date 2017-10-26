@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour {
                 if(int.Parse(monster_list[i,0]) == monster_num)
                 {
                     monster_num = i;
+                    break;
                 }
             }
         }
