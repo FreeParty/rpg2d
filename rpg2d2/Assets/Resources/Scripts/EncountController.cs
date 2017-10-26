@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class EncountController : MonoBehaviour {
-	GameObject player;
 
 	void Start()
 	{
-        player = GameObject.Find("Player");
 	}
+
+    void Update()
+    {
+        float x = CrossPlatformInputManager.GetAxis("Horizontal"); // X
+        float y = CrossPlatformInputManager.GetAxis("Vertical"); //y
+        if(x != 0 || y != 0)
+        {
+            RandomEncount();
+        }
+    }
 
     public void Encount()
     {
-        FadeinController m_fade = GameObject.Find("Window").GetComponent<FadeinController>();
-        m_fade.alfa = 0;
-        m_fade.isFadeOut = true;
-        GameObject.Find("MenuModal").SetActive(false);
-        GameObject.Find("Controller").SetActive(false);
-        GameObject.Find("Window").GetComponent<GraphicRaycaster>().enabled = false;
-        StartCoroutine("InsertBattleScene");
+	    GameObject.Find("BGM Source").GetComponent<BGMcontroller>().EncountSound();
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle?random",true);
     }
 
 
@@ -32,11 +35,4 @@ public class EncountController : MonoBehaviour {
             Encount();
         }
 	}
-
-    IEnumerator InsertBattleScene()
-	{
-        yield return new WaitUntil(() => GameObject.Find("Window").GetComponent<FadeinController>().isFadeOut == false);
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("battle");
-	}
-		
 }

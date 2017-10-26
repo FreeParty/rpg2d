@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject ItemButton;
-
     // Use this for initialization
     void Start()
     {
@@ -45,12 +43,14 @@ public class MenuController : MonoBehaviour
     {
         if (GameObject.Find("MenuButtons") != null)
         {
+	    GameObject.Find("BGM Source").GetComponent<BGMcontroller>().MenuClose();
             CloseMenu();
             GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = false;
             GameObject.Find("MenuModal").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
         else
         {
+	    GameObject.Find("BGM Source").GetComponent<BGMcontroller>().MenuOpen();
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 220);
             GameObject.Find("MenuWindow").transform.Find("MenuButtons").gameObject.SetActive(true);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "閉じる";
@@ -71,7 +71,7 @@ public class MenuController : MonoBehaviour
             {
                 GameObject.Find("Window").transform.Find("ItemList").gameObject.SetActive(true);
                 Transform parent = GameObject.Find("ItemContainer").transform;
-                ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
+                GameObject ItemButton = (GameObject)Resources.Load("Prefabs/ItemButton");
                 foreach (Transform item in parent)
                 {
                     Destroy(item.gameObject);
@@ -129,7 +129,7 @@ public class MenuController : MonoBehaviour
         switch (option)
         {
             case "はい":
-                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title");
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title",true);
                 break;
             case "いいえ":
                 CloseMenu();
@@ -145,9 +145,5 @@ public class MenuController : MonoBehaviour
     public void End()
     {
         AlertController.alertController.ShowAlertByOptions("終了", "本当にゲームを終了しますか？", new string[] { "はい", "いいえ" }, EndCallback);
-    }
-
-    public void ShowAlert(string title, string body, List<string> answers)
-    {
     }
 }

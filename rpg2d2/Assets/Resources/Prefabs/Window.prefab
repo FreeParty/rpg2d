@@ -681,10 +681,8 @@ GameObject:
   m_Component:
   - component: {fileID: 224897934154684584}
   - component: {fileID: 222201884588771988}
-  - component: {fileID: 114800538726216052}
   - component: {fileID: 223619915938212286}
   - component: {fileID: 114904211235897368}
-  - component: {fileID: 114417095500742606}
   - component: {fileID: 114643336550143536}
   m_Layer: 5
   m_Name: Window
@@ -1853,23 +1851,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u3069\u3046\u3050"
---- !u!114 &114417095500742606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724769101858898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca396201451e4470bef7a01270a497e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  red: 0
-  green: 0
-  blue: 0
-  alfa: 0
-  isFadeOut: 0
-  isFadeIn: 1
 --- !u!114 &114432642389747428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2528,33 +2509,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30BB\u30FC\u30D6"
---- !u!114 &114800538726216052
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724769101858898}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!114 &114810496127079596
 MonoBehaviour:
   m_ObjectHideFlags: 1

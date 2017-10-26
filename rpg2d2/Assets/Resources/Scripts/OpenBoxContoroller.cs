@@ -6,10 +6,18 @@ public class OpenBoxContoroller : MonoBehaviour {
 
 	public int item_id = 1;
 	private Sprite[] sp;
-    public bool isOpen = false;
+	public bool isOpen = false;
+	AudioSource audio;
 
     void Start(){
+        gameObject.tag = "StrongBox";
 		sp = Resources.LoadAll<Sprite>("Sprites/juelBox");
+
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes != null && GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes.Contains(gameObject.name))
+        {
+            isOpen = true;
+        }
+
         if (isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
@@ -24,14 +32,11 @@ public class OpenBoxContoroller : MonoBehaviour {
         if (!isOpen)
         {
             GetComponent<SpriteRenderer>().sprite = sp[1];
-            LogController.logController.printText(new string[]{ItemName(item_id) + "を手に入れた！","やった！"});
-			PlayerContoroller.my_items.Add (item_id);
+	    audio = GetComponent<AudioSource>();
+	    audio.PlayOneShot(audio.clip);
+            LogController.logController.printText(new string[]{ItemList.ItemName(item_id) + "を手に入れた！","やった！"});
+	    PlayerContoroller.my_items.Add (item_id);
             isOpen = true;
         }
     }
-
-	public static string ItemName(int id){
-		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;
-		return item_name;
-	}
 }

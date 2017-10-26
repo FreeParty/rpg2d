@@ -9,7 +9,7 @@ public class ItemController : MonoBehaviour
 
     GameObject statusWindow;
     GameObject root;
-	BattleManager bm;
+	  BattleManager bm;
 
     // Use this for initialization
     void Start()
@@ -22,7 +22,6 @@ public class ItemController : MonoBehaviour
 		}
         else
         {
-            root = GameObject.Find("Window");
             statusWindow = GameObject.Find("Window").transform.Find("StatusWindow").gameObject;
         }
     }

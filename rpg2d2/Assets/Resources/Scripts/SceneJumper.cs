@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI; //パネルのイメージを操作するのに必要
 
 public class SceneJumper : MonoBehaviour {
-	public string name;
+    public string name;
 	public float nextX;
 	public float nextY;
 
@@ -19,19 +19,16 @@ public class SceneJumper : MonoBehaviour {
 		
 	}
 
-
+    void Jump()
+    {
+       GameObject.Find("Player").transform.position = new Vector2(nextX, nextY);
+       GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(name, false);
+    }
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if(other.CompareTag ("Player")){
-			SceneManager.LoadScene (name);
-			GameObject player = GameObject.Find("Player");
-			Vector3 pos = player.transform.position;
-			pos.x = nextX;
-			pos.y = nextY;
-			player.transform.position = pos;
-			player.name = "Player_used";
-		}
-	
+		if(other.CompareTag("Player"))
+        {
+            StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(Jump));
+        }
 	}
-
 }

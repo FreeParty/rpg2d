@@ -8,7 +8,10 @@ using System;
 public class GameManager : MonoBehaviour
 {
 
-    Dictionary<string, bool> strongBoxes;
+    public List<string> strongBoxes { get; private set; }
+    public string mainSceneName { get; private set; }
+    public GameObject root { get; private set; }
+    Dictionary<string, int> defaultStatus;
     bool isStateShow = false;
 
     // Use this for initialization
@@ -23,20 +26,28 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
             if(SceneManager.GetActiveScene().name != "battle" && SceneManager.GetActiveScene().name != "title")
             {
-                LogController.logController = GameObject.Find("Window").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-                AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                root = GameObject.Find("Window");
+                LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+                AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                mainSceneName = SceneManager.GetActiveScene().name;
             }
             else if(SceneManager.GetActiveScene().name == "battle")
             {
-                LogController.logController = GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-                AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-            }else if (SceneManager.GetActiveScene().name == "title")
+                root = GameObject.Find("BattleField");
+                LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+                AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                mainSceneName = "title";
+            }
+            else if (SceneManager.GetActiveScene().name == "title")
             {
-                AlertController.alertController = GameObject.Find("Title").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+                root = GameObject.Find("Title");
+                AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
             }
         }
-        strongBoxes = new Dictionary<string, bool>();
+        strongBoxes = new List<string>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        defaultStatus = PlayerContoroller.player_status;
     }
 
     // Update is called once per frame
@@ -44,62 +55,85 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public void SceneChange(string sceneName)
+    void LoadScene(string sceneName)
     {
-        OnSceneUnloaded(SceneManager.GetActiveScene());
         SceneManager.LoadScene("Scene/" + sceneName);
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void SceneChange(string sceneName,bool isFade)
     {
-        if (scene.name != "battle" && scene.name != "title")
+        OnSceneUnloaded(SceneManager.GetActiveScene());
+        if (sceneName.Contains("battle"))
         {
-            LogController.logController = GameObject.Find("Window").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-            AlertController.alertController = GameObject.Find("Window").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-            GameObject.Find("Player").GetComponent<Animator>().enabled = true;
-            if (isStateShow)
+            if (sceneName.Split('?')[1] == "random")
             {
-                GameObject.Find("Window").transform.Find("StatusWindow").gameObject.SetActive(true);
-                GameObject.Find("MenuWindow").transform.Find("MenuButtons").transform.Find("Status").GetComponentInChildren<Text>().text = "ステータスを非表示";
+                EnemyController.monster_num = -1;
             }
-            foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))
+            else
             {
-                if (strongBoxes.ContainsKey(strongBox.name))
-                {
-                    strongBox.GetComponent<OpenBoxContoroller>().isOpen = strongBoxes[strongBox.name];
-                }
+                EnemyController.monster_num = int.Parse(sceneName.Split('?')[1]);
             }
+            sceneName = sceneName.Split('?')[0];
         }
-        else if(scene.name == "battle")
+        if (isFade)
         {
-            LogController.logController = GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>();
-            AlertController.alertController = GameObject.Find("BattleField").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-        }else if (scene.name == "title")
+            StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(LoadScene, sceneName));
+        }
+        else
         {
-            AlertController.alertController = GameObject.Find("Title").transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-            //プレイヤーの初期化
+            LoadScene(sceneName);
         }
     }
 
-    public void OnSceneUnloaded(Scene scene)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "battle" && scene.name != "title")
+        {
+            root = GameObject.Find("Window");
+            LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+            AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            GameObject.Find("Player").GetComponent<Animator>().enabled = true;
+            if (isStateShow)
+            {
+                root.transform.Find("StatusWindow").gameObject.SetActive(true);
+                GameObject.Find("MenuWindow").transform.Find("MenuButtons").transform.Find("Status").GetComponentInChildren<Text>().text = "ステータスを非表示";
+            }
+            mainSceneName = scene.name;
+        }
+        else if(scene.name == "battle")
+        {
+            root = GameObject.Find("BattleField");
+            LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
+            AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+        }
+        else if (scene.name == "title")
+        {
+            root = GameObject.Find("Title");
+            AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
+            PlayerContoroller.player_status = defaultStatus;
+            PlayerContoroller.my_items.Clear();
+            GameObject.Find("Player").transform.position = new Vector2(42, 50);
+            isStateShow = false;
+            strongBoxes.Clear();
+        }
+    }
+
+    void OnSceneUnloaded(Scene scene)
     {
         if (scene.name != "battle" && scene.name != "title")
         {
             isStateShow = GameObject.Find("StatusWindow") != null;
             foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))
             {
-                if (strongBoxes.ContainsKey(strongBox.name))
-                {
-                    strongBoxes[strongBox.name] = strongBox.GetComponent<OpenBoxContoroller>().isOpen;
-                }
-                else
-                {
-                    strongBoxes.Add(strongBox.name, strongBox.GetComponent<OpenBoxContoroller>().isOpen);
+                if (!strongBoxes.Contains(strongBox.name)) {
+                    if (strongBox.GetComponent<OpenBoxContoroller>().isOpen) {
+                        strongBoxes.Add(strongBox.name);
+                    }
                 }
             }
         }
     }
-
+    
     public void Save()
     {
         OnSceneUnloaded(SceneManager.GetActiveScene());
@@ -110,7 +144,7 @@ public class GameManager : MonoBehaviour
         string player_name = PlayerContoroller.player_name;
         string scene_name = SceneManager.GetActiveScene().name;
         string statusWindow = isStateShow.ToString();
-        string strongBoxStatus = JsonUtility.ToJson(new Serialization<string, bool>(strongBoxes), true);
+        string strongBoxStatus = JsonUtility.ToJson(new Serialization<string>(strongBoxes), true);
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add("player_status", player_status);
         data.Add("player_position", player_position);
@@ -155,7 +189,7 @@ public class GameManager : MonoBehaviour
                     my_items = JsonUtility.FromJson<Serialization<int>>(data[key]).ToList();
                     break;
                 case "strongBoxes":
-                    strongBoxes = JsonUtility.FromJson<Serialization<string, bool>>(data[key]).ToDictionary();
+                    strongBoxes = JsonUtility.FromJson<Serialization<string>>(data[key]).ToList();
                     break;
                 case "isStateShow":
                     if (data[key] == "True")
@@ -173,7 +207,7 @@ public class GameManager : MonoBehaviour
         PlayerContoroller.player_name = player_name;
         PlayerContoroller.my_items = my_items;
         GameObject.Find("Player").GetComponent<Transform>().position = player_position;
-        SceneChange(scene_name);
+        SceneChange(scene_name,true);
     }
 
     // List<T>

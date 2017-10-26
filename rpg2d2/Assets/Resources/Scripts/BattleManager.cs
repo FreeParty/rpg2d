@@ -81,7 +81,7 @@ public class BattleManager : MonoBehaviour
         if (e_damage.isCelanHit)
         {
             messages = new string[] { "会心の一撃！\n" + EnemyController.monster_name + "に" + e_damage.damage + "のダメージを与えた" };
-            sound_box.GetComponent<BattleSoundsController>().Attack();
+            sound_box.GetComponent<BattleSoundsController>().Critical();
         }
         else
         {
@@ -93,6 +93,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { EnemyController.monster_name + "は攻撃をかわした！" };
+		sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
         
@@ -123,7 +124,7 @@ public class BattleManager : MonoBehaviour
         if (p_damage.isCelanHit)
         {
             messages = new string[] { "痛恨の一撃！\n" + EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
-            sound_box.GetComponent<BattleSoundsController>().Attack();
+            sound_box.GetComponent<BattleSoundsController>().Critical();
         }
         else
         {
@@ -135,6 +136,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
+		sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
 
@@ -169,7 +171,7 @@ public class BattleManager : MonoBehaviour
         if (p_damage.isCelanHit)
         {
             messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n痛恨の一撃！\n" + EnemyController.monster_name + "から" + guard_damage + "のダメージを受けた。" };
-            sound_box.GetComponent<BattleSoundsController>().Attack();
+            sound_box.GetComponent<BattleSoundsController>().Critical();
         }
         else
         {
@@ -181,6 +183,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n"+PlayerContoroller.player_name + "は攻撃を防いだ！" };
+		sound_box.GetComponent<BattleSoundsController>().Guard();
             }
         }
         
@@ -203,7 +206,7 @@ public class BattleManager : MonoBehaviour
         if (p_damage.isCelanHit)
         {
             messages = new string[] { "痛恨の一撃！\n" + EnemyController.monster_name + "から" + p_damage.damage + "のダメージを受けた。" };
-            sound_box.GetComponent<BattleSoundsController>().Attack();
+            sound_box.GetComponent<BattleSoundsController>().Critical();
         }
         else
         {
@@ -215,6 +218,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
+		sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
         
@@ -289,9 +293,12 @@ public class BattleManager : MonoBehaviour
 
 	        if (runflag){
 			runcounter = 0;
-			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(new LogController.Callback(BattleManager.BackField));
-		}else
+			sound_box.GetComponent<BattleSoundsController>().Run();
+			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(BackField);
+		}else{
+			sound_box.GetComponent<BattleSoundsController>().Run();
 			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。\nしかし 回り込まれてしまった！" }).then(AttackToPlayer_Run);
+		}
 	}
 	else
 		LogController.logController.printText(new string[] { EnemyController.monster_name + "からは逃げることはできない！" }).then(AttackToPlayer_Run);
@@ -365,7 +372,7 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("GameManager").GetComponent<GameManager>().Load();
                 break;
             case "いいえ":
-                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main");
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main",true);
                 break;
         }
     }
@@ -378,11 +385,13 @@ public class BattleManager : MonoBehaviour
 
     public void Player_die()
     { // player死亡時に呼ばれる
+	sound_box.GetComponent<BattleSoundsController>().Dead();
         LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は死んでしまった。" }).then(AlertCallback);
     }
 
     public void Enemy_die()
     { // enemy 死亡時に呼ばれる
+	sound_box.GetComponent<BattleSoundsController>().Dead();
         PlayerContoroller.player_status["exp"] += EnemyController.enemy_status["get_exp"];
         PlayerContoroller.player_status["money"] += EnemyController.enemy_status["get_money"];
 
@@ -483,15 +492,16 @@ public class BattleManager : MonoBehaviour
 
     public void Drop()
     {
+	sound_box.GetComponent<BattleSoundsController>().Drop();
         PlayerContoroller.my_items.Add(EnemyController.enemy_status["drop"]);
         LogController.logController.printText(new string[]{string.Format(string.Format ("{0}は{1}を落としていった！\n{2}は{1}を手に入れた",
-            EnemyController.monster_name, OpenBoxContoroller.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name))})
+            EnemyController.monster_name, ItemList.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name))})
             .then(new LogController.Callback(BackField));
     }
 
-    public static void BackField()
+    public void BackField()
     {
-        SceneManager.LoadScene("Scene/" + SceneManager2d.current_scene);
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName,true);
     }
 
 	public void UseItem(ItemList.Items item)

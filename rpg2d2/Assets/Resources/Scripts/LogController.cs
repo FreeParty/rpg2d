@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class LogController : MonoBehaviour
 {
-    private bool printed;
-    private int counter;
-    private string[] log;
-    private float timeElapsed;
+    bool printed;
+    int counter;
+    string[] log;
+    float timeElapsed;
     public static LogController logController;
     Text logBody;
 
@@ -20,36 +20,46 @@ public class LogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-        if (!printed && timeElapsed > 0.1 && logBody.text.Length < log[counter].Length)
+        if (log != null)
         {
-            logBody.text = log[counter].Substring(0, logBody.text.Length + 1);
-            if (counter == log.Length - 1 && logBody.text.Length == log[counter].Length) printed = true;
-            timeElapsed = 0;
+            timeElapsed += Time.deltaTime;
+            if (!printed && timeElapsed > 0.1 && logBody.text.Length < log[counter].Length)
+            {
+                logBody.text = log[counter].Substring(0, logBody.text.Length + 1);
+                if (counter == log.Length - 1 && logBody.text.Length == log[counter].Length)
+                {
+                    printed = true;
+                }
+                timeElapsed = 0;
+            }
         }
     }
 
-    public void Next()
+    void Next()
     {
-        if (printed)
+        if (log != null)
         {
-            gameObject.SetActive(false);
-            if (callbackList.Count > 0)
+            if (printed)
             {
-                Callback function = callbackList[0];
-                callbackList.RemoveAt(0);
-                function();
+                gameObject.SetActive(false);
+                log = null;
+                if (callbackList.Count > 0)
+                {
+                    Callback function = callbackList[0];
+                    callbackList.RemoveAt(0);
+                    function();
+                }
             }
-        }
-        else if (GetComponentInChildren<Text>().text.Length == log[counter].Length)
-        {
-            counter++;
-            GetComponentInChildren<Text>().text = "";
-        }
-        else
-        {
-            GetComponentInChildren<Text>().text = log[counter];
-            if (counter == log.Length - 1) printed = true;
+            else if (GetComponentInChildren<Text>().text.Length == log[counter].Length)
+            {
+                counter++;
+                GetComponentInChildren<Text>().text = "";
+            }
+            else
+            {
+                GetComponentInChildren<Text>().text = log[counter];
+                if (counter == log.Length - 1) printed = true;
+            }
         }
     }
 
