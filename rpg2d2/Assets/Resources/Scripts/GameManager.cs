@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
             case "title":
                 break;
             case "map_station":
-            case "dendai_rest":
+            case "map_dendai_rest":
                 GameObject.Find("Player").GetComponent<EncountController>().enabled = true;
                 goto default;
             default:
