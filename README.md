@@ -1,6 +1,6 @@
 # rpg2d
 情報通信プロジェクトC班自由制作課題
-「ADACHI KU EST　~そして電大へ~」
+「ADACHI KU EST　\~そして電大へ\~」
 
 ### Unity
 Version 2017.2.0f3
