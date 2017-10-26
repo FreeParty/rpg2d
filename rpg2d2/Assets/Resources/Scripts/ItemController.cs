@@ -8,14 +8,18 @@ public class ItemController : MonoBehaviour
 {
 
     GameObject statusWindow;
+    GameObject root;
+	  BattleManager bm;
 
     // Use this for initialization
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "battle")
-        {
-            statusWindow = GameObject.Find("StatusWindowInBattle");
-        }
+		if (SceneManager.GetActiveScene ().name == "battle") 
+		{
+			root = GameObject.Find ("BattleField");
+			statusWindow = GameObject.Find ("StatusWindowInBattle");
+			bm = GameObject.Find ("Management").GetComponent<BattleManager> ();
+		}
         else
         {
             statusWindow = GameObject.Find("Window").transform.Find("StatusWindow").gameObject;
@@ -33,7 +37,6 @@ public class ItemController : MonoBehaviour
         ToggleGroup toggleGroup = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
         if (toggleGroup.AnyTogglesOn())
         {
-            string usedItemName = "";
             foreach (Toggle itemObj in toggleGroup.ActiveToggles())
             {
                 List<int> my_items = PlayerContoroller.my_items;
@@ -43,20 +46,26 @@ public class ItemController : MonoBehaviour
                     if (itemNo == my_items[i])
                     {
                         ItemList.Items item = ItemList.item_table[itemNo];
-                        switch (item.item_type) //　アイテムを使う処理
-                        {
-                            case (int)ItemList.Eff.Hp_heal:
-                                PlayerContoroller.player_status["hp"] += item.item_effect;
-                                break;
-
-                        }
-                        usedItemName = item.item_name;
+						if (SceneManager.GetActiveScene ().name == "battle")  //戦闘シーんのとき
+						{
+							bm.UseItem(item);
+						}
+						else // 戦闘フィールド以外でアイテムを使った処理
+						{
+							switch (item.item_type) // アイテムを使う処理
+							{
+								case (int)ItemList.Eff.Hp_heal:
+									PlayerContoroller.player_status["hp"] += item.item_effect;
+									break;
+							}
+							LogController.logController.printText(new string[] { item.item_name + "を使った" });
+						}
                         my_items.Remove(my_items[i]);
                         break;
                     }
                 }
             }
-            LogController.logController.printText(new string[] { usedItemName + "を使った" }).then(new LogController.Callback(Back));
+			Back ();
             statusWindow.GetComponent<StatusController>().Print();
         }
     }
@@ -110,4 +119,5 @@ public class ItemController : MonoBehaviour
     {
         AlertController.alertController.ShowAlertByOptions("捨てる", "本当に捨てますか？", new string[] { "はい", "いいえ" }, RemoveCallback);
     }
+
 }

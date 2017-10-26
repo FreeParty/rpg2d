@@ -5,9 +5,10 @@ using UnityEngine;
 public class ItemList : MonoBehaviour {
 
 	public static List<Items> item_table = new List<Items>(){
-		new Items (0, "なし", 0, (int)scene.Default, (int)Eff.Default, 0,"Images/test",""),
-		new Items (1, "やくそう", 0, (int)scene.Battle, (int)Eff.Hp_heal, 30,"Images/test","HPを30回復する"),
-		new Items (2, "火炎瓶", 0, (int)scene.Battle, (int)Eff.Hp_damage, 30,"Images/test","相手に30ダメージを与える"),
+		//        1,id  2,Name 		3,cost 	4,Scene					5,type					6,effect	7,path				8,description
+		new Items (0,	"なし",		0, 		(int)scene.Default, 	(int)Eff.Default, 		0,			"Images/test",		""),
+		new Items (1,	"やくそう",	0, 		(int)scene.Battle, 		(int)Eff.Hp_heal, 		30,			"Images/test",		"HPを30回復する"),
+		new Items (2,	"火炎瓶",		0, 		(int)scene.Battle, 		(int)Eff.Hp_damage, 	30,			"Images/test",		"相手に30ダメージを与える"),
 	};
 
     public static string ItemName(int id)
@@ -37,7 +38,7 @@ public class ItemList : MonoBehaviour {
 	enum scene {
 		Default,
 		Battle,
-		field,
+		Field,
 	}
 
 

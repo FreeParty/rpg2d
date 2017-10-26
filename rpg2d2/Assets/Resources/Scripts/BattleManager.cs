@@ -27,8 +27,10 @@ public class BattleManager : MonoBehaviour
     public GameObject b_button;
     public GameObject sound_box;
     public GameObject commands;
+	ItemController ic;
 
     int runcounter = 0;
+	bool isUsedItem = false;
 
     public class IntAndBool
     {
@@ -73,6 +75,7 @@ public class BattleManager : MonoBehaviour
         }
         Texture2D texture = Resources.Load(imgPath) as Texture2D;
         GameObject.Find("BattleField").GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+		ic = GameObject.Find("ItemController").GetComponent<ItemController>();
     }
 
     public void StatusUpdate()
@@ -84,6 +87,7 @@ public class BattleManager : MonoBehaviour
     {
         IntAndBool e_damage = E_damage();
         EnemyController.enemy_status["hp"] -= e_damage.damage;
+		Debug.Log ("attack2");
 
         string[] messages;
         if (e_damage.isCelanHit)
@@ -147,27 +151,31 @@ public class BattleManager : MonoBehaviour
 		sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
-        
-        if (PlayerContoroller.player_status["hp"] > 0)
-        {
-            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
-            {
-                LogController.logController.printText(messages).then(ToggleCommands);
-            }
-            else //AttackToPlayer => AttackToEnemy => ToggleCommands
-            {
-                LogController.logController.printText(messages).then(AttackToEnemy);
-            }
-        }
-        else
-        {
-            LogController.logController.printText(messages).cancel(Player_die);
-        }
+
+		if (!isUsedItem) {
+			if (PlayerContoroller.player_status ["hp"] > 0) {
+				if (PlayerContoroller.player_status ["ag"] > EnemyController.enemy_status ["ag"]) { //AttackToEnemy => AttackToPlayer => ToggleCommands
+					Debug.Log ("attack6");
+					LogController.logController.printText (messages).then (ToggleCommands);
+				} else { //AttackToPlayer => AttackToEnemy => ToggleCommands
+					Debug.Log ("attack7");
+					LogController.logController.printText (messages).then (AttackToEnemy);
+				}
+			} else {
+				LogController.logController.printText (messages).cancel (Player_die);
+			}
+		} else { // 道具を使った時の処理
+			LogController.logController.printText (messages);
+			if (PlayerContoroller.player_status ["hp"] <= 0) {
+				LogController.logController.printText (messages).cancel (Player_die);
+			}
+			isUsedItem = false;
+		}
     }
     public void AttackToPlayer_Guard()
     {
         IntAndBool p_damage = P_damage();
-	int guard_damage = p_damage.damage *3/4;
+		int guard_damage = p_damage.damage *3/4;
         PlayerContoroller.player_status["hp"] -= guard_damage;
         StatusUpdate();
 
@@ -193,7 +201,7 @@ public class BattleManager : MonoBehaviour
         
         if (PlayerContoroller.player_status["hp"] > 0)
         {
-	    LogController.logController.printText(messages).then(ToggleCommands);
+			LogController.logController.printText(messages).then(ToggleCommands);
         }
         else
         {
@@ -268,14 +276,14 @@ public class BattleManager : MonoBehaviour
     public void Guard()
     {
         ToggleCommands();
-	AttackToPlayer_Guard();
+		AttackToPlayer_Guard();
     }
 
     // にげる が押された時に発火
     public void Runaway()
     {
 	Boolean runflag = false;
-        ToggleCommands();
+    ToggleCommands();
 	if(EnemyController.enemy_status["type"] == 0){	//ボスフラグ判定
 		if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //確定逃げ
 			runflag = true;
@@ -475,15 +483,20 @@ public class BattleManager : MonoBehaviour
         int random = UnityEngine.Random.Range(0, 100);
         switch (EnemyController.enemy_status["drop_pro"])
         {
+			case 0:
+				if (random <= 99) return true; // 100/100
+				break;
             case 1:
-                if (random <= 99) return true;
+                if (random <= 99) return true; // 10/100
                 break;
             case 2:
-                if (random <= 99) return true;
+                if (random <= 99) return true; // 20/100
                 break;
             case 3:
-                if (random <= 99) return true;
+                if (random <= 99) return true; // 50/100
                 break;
+			default:
+				break;
         }
         return false;
     }
@@ -502,4 +515,27 @@ public class BattleManager : MonoBehaviour
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().BackScene(true);
     }
+
+	public void UseItem(ItemList.Items item)
+	{
+		int num = 0;
+		isUsedItem = true;
+		switch (item.item_type)
+		{
+			case (int)ItemList.Eff.Hp_heal:
+				num = item.item_effect;
+				PlayerContoroller.player_status ["hp"] += item.item_effect;
+				LogController.logController.printText (new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then(AttackToPlayer);
+				break;
+			case (int)ItemList.Eff.Hp_damage:
+				num = item.item_effect;
+				EnemyController.enemy_status ["hp"] -= num;
+				if (EnemyController.enemy_status ["hp"] < 0) {
+					LogController.logController.printText (new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + num + "のダメージ！"  }).cancel (Enemy_die);
+				} else {
+					LogController.logController.printText (new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + num + "のダメージ！"  }).then (AttackToPlayer);
+				}
+				break;
+		}
+	}
 }
