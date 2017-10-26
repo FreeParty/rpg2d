@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
 	};
 	public static string monster_name = "";
     public static int monster_num = -1;
-    string mainSceneName;
+    string prevSceneName;
 
     // Use this for initialization
     void Start() {
@@ -29,18 +29,42 @@ public class EnemyController : MonoBehaviour {
         {
             monster_num = selectRandomMonster(monster_list);
         }
+        else
+        {
+            for(int i = 0;i < monster_list.GetLength(0); i++)
+            {
+                if(int.Parse(monster_list[i,0]) == monster_num)
+                {
+                    monster_num = i;
+                    break;
+                }
+            }
+        }
         setEnemyStatus(monster_list, monster_num);
         GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + " があらわれた！！\n" }).then(BattleManager.ToggleCommands); // 名前をlogにセット
     }
 
     string[,] GetMonsterList()
     {
-        string mainSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().mainSceneName;
-        switch (mainSceneName)
+        string prevSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName;
+        switch (prevSceneName)
         {
+            case "map_west":
+                 return EnemiesData.westSceneMonsters;
+            case "map_east":
+                return EnemiesData.eastSceneMonsters;
+            case "map_dendai2_1":
+                return EnemiesData.dendai2_1SceneMonsters;
+            case "map_dendai2_2":
+                return EnemiesData.dendai2_2SceneMonsters;
+            case "map_dendai1_1":
+                return EnemiesData.dendai1_1SceneMonsters;
+            case "map_dendai1_2":
+                return EnemiesData.dendai1_2SceneMonsters;
+            case "map_dendai1_3":
+                return EnemiesData.dendai1_3SceneMonsters;
             default:
-                mainSceneName = "main";
-                 return EnemiesData.mainSceneMonsters;
+                return EnemiesData.mainSceneMonsters;
         }
 
     }
@@ -53,15 +77,21 @@ public class EnemyController : MonoBehaviour {
 
 	public int selectRandomMonster(string[,] ml)
 	{
-		return Random.Range(0, ml.GetLength(0));
+        int mn = Random.Range(0, ml.GetLength(0));
+        if (int.Parse(ml[mn, 0]) < 0)
+        {
+            return selectRandomMonster(ml);
+        }
+        else return mn;
 	}
 
 //[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]type, [8] drop_no, [9] get_exp, [10] get_money, 
 
 	void setEnemyStatus(string [,] ml, int mn){
 		monster_name = ml[mn, 1];
-		GetComponent<Image> ().sprite = GetSprite("enemys/" + mainSceneName, ml[mn, 0]);
-		enemy_status["hp"] = int.Parse(ml [mn, 2]);
+        GetComponent<Image> ().sprite = GetSprite("enemys/main", "0");
+        //GetComponent<Image> ().sprite = GetSprite("enemys/" + prevSceneName, ml[mn, 0]);
+        enemy_status["hp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mp"] = int.Parse(ml [mn, 3]);
 		enemy_status["mmp"] = int.Parse(ml [mn, 3]);
