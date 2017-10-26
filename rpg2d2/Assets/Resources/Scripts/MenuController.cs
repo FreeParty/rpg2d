@@ -50,7 +50,7 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-	        GameObject.Find("BGM Source").GetComponent<BGMcontroller>().MenuOpen();
+            GameObject.Find("BGM Source").GetComponent<BGMcontroller>().MenuOpen();
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 220);
             GameObject.Find("MenuWindow").transform.Find("MenuButtons").gameObject.SetActive(true);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "閉じる";
