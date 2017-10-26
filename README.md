@@ -7,9 +7,9 @@ Version 2017.2.0f3
 
 # 使用素材  
 ※敬称略  
-- 画像素材  
-  - なにかしらツク～ル  
-    - http://nanikasiratkool.web.fc2.com/index.html  
+- 画像素材  
+  - なにかしらツク～ル  
+    - http://nanikasiratkool.web.fc2.com/index.html  
   - ドット絵世界  
     - http://yms.main.jp/index.html  
   - エターナラーのツクール  
