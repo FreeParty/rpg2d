@@ -29,6 +29,16 @@ public class EnemyController : MonoBehaviour {
         {
             monster_num = selectRandomMonster(monster_list);
         }
+        else
+        {
+            for(int i = 0;i < monster_list.GetLength(0); i++)
+            {
+                if(int.Parse(monster_list[i,0]) == monster_num)
+                {
+                    monster_num = i;
+                }
+            }
+        }
         setEnemyStatus(monster_list, monster_num);
         GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + " があらわれた！！\n" }).then(BattleManager.ToggleCommands); // 名前をlogにセット
     }
@@ -78,7 +88,7 @@ public class EnemyController : MonoBehaviour {
 
 	void setEnemyStatus(string [,] ml, int mn){
 		monster_name = ml[mn, 1];
-        GetComponent<Image> ().sprite = GetSprite("enemys/main", ml[0, 0]);
+        GetComponent<Image> ().sprite = GetSprite("enemys/main", "0");
         //GetComponent<Image> ().sprite = GetSprite("enemys/" + prevSceneName, ml[mn, 0]);
         enemy_status["hp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
