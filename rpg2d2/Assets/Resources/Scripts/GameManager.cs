@@ -36,14 +36,13 @@ public class GameManager : MonoBehaviour
                     AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
                     break;
                 case "map_station":
-                case "dendai_rest":
+                case "map_dendai_rest":
                     GameObject.Find("Player").GetComponent<EncountController>().enabled = false;
                     goto default;
                 default:
                     root = GameObject.Find("Window");
                     LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
                     AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
-                    GameObject.Find("Player").GetComponent<EncountController>().enabled = true;
                     break;
             }
         }
@@ -112,7 +111,7 @@ public class GameManager : MonoBehaviour
                 strongBoxes.Clear();
                 break;
             case "map_station":
-            case "dendai_rest":
+            case "map_dendai_rest":
                 GameObject.Find("Player").GetComponent<EncountController>().enabled = false;
                 goto default;
             default:
