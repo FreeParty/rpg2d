@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Introduction : MonoBehaviour {
 
-    public string fileName = "test.txt";
+    public string fileName = "introduction.txt";
     private string firstSceneName = "map_station";
 
     // Use this for initialization
