@@ -10,6 +10,7 @@ public class Introduction : MonoBehaviour {
     // Use this for initialization
     void Start () {
         StartCoroutine(Show());
+        GameObject.Find("Player").GetComponent<SpriteRenderer>().sortingOrder = 14;
     }
 	
 	// Update is called once per frame
@@ -19,6 +20,7 @@ public class Introduction : MonoBehaviour {
 
     public void ShowCallback()
     {
+        GameObject.Find("Player").GetComponent<SpriteRenderer>().sortingOrder = 4;
         GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("map_station", true);
     }
 
