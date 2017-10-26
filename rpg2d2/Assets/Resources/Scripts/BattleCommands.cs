@@ -55,7 +55,7 @@ public class BattleCommands : MonoBehaviour
                 GameObject item = Instantiate(ItemButton) as GameObject;
                 item.GetComponentInChildren<ItemToggleController>().itemNo = itemNo;
                 item.GetComponentInChildren<Toggle>().group = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
-                item.GetComponentInChildren<Text>().text = ItemList.item_table[itemNo].item_name;
+                item.GetComponentInChildren<Text>().text = ItemList.ItemName(itemNo);
                 item.transform.SetParent(parent, false);
             }
         }

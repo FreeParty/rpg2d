@@ -30,7 +30,7 @@ public class BattleManager : MonoBehaviour
 	ItemController ic;
 
     int runcounter = 0;
-	bool isUsedItem = false;
+	public bool isUsedItem = false;
 
     public class IntAndBool
     {
@@ -148,29 +148,28 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
-		sound_box.GetComponent<BattleSoundsController>().Miss();
+                sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
 
-		if (!isUsedItem) {
-			if (PlayerContoroller.player_status ["hp"] > 0) {
-				if (PlayerContoroller.player_status ["ag"] > EnemyController.enemy_status ["ag"]) { //AttackToEnemy => AttackToPlayer => ToggleCommands
-					Debug.Log ("attack6");
-					LogController.logController.printText (messages).then (ToggleCommands);
-				} else { //AttackToPlayer => AttackToEnemy => ToggleCommands
-					Debug.Log ("attack7");
-					LogController.logController.printText (messages).then (AttackToEnemy);
-				}
-			} else {
-				LogController.logController.printText (messages).cancel (Player_die);
-			}
-		} else { // 道具を使った時の処理
-			LogController.logController.printText (messages);
-			if (PlayerContoroller.player_status ["hp"] <= 0) {
-				LogController.logController.printText (messages).cancel (Player_die);
-			}
-			isUsedItem = false;
-		}
+        if (PlayerContoroller.player_status["hp"] > 0)
+        {
+            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]  || isUsedItem)
+            { //AttackToEnemy => AttackToPlayer => ToggleCommands
+                Debug.Log("attack6");
+                LogController.logController.printText(messages).then(ToggleCommands);
+                if (isUsedItem) isUsedItem = false;
+            }
+            else
+            { //AttackToPlayer => AttackToEnemy => ToggleCommands
+                Debug.Log("attack7");
+                LogController.logController.printText(messages).then(AttackToEnemy);
+            }
+        }
+        else
+        {
+            LogController.logController.printText(messages).cancel(Player_die);
+        }
     }
     public void AttackToPlayer_Guard()
     {
@@ -484,16 +483,15 @@ public class BattleManager : MonoBehaviour
         switch (EnemyController.enemy_status["drop_pro"])
         {
 			case 0:
-				if (random <= 99) return true; // 100/100
-				break;
+				return true; // 100/100
             case 1:
-                if (random <= 99) return true; // 10/100
+                if (random <= 10) return true; // 10/100
                 break;
             case 2:
-                if (random <= 99) return true; // 20/100
+                if (random <= 20) return true; // 20/100
                 break;
             case 3:
-                if (random <= 99) return true; // 50/100
+                if (random <= 50) return true; // 50/100
                 break;
 			default:
 				break;
@@ -515,27 +513,4 @@ public class BattleManager : MonoBehaviour
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().BackScene(true);
     }
-
-	public void UseItem(ItemList.Items item)
-	{
-		int num = 0;
-		isUsedItem = true;
-		switch (item.item_type)
-		{
-			case (int)ItemList.Eff.Hp_heal:
-				num = item.item_effect;
-				PlayerContoroller.player_status ["hp"] += item.item_effect;
-				LogController.logController.printText (new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then(AttackToPlayer);
-				break;
-			case (int)ItemList.Eff.Hp_damage:
-				num = item.item_effect;
-				EnemyController.enemy_status ["hp"] -= num;
-				if (EnemyController.enemy_status ["hp"] < 0) {
-					LogController.logController.printText (new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + num + "のダメージ！"  }).cancel (Enemy_die);
-				} else {
-					LogController.logController.printText (new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + num + "のダメージ！"  }).then (AttackToPlayer);
-				}
-				break;
-		}
-	}
 }
