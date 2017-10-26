@@ -40,7 +40,6 @@ public class LogController : MonoBehaviour
 
     void Next()
     {
-        print("aa");
         if (log != null)
         {
             if (printed)

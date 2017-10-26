@@ -61,6 +61,18 @@ public class BattleManager : MonoBehaviour
             sound_box = GameObject.Find("BattleSounds");
         }
         StatusUpdate();
+
+        string imgPath = "";
+        switch (GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName)
+        {
+            case "map_east": imgPath = "Materials/back1";
+                    break;
+            default:
+                imgPath = "Materials/field1";
+                break;
+        }
+        Texture2D texture = Resources.Load(imgPath) as Texture2D;
+        GameObject.Find("BattleField").GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
     }
 
     public void StatusUpdate()
