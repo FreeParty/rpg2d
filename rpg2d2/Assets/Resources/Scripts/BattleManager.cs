@@ -120,7 +120,6 @@ public class BattleManager : MonoBehaviour
         IntAndBool p_damage = P_damage();
         PlayerContoroller.player_status["hp"] -= p_damage.damage;
         StatusUpdate();
-		Debug.Log ("attack1");
 
         string[] messages;
         if (p_damage.isCelanHit)
@@ -154,8 +153,7 @@ public class BattleManager : MonoBehaviour
 				LogController.logController.printText (messages).cancel (Player_die);
 			}
 		} else { // 道具を使った時の処理
-			Debug.Log ("attac5");
-			LogController.logController.printText (messages).then (ToggleCommands);
+			LogController.logController.printText (messages);
 			if (PlayerContoroller.player_status ["hp"] <= 0) {
 				LogController.logController.printText (messages).cancel (Player_die);
 			}
@@ -271,7 +269,7 @@ public class BattleManager : MonoBehaviour
     public void Runaway()
     {
 	Boolean runflag = false;
-        ToggleCommands();
+    ToggleCommands();
 	if(EnemyController.enemy_status["type"] == 0){	//ボスフラグ判定
 		if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //確定逃げ
 			runflag = true;
@@ -504,11 +502,10 @@ public class BattleManager : MonoBehaviour
 		isUsedItem = true;
 		switch (item.item_type)
 		{
-		case (int)ItemList.Eff.Hp_heal:
-			Debug.Log ("usss");
+			case (int)ItemList.Eff.Hp_heal:
 				num = item.item_effect;
 				PlayerContoroller.player_status ["hp"] += item.item_effect;
-			LogController.logController.printText (new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then (AttackToPlayer).then(ic.Back);
+				LogController.logController.printText (new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then(AttackToPlayer);
 				break;
 			case (int)ItemList.Eff.Hp_damage:
 				num = item.item_effect;

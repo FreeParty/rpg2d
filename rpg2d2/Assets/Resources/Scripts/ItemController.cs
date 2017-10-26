@@ -59,32 +59,29 @@ public class ItemController : MonoBehaviour
 									PlayerContoroller.player_status["hp"] += item.item_effect;
 									break;
 							}
-							LogController.logController.printText(new string[] { item.item_name + "を使った" }).then(new LogController.Callback(Back));
+							LogController.logController.printText(new string[] { item.item_name + "を使った" });
 						}
                         my_items.Remove(my_items[i]);
                         break;
                     }
                 }
             }
-
+			Back ();
             statusWindow.GetComponent<StatusController>().Print();
         }
     }
 
     public void Back()
     {
-		Debug.Log ("4");
         GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
         GameObject.Find("ItemImage").GetComponent<Image>().sprite = null;
         if (SceneManager.GetActiveScene().name == "battle")
         {
-			Debug.Log ("5");
             BattleManager.ToggleCommands();
             GameObject.Find("ItemListInBattle").SetActive(false);
         }
         else
         {
-			Debug.Log ("6");
             GameObject.Find("Items").GetComponentInChildren<Text>().text = "どうぐ";
             MenuController.CloseMenu();
         }
@@ -95,7 +92,6 @@ public class ItemController : MonoBehaviour
         switch (option)
         {
             case "はい":
-			Debug.Log ("2");
                 ToggleGroup toggleGroup = GameObject.Find("ItemContainer").GetComponent<ToggleGroup>();
                 if (toggleGroup.AnyTogglesOn())
                 {
@@ -116,14 +112,12 @@ public class ItemController : MonoBehaviour
                 Back();
                 break;
             case "いいえ":
-			Debug.Log ("3");
                 break;
         }
     }
 
     public void Remove()
     {
-		Debug.Log ("1");
         AlertController.alertController.ShowAlertByOptions("捨てる", "本当に捨てますか？", new string[] { "はい", "いいえ" }, RemoveCallback);
     }
 
