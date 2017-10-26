@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour {
 	public static string monster_name = "";
     public static int monster_num = -1;
     string prevSceneName;
+    string[] encountStr = new string[] {"からまれた","殴り掛かられた","喧嘩を売られた","ガンを飛ばされた"};
 
     // Use this for initialization
     void Start() {
@@ -41,7 +42,7 @@ public class EnemyController : MonoBehaviour {
             }
         }
         setEnemyStatus(monster_list, monster_num);
-        GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + " があらわれた！！\n" }).then(BattleManager.ToggleCommands); // 名前をlogにセット
+        GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + "に" + encountStr[Random.Range(0, encountStr.Length - 1)] }).then(BattleManager.ToggleCommands); // 名前をlogにセット
     }
 
     string[,] GetMonsterList()

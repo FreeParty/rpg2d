@@ -87,7 +87,6 @@ public class BattleManager : MonoBehaviour
     {
         IntAndBool e_damage = E_damage();
         EnemyController.enemy_status["hp"] -= e_damage.damage;
-		Debug.Log ("attack2");
 
         string[] messages;
         if (e_damage.isCelanHit)
@@ -156,13 +155,11 @@ public class BattleManager : MonoBehaviour
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]  || isUsedItem)
             { //AttackToEnemy => AttackToPlayer => ToggleCommands
-                Debug.Log("attack6");
                 LogController.logController.printText(messages).then(ToggleCommands);
                 if (isUsedItem) isUsedItem = false;
             }
             else
             { //AttackToPlayer => AttackToEnemy => ToggleCommands
-                Debug.Log("attack7");
                 LogController.logController.printText(messages).then(AttackToEnemy);
             }
         }
