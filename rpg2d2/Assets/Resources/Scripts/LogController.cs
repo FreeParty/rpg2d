@@ -74,6 +74,7 @@ public class LogController : MonoBehaviour
 
     public LogController then(Callback function)
     {
+		Debug.Log ("zen");
         if(function != null) callbackList.Add(function);
         return this;
     }

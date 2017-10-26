@@ -30,6 +30,7 @@ public class BattleManager : MonoBehaviour
 	ItemController ic;
 
     int runcounter = 0;
+	bool isUsedItem = false;
 
     public class IntAndBool
     {
@@ -74,6 +75,7 @@ public class BattleManager : MonoBehaviour
     {
         IntAndBool e_damage = E_damage();
         EnemyController.enemy_status["hp"] -= e_damage.damage;
+		Debug.Log ("attack2");
 
         string[] messages;
         if (e_damage.isCelanHit)
@@ -98,10 +100,12 @@ public class BattleManager : MonoBehaviour
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
             {
+				Debug.Log ("attack3");
                 LogController.logController.printText(messages).then(AttackToPlayer);
             }
             else //AttackToPlayer => AttackToEnemy => ToggleCommands
             {
+				Debug.Log ("attack4");
                 LogController.logController.printText(messages).then(ToggleCommands);
             }
         }
@@ -116,6 +120,7 @@ public class BattleManager : MonoBehaviour
         IntAndBool p_damage = P_damage();
         PlayerContoroller.player_status["hp"] -= p_damage.damage;
         StatusUpdate();
+		Debug.Log ("attack1");
 
         string[] messages;
         if (p_damage.isCelanHit)
@@ -135,22 +140,27 @@ public class BattleManager : MonoBehaviour
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
             }
         }
-        
-        if (PlayerContoroller.player_status["hp"] > 0)
-        {
-            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
-            {
-                LogController.logController.printText(messages).then(ToggleCommands);
-            }
-            else //AttackToPlayer => AttackToEnemy => ToggleCommands
-            {
-                LogController.logController.printText(messages).then(AttackToEnemy);
-            }
-        }
-        else
-        {
-            LogController.logController.printText(messages).cancel(Player_die);
-        }
+
+		if (!isUsedItem) {
+			if (PlayerContoroller.player_status ["hp"] > 0) {
+				if (PlayerContoroller.player_status ["ag"] > EnemyController.enemy_status ["ag"]) { //AttackToEnemy => AttackToPlayer => ToggleCommands
+					Debug.Log ("attack6");
+					LogController.logController.printText (messages).then (ToggleCommands);
+				} else { //AttackToPlayer => AttackToEnemy => ToggleCommands
+					Debug.Log ("attack7");
+					LogController.logController.printText (messages).then (AttackToEnemy);
+				}
+			} else {
+				LogController.logController.printText (messages).cancel (Player_die);
+			}
+		} else { // 道具を使った時の処理
+			Debug.Log ("attac5");
+			LogController.logController.printText (messages).then (ToggleCommands);
+			if (PlayerContoroller.player_status ["hp"] <= 0) {
+				LogController.logController.printText (messages).cancel (Player_die);
+			}
+			isUsedItem = false;
+		}
     }
     public void AttackToPlayer_Guard()
     {
@@ -180,7 +190,7 @@ public class BattleManager : MonoBehaviour
         
         if (PlayerContoroller.player_status["hp"] > 0)
         {
-	    LogController.logController.printText(messages).then(ToggleCommands);
+			LogController.logController.printText(messages).then(ToggleCommands);
         }
         else
         {
@@ -490,15 +500,15 @@ public class BattleManager : MonoBehaviour
 
 	public void UseItem(ItemList.Items item)
 	{
-//		ToggleCommands ();
 		int num = 0;
-
+		isUsedItem = true;
 		switch (item.item_type)
 		{
-			case (int)ItemList.Eff.Hp_heal:
+		case (int)ItemList.Eff.Hp_heal:
+			Debug.Log ("usss");
 				num = item.item_effect;
-				PlayerContoroller.player_status["hp"] += item.item_effect;
-				LogController.logController.printText(new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then(AttackToPlayer).then(ic.Back);
+				PlayerContoroller.player_status ["hp"] += item.item_effect;
+			LogController.logController.printText (new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + num + "回復した！"  }).then (AttackToPlayer).then(ic.Back);
 				break;
 			case (int)ItemList.Eff.Hp_damage:
 				num = item.item_effect;
