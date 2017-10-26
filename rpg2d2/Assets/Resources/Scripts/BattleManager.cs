@@ -100,12 +100,10 @@ public class BattleManager : MonoBehaviour
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
             {
-				Debug.Log ("attack3");
                 LogController.logController.printText(messages).then(AttackToPlayer);
             }
             else //AttackToPlayer => AttackToEnemy => ToggleCommands
             {
-				Debug.Log ("attack4");
                 LogController.logController.printText(messages).then(ToggleCommands);
             }
         }

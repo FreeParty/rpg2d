@@ -75,7 +75,6 @@ public class LogController : MonoBehaviour
     public LogController then(Callback function)
     {
         if(function != null) callbackList.Add(function);
-		Debug.Log ("list is " + callbackList);
         return this;
     }
 
