@@ -9,12 +9,15 @@ public class Messeage : MonoBehaviour
 {
 
     public string fileName = "test.txt";
-    public bool encount = false;
+    public bool isEncount = false;
+    public bool isChangeDir = true;
+    Sprite[] sp;
+    public string spriteName = "Sprites/juelBox";
 
     // Use this for initialization
     void Start()
     {
-
+        sp = Resources.LoadAll<Sprite>(spriteName);
     }
 
     // Update is called once per frame
@@ -26,7 +29,7 @@ public class Messeage : MonoBehaviour
     public void Show()
     {
         LogController.Callback callback = null;
-        if (encount)
+        if (isEncount)
         {
             if (GetComponent<SymbolEncountContoller>() == null)
             {
@@ -36,6 +39,28 @@ public class Messeage : MonoBehaviour
             {
                 callback = GetComponent<SymbolEncountContoller>().Encount;
             }
+        }
+        if (isChangeDir)
+        {
+            int dir = 0;
+            Animator animator = GameObject.Find("Player").GetComponent<Animator>();
+            if (animator.GetBool("walkingUnder"))
+            {
+                dir = 9;
+            }
+            else if(animator.GetBool("walkingLeft"))
+            {
+                dir = 6;
+            }
+            else if (animator.GetBool("walkingTop"))
+            {
+                dir = 0;
+            }
+            else
+            {
+                dir = 3;
+            }
+            GetComponent<SpriteRenderer>().sprite = sp[dir];
         }
         LogController.logController.GetComponent<LogController>().printTextByFileName(fileName).then(callback);
     }

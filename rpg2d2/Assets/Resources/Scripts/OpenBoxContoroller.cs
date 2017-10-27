@@ -5,13 +5,14 @@ using UnityEngine;
 public class OpenBoxContoroller : MonoBehaviour {
 
 	public int item_id = 1;
-	private Sprite[] sp;
+    public string spriteName = "Sprites/juelBox";
+	Sprite[] sp;
 	public bool isOpen = false;
 	AudioSource audio;
 
     void Start(){
         gameObject.tag = "StrongBox";
-		sp = Resources.LoadAll<Sprite>("Sprites/juelBox");
+		sp = Resources.LoadAll<Sprite>(spriteName);
 
         if (GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes != null && GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes.Contains(gameObject.name))
         {

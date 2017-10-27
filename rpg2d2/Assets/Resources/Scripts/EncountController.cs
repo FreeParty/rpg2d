@@ -29,7 +29,7 @@ public class EncountController : MonoBehaviour {
 
 	public void RandomEncount()
 	{
-		int num = Random.Range (1, 200);
+		int num = Random.Range (1, 1000);
 		if (num == 50) 
 		{
             Encount();
