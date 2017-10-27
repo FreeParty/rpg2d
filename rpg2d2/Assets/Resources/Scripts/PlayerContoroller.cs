@@ -29,6 +29,7 @@ public class PlayerContoroller : MonoBehaviour
     {
         if (GameObject.Find("Player") != gameObject)
         {
+            GameObject.Find("Player").GetComponent<EncountController>().enabled = gameObject.GetComponent<EncountController>().enabled;
             Destroy(gameObject);
         }
         else
