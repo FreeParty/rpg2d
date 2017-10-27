@@ -10,7 +10,7 @@ public class Messeage : MonoBehaviour
 
     public string fileName = "test.txt";
     public bool isEncount = false;
-    public bool isChangeDir = true;
+    public bool isFixed = true;
     Sprite[] sp;
     public string spriteName = "Sprites/juelBox";
 
@@ -40,7 +40,7 @@ public class Messeage : MonoBehaviour
                 callback = GetComponent<SymbolEncountContoller>().Encount;
             }
         }
-        if (isChangeDir)
+        if (!isFixed)
         {
             int dir = 0;
             Animator animator = GameObject.Find("Player").GetComponent<Animator>();
