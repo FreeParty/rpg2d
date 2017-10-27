@@ -12,7 +12,7 @@ public class Messeage : MonoBehaviour
     public bool isEncount = false;
     public bool isFixed = true;
     Sprite[] sp;
-    public string spriteName = "Sprites/juelBox";
+    public string spriteName = "Sprites/npc/893";
 
     // Use this for initialization
     void Start()
@@ -44,13 +44,14 @@ public class Messeage : MonoBehaviour
         {
             int dir = 0;
             Animator animator = GameObject.Find("Player").GetComponent<Animator>();
+	    int div = sp.Length / 4;
             if (animator.GetBool("walkingUnder"))
             {
-                dir = 9;
+                dir = div*3;
             }
             else if(animator.GetBool("walkingLeft"))
             {
-                dir = 6;
+                dir = div*2;
             }
             else if (animator.GetBool("walkingTop"))
             {
@@ -58,7 +59,7 @@ public class Messeage : MonoBehaviour
             }
             else
             {
-                dir = 3;
+                dir = div;
             }
             GetComponent<SpriteRenderer>().sprite = sp[dir];
         }
