@@ -105,7 +105,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { EnemyController.monster_name + "は攻撃をかわした！" };
-		sound_box.GetComponent<BattleSoundsController>().Miss();
+				sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
         
@@ -156,13 +156,11 @@ public class BattleManager : MonoBehaviour
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]  || isUsedItem)
             { //AttackToEnemy => AttackToPlayer => ToggleCommands
-                Debug.Log("attack6");
                 LogController.logController.printText(messages).then(ToggleCommands);
                 if (isUsedItem) isUsedItem = false;
             }
             else
             { //AttackToPlayer => AttackToEnemy => ToggleCommands
-                Debug.Log("attack7");
                 LogController.logController.printText(messages).then(AttackToEnemy);
             }
         }
@@ -229,7 +227,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
-		sound_box.GetComponent<BattleSoundsController>().Miss();
+			sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
         
