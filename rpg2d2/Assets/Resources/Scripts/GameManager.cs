@@ -35,10 +35,6 @@ public class GameManager : MonoBehaviour
                     root = GameObject.Find("Title");
                     AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
                     break;
-                case "map_station":
-                case "map_dendai_rest":
-                    GameObject.Find("Player").GetComponent<EncountController>().enabled = false;
-                    goto default;
                 default:
                     root = GameObject.Find("Window");
                     LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
@@ -110,10 +106,6 @@ public class GameManager : MonoBehaviour
                 isStateShow = false;
                 strongBoxes.Clear();
                 break;
-            case "map_station":
-            case "map_dendai_rest":
-                GameObject.Find("Player").GetComponent<EncountController>().enabled = false;
-                goto default;
             default:
                 root = GameObject.Find("Window");
                 LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
@@ -137,10 +129,6 @@ public class GameManager : MonoBehaviour
                 break;
             case "title":
                 break;
-            case "map_station":
-            case "map_dendai_rest":
-                GameObject.Find("Player").GetComponent<EncountController>().enabled = true;
-                goto default;
             default:
                 isStateShow = GameObject.Find("StatusWindow") != null;
                 foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))
