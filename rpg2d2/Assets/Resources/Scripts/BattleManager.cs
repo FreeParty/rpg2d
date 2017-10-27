@@ -439,6 +439,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+			InitStatus ();
             callback = BackField;
         }
 
@@ -535,4 +536,10 @@ public class BattleManager : MonoBehaviour
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().BackScene(true);
     }
+
+	public void InitStatus(){ // アイテムで上昇したステータスを初期化する
+		PlayerContoroller.player_status ["at"] = PlayerContoroller.player_status ["mat"];
+		PlayerContoroller.player_status ["df"] = PlayerContoroller.player_status ["mdf"];
+		PlayerContoroller.player_status ["ag"] = PlayerContoroller.player_status ["mag"];
+	}
 }
