@@ -20,8 +20,8 @@ public class BattleBGMcontroller : MonoBehaviour {
 			case 0:	//雑魚
 				audioSource.clip = Normal;
 				break;
-			case 1:	//逃げられない雑魚(後でNormalに差し替えます)
-				audioSource.clip = Boss;
+			case 1:	//逃げられない雑魚
+				audioSource.clip = Normal;
 				break;
 			case 2:	//ボス
 				audioSource.clip = Boss;

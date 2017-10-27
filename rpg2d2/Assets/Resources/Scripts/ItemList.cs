@@ -38,7 +38,7 @@ public class ItemList : MonoBehaviour {
 
     public static string ItemName(int id)
     {
-        string item_name = ItemList.item_table.Find(x => x.item_id == id).item_name;
+        string item_name = item_table.Find(x => x.item_id == id).item_name;
         return item_name;
     }
 

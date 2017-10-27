@@ -35,10 +35,6 @@ public class GameManager : MonoBehaviour
                     root = GameObject.Find("Title");
                     AlertController.alertController = root.transform.Find("AlertModal").gameObject.GetComponent<AlertController>();
                     break;
-                case "map_station":
-                case "map_dendai_rest":
-                    GameObject.Find("Player").GetComponent<EncountController>().enabled = false;
-                    goto default;
                 default:
                     root = GameObject.Find("Window");
                     LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
@@ -72,13 +68,11 @@ public class GameManager : MonoBehaviour
         OnSceneUnloaded(SceneManager.GetActiveScene());
         if (sceneName.Contains("battle"))
         {
-            if (sceneName.Split('?')[1] == "random")
+            string[] query = sceneName.Split('?');
+            query = query[query.Length - 1].Split('=');
+            if (query[0] == "mn")
             {
-                EnemyController.monster_num = -1;
-            }
-            else
-            {
-                EnemyController.monster_num = int.Parse(sceneName.Split('?')[1]);
+                EnemyController.monster_num = int.Parse(query[query.Length - 1]);
             }
             sceneName = sceneName.Split('?')[0];
         }
@@ -110,10 +104,6 @@ public class GameManager : MonoBehaviour
                 isStateShow = false;
                 strongBoxes.Clear();
                 break;
-            case "map_station":
-            case "map_dendai_rest":
-                GameObject.Find("Player").GetComponent<EncountController>().enabled = false;
-                goto default;
             default:
                 root = GameObject.Find("Window");
                 LogController.logController = root.transform.Find("LogModal").gameObject.GetComponent<LogController>();
@@ -137,10 +127,6 @@ public class GameManager : MonoBehaviour
                 break;
             case "title":
                 break;
-            case "map_station":
-            case "map_dendai_rest":
-                GameObject.Find("Player").GetComponent<EncountController>().enabled = true;
-                goto default;
             default:
                 isStateShow = GameObject.Find("StatusWindow") != null;
                 foreach (GameObject strongBox in GameObject.FindGameObjectsWithTag("StrongBox"))

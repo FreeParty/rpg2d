@@ -19,7 +19,7 @@ public class BattleManager : MonoBehaviour
      * また、メソッドcancelはそれまでに登録したコールバック関数を削除する。
      * 引数にvoid型の引数なしの関数を指定すると、コールバック関数を削除したうえで代わりにその関数を実行する。
      */
-     
+
     public GameObject name_obj;
     public GameObject hp_obj;
     public GameObject mp_obj;
@@ -27,10 +27,10 @@ public class BattleManager : MonoBehaviour
     public GameObject b_button;
     public GameObject sound_box;
     public GameObject commands;
-	ItemController ic;
+    ItemController ic;
 
     int runcounter = 0;
-	public bool isUsedItem = false;
+    public bool isUsedItem = false;
 
     public class IntAndBool
     {
@@ -67,15 +67,16 @@ public class BattleManager : MonoBehaviour
         string imgPath = "";
         switch (GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName)
         {
-            case "map_east": imgPath = "Materials/back1";
-                    break;
+            case "map_east":
+                imgPath = "Materials/back1";
+                break;
             default:
                 imgPath = "Materials/field1";
                 break;
         }
         Texture2D texture = Resources.Load(imgPath) as Texture2D;
         GameObject.Find("BattleField").GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-		ic = GameObject.Find("ItemController").GetComponent<ItemController>();
+        ic = GameObject.Find("ItemController").GetComponent<ItemController>();
     }
 
     public void StatusUpdate()
@@ -87,7 +88,6 @@ public class BattleManager : MonoBehaviour
     {
         IntAndBool e_damage = E_damage();
         EnemyController.enemy_status["hp"] -= e_damage.damage;
-		Debug.Log ("attack2");
 
         string[] messages;
         if (e_damage.isCelanHit)
@@ -105,10 +105,10 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { EnemyController.monster_name + "は攻撃をかわした！" };
-				sound_box.GetComponent<BattleSoundsController>().Miss();
+                sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
-        
+
         if (EnemyController.enemy_status["hp"] > 0)
         {
             if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //AttackToEnemy => AttackToPlayer => ToggleCommands
@@ -154,7 +154,7 @@ public class BattleManager : MonoBehaviour
 
         if (PlayerContoroller.player_status["hp"] > 0)
         {
-            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]  || isUsedItem)
+            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"] || isUsedItem)
             { //AttackToEnemy => AttackToPlayer => ToggleCommands
                 LogController.logController.printText(messages).then(ToggleCommands);
                 if (isUsedItem) isUsedItem = false;
@@ -172,7 +172,7 @@ public class BattleManager : MonoBehaviour
     public void AttackToPlayer_Guard()
     {
         IntAndBool p_damage = P_damage();
-		int guard_damage = p_damage.damage *3/4;
+        int guard_damage = p_damage.damage * 3 / 4;
         PlayerContoroller.player_status["hp"] -= guard_damage;
         StatusUpdate();
 
@@ -186,19 +186,19 @@ public class BattleManager : MonoBehaviour
         {
             if (guard_damage > 0)
             {
-                messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n"+EnemyController.monster_name + "から" + guard_damage + "のダメージを受けた。" };
+                messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n" + EnemyController.monster_name + "から" + guard_damage + "のダメージを受けた。" };
                 sound_box.GetComponent<BattleSoundsController>().Attack();
             }
             else
             {
-                messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n"+PlayerContoroller.player_name + "は攻撃を防いだ！" };
-		sound_box.GetComponent<BattleSoundsController>().Guard();
+                messages = new string[] { PlayerContoroller.player_name + "は身を守っている\n" + PlayerContoroller.player_name + "は攻撃を防いだ！" };
+                sound_box.GetComponent<BattleSoundsController>().Guard();
             }
         }
-        
+
         if (PlayerContoroller.player_status["hp"] > 0)
         {
-			LogController.logController.printText(messages).then(ToggleCommands);
+            LogController.logController.printText(messages).then(ToggleCommands);
         }
         else
         {
@@ -227,10 +227,10 @@ public class BattleManager : MonoBehaviour
             else
             {
                 messages = new string[] { PlayerContoroller.player_name + "は攻撃をかわした！" };
-			sound_box.GetComponent<BattleSoundsController>().Miss();
+                sound_box.GetComponent<BattleSoundsController>().Miss();
             }
         }
-        
+
         if (PlayerContoroller.player_status["hp"] > 0)
         {
             LogController.logController.printText(messages).then(ToggleCommands);
@@ -273,44 +273,50 @@ public class BattleManager : MonoBehaviour
     public void Guard()
     {
         ToggleCommands();
-		AttackToPlayer_Guard();
+        AttackToPlayer_Guard();
     }
 
     // にげる が押された時に発火
     public void Runaway()
     {
-	Boolean runflag = false;
-    ToggleCommands();
-	if(EnemyController.enemy_status["type"] == 0){	//ボスフラグ判定
-		if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //確定逃げ
-			runflag = true;
-		else{
-			switch(runcounter){
-				case 0:
-					if(UnityEngine.Random.Range(0, 3) == 1) runflag = true;
-					runcounter++;
-					break;
-				case 1:
-					if(UnityEngine.Random.Range(0, 4) > 0) runflag = true;
-					runcounter++;
-					break;
-				case 2:
-					runflag = true;
-					break;
-			}
-		}
+        Boolean runflag = false;
+        ToggleCommands();
+        if (EnemyController.enemy_status["type"] == 0)
+        {    //ボスフラグ判定
+            if (PlayerContoroller.player_status["ag"] > EnemyController.enemy_status["ag"]) //確定逃げ
+                runflag = true;
+            else
+            {
+                switch (runcounter)
+                {
+                    case 0:
+                        if (UnityEngine.Random.Range(0, 3) == 1) runflag = true;
+                        runcounter++;
+                        break;
+                    case 1:
+                        if (UnityEngine.Random.Range(0, 4) > 0) runflag = true;
+                        runcounter++;
+                        break;
+                    case 2:
+                        runflag = true;
+                        break;
+                }
+            }
 
-	        if (runflag){
-			runcounter = 0;
-			sound_box.GetComponent<BattleSoundsController>().Run();
-			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(BackField);
-		}else{
-			sound_box.GetComponent<BattleSoundsController>().Run();
-			LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。\nしかし 回り込まれてしまった！" }).then(AttackToPlayer_Run);
-		}
-	}
-	else
-		LogController.logController.printText(new string[] { EnemyController.monster_name + "からは逃げることはできない！" }).then(AttackToPlayer_Run);
+            if (runflag)
+            {
+                runcounter = 0;
+                sound_box.GetComponent<BattleSoundsController>().Run();
+                LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。" }).then(BackField);
+            }
+            else
+            {
+                sound_box.GetComponent<BattleSoundsController>().Run();
+                LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は逃げだした。\nしかし 回り込まれてしまった！" }).then(AttackToPlayer_Run);
+            }
+        }
+        else
+            LogController.logController.printText(new string[] { EnemyController.monster_name + "からは逃げることはできない！" }).then(AttackToPlayer_Run);
     }
 
     public IntAndBool E_damage()
@@ -381,7 +387,7 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("GameManager").GetComponent<GameManager>().Load();
                 break;
             case "いいえ":
-                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main",true);
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main", true);
                 break;
         }
     }
@@ -394,13 +400,13 @@ public class BattleManager : MonoBehaviour
 
     public void Player_die()
     { // player死亡時に呼ばれる
-	sound_box.GetComponent<BattleSoundsController>().Dead();
+        sound_box.GetComponent<BattleSoundsController>().Dead();
         LogController.logController.printText(new string[] { PlayerContoroller.player_name + "は死んでしまった。" }).then(AlertCallback);
     }
 
     public void Enemy_die()
     { // enemy 死亡時に呼ばれる
-	sound_box.GetComponent<BattleSoundsController>().Dead();
+        sound_box.GetComponent<BattleSoundsController>().Dead();
         PlayerContoroller.player_status["exp"] += EnemyController.enemy_status["get_exp"];
         PlayerContoroller.player_status["money"] += EnemyController.enemy_status["get_money"];
 
@@ -417,7 +423,7 @@ public class BattleManager : MonoBehaviour
         {
             callback = BackField;
         }
-        
+
         LogController.logController.printText(new string[] { EnemyController.monster_name + "を倒した。", "経験値を" + EnemyController.enemy_status["get_exp"] + "獲得した。\n" + EnemyController.enemy_status["get_money"] + "円を手に入れた。" })
             .then(callback);
     }
@@ -466,7 +472,7 @@ public class BattleManager : MonoBehaviour
                 {
                     callback = BackField;
                 }
-                
+
                 LogController.logController.printText(new string[] { "レベルアップ！",string.Format ("{0}のレベルが{1}にあがった！\n HP+{2} MP+{3}, ちから+{4} ぼうぎょ+{5} すばやさ+{6}",
                     PlayerContoroller.player_name, PlayerContoroller.player_status["lv"], StatusData.LvupPlayerStatus[i, 1], StatusData.LvupPlayerStatus[i, 2], StatusData.LvupPlayerStatus[i, 3], StatusData.LvupPlayerStatus[i, 4], StatusData.LvupPlayerStatus[i, 5])})
                     .then(callback);
@@ -480,8 +486,8 @@ public class BattleManager : MonoBehaviour
         int random = UnityEngine.Random.Range(0, 100);
         switch (EnemyController.enemy_status["drop_pro"])
         {
-			case 0:
-				return true; // 100/100
+            case 0:
+                return true; // 100/100
             case 1:
                 if (random <= 10) return true; // 10/100
                 break;
@@ -491,8 +497,8 @@ public class BattleManager : MonoBehaviour
             case 3:
                 if (random <= 50) return true; // 50/100
                 break;
-			default:
-				break;
+            default:
+                break;
         }
         return false;
     }
@@ -500,7 +506,7 @@ public class BattleManager : MonoBehaviour
 
     public void Drop()
     {
-	sound_box.GetComponent<BattleSoundsController>().Drop();
+        sound_box.GetComponent<BattleSoundsController>().Drop();
         PlayerContoroller.my_items.Add(EnemyController.enemy_status["drop"]);
         LogController.logController.printText(new string[]{string.Format(string.Format ("{0}は{1}を落としていった！\n{2}は{1}を手に入れた",
             EnemyController.monster_name, ItemList.ItemName (EnemyController.enemy_status ["drop"]), PlayerContoroller.player_name))})

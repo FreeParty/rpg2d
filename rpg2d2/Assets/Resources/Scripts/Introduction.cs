@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Introduction : MonoBehaviour {
 
-    public string fileName = "test.txt";
+    public string fileName = "introduction.txt";
     private string firstSceneName = "map_station";
 
     // Use this for initialization
@@ -21,7 +21,7 @@ public class Introduction : MonoBehaviour {
     public void ShowCallback()
     {
         GameObject.Find("Player").GetComponent<SpriteRenderer>().sortingOrder = 4;
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("map_station", true);
+        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(firstSceneName, true);
     }
 
     IEnumerator Show()
