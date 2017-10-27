@@ -50,7 +50,7 @@ public class ItemController : MonoBehaviour
 							case (int)ItemList.Eff.Hp_heal:
 								item.item_effect = AddRunNum (item.item_effect);
                                 PlayerContoroller.player_status["hp"] += item.item_effect;
-                                messeage = new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" };
+                                messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" };
                                 if (SceneManager.GetActiveScene().name != "battle")
                                 {
                                     LogController.logController.printText(messeage);
@@ -65,7 +65,7 @@ public class ItemController : MonoBehaviour
 								item.item_effect = AddRunNum (item.item_effect);
                                 EnemyController.enemy_status["hp"] -= item.item_effect;
                                 bm.isUsedItem = true;
-                                messeage = new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" };
+                                messeage = new string[] { item.item_name + " を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" };
                                 if (EnemyController.enemy_status["hp"] < 0)
                                 {
                                     LogController.logController.printText(messeage).cancel(bm.Enemy_die);
@@ -75,6 +75,28 @@ public class ItemController : MonoBehaviour
                                     LogController.logController.printText(messeage).then(bm.AttackToPlayer);
                                 }
                                 break;
+							case (int)ItemList.Eff.At_up:
+								PlayerContoroller.player_status ["at"] = item.item_effect;
+								bm.isUsedItem = true;
+								messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の力が" + item.item_effect + "上がった！" };
+								LogController.logController.printText (messeage).then (bm.AttackToPlayer);
+								break;
+							case (int)ItemList.Eff.Df_up:
+								PlayerContoroller.player_status ["df"] = item.item_effect;
+								bm.isUsedItem = true;
+								messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の防御力が" + item.item_effect + "上がった！" };
+								LogController.logController.printText (messeage).then (bm.AttackToPlayer);
+								break;
+							case (int)ItemList.Eff.Ag_up:
+								PlayerContoroller.player_status ["ag"] = item.item_effect;
+								bm.isUsedItem = true;
+								messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の素早さ" + item.item_effect + "上がった！" };
+								LogController.logController.printText (messeage).then (bm.AttackToPlayer);
+								break;
+							default:
+								break;
+
+
                         }
                         my_items.Remove(my_items[i]);
                         break;
