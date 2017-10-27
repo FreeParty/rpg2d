@@ -68,13 +68,11 @@ public class GameManager : MonoBehaviour
         OnSceneUnloaded(SceneManager.GetActiveScene());
         if (sceneName.Contains("battle"))
         {
-            if (sceneName.Split('?')[1] == "random")
+            string[] query = sceneName.Split('?');
+            query = query[query.Length - 1].Split('=');
+            if (query[0] == "mn")
             {
-                EnemyController.monster_num = -1;
-            }
-            else
-            {
-                EnemyController.monster_num = int.Parse(sceneName.Split('?')[1]);
+                EnemyController.monster_num = int.Parse(query[query.Length - 1]);
             }
             sceneName = sceneName.Split('?')[0];
         }
