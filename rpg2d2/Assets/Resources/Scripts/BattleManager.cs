@@ -68,7 +68,25 @@ public class BattleManager : MonoBehaviour
         switch (GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName)
         {
             case "map_east":
-                imgPath = "Materials/back1";
+                imgPath = "Materials/east";
+                break;
+            case "map_west":
+                imgPath = "Materials/west02";
+                break;
+            case "map_dendai1_1":
+                imgPath = "Materials/dendai1-01";
+                break;
+            case "map_dendai1_2":
+                imgPath = "Materials/dendai1-02";
+                break;
+            case "map_dendai1_3":
+                imgPath = "Materials/dendai1-03";
+                break;
+            case "map_dendai2_1":
+                imgPath = "Materials/dendai2_1-01";
+                break;
+            case "map_dendai2_2":
+                imgPath = "Materials/dendai2_2";
                 break;
             default:
                 imgPath = "Materials/field1";
