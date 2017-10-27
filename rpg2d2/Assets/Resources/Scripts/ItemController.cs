@@ -47,7 +47,8 @@ public class ItemController : MonoBehaviour
                         ItemList.Items item = ItemList.item_table[itemNo];
                         switch (item.item_type) // アイテムを使う処理
                         {
-                            case (int)ItemList.Eff.Hp_heal:
+							case (int)ItemList.Eff.Hp_heal:
+								item.item_effect = AddRunNum (item.item_effect);
                                 PlayerContoroller.player_status["hp"] += item.item_effect;
                                 messeage = new string[] { item.item_name + "を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" };
                                 if (SceneManager.GetActiveScene().name != "battle")
@@ -61,6 +62,7 @@ public class ItemController : MonoBehaviour
                                 }
                                     break;
                             case (int)ItemList.Eff.Hp_damage:
+								item.item_effect = AddRunNum (item.item_effect);
                                 EnemyController.enemy_status["hp"] -= item.item_effect;
                                 bm.isUsedItem = true;
                                 messeage = new string[] { item.item_name + "を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" };
@@ -133,4 +135,7 @@ public class ItemController : MonoBehaviour
         AlertController.alertController.ShowAlertByOptions("捨てる", "本当に捨てますか？", new string[] { "はい", "いいえ" }, RemoveCallback);
     }
 
+	public int AddRunNum(int num){
+		return num = (int)(num * Random.Range (0.8f, 1.2f));
+	}
 }
