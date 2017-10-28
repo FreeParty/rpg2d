@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: fb69d4d8c6e7deb46a539fdf2cbca530
-timeCreated: 1509118103
+timeCreated: 1509164282
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -19,6 +19,7 @@ TextureImporter:
     21300024: aniki2_12
     21300026: aniki2_13
     21300028: aniki2_14
+    21300030: aniki2_15
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -105,10 +106,10 @@ TextureImporter:
       name: aniki2_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 156
-        width: 23
-        height: 51
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,9 +120,9 @@ TextureImporter:
       name: aniki2_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 32
         y: 156
-        width: 24
+        width: 32
         height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -133,10 +134,10 @@ TextureImporter:
       name: aniki2_2
       rect:
         serializedVersion: 2
-        x: 69
+        x: 64
         y: 156
-        width: 23
-        height: 51
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,9 +148,9 @@ TextureImporter:
       name: aniki2_3
       rect:
         serializedVersion: 2
-        x: 100
+        x: 96
         y: 156
-        width: 24
+        width: 32
         height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -161,10 +162,10 @@ TextureImporter:
       name: aniki2_4
       rect:
         serializedVersion: 2
-        x: 5
+        x: 0
         y: 104
-        width: 22
-        height: 50
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +176,10 @@ TextureImporter:
       name: aniki2_5
       rect:
         serializedVersion: 2
-        x: 38
-        y: 105
-        width: 21
-        height: 48
+        x: 32
+        y: 104
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +190,10 @@ TextureImporter:
       name: aniki2_6
       rect:
         serializedVersion: 2
-        x: 70
+        x: 64
         y: 104
-        width: 22
-        height: 50
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +204,10 @@ TextureImporter:
       name: aniki2_7
       rect:
         serializedVersion: 2
-        x: 98
+        x: 96
         y: 104
-        width: 27
-        height: 50
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,10 +218,10 @@ TextureImporter:
       name: aniki2_8
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 52
-        width: 22
-        height: 50
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +232,10 @@ TextureImporter:
       name: aniki2_9
       rect:
         serializedVersion: 2
-        x: 36
-        y: 0
-        width: 27
-        height: 102
+        x: 32
+        y: 52
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,10 +246,10 @@ TextureImporter:
       name: aniki2_10
       rect:
         serializedVersion: 2
-        x: 69
+        x: 64
         y: 52
-        width: 23
-        height: 50
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,10 +260,10 @@ TextureImporter:
       name: aniki2_11
       rect:
         serializedVersion: 2
-        x: 102
-        y: 53
-        width: 21
-        height: 48
+        x: 96
+        y: 52
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,10 +274,10 @@ TextureImporter:
       name: aniki2_12
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 25
-        height: 48
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,10 +288,10 @@ TextureImporter:
       name: aniki2_13
       rect:
         serializedVersion: 2
-        x: 68
+        x: 32
         y: 0
-        width: 25
-        height: 48
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,10 +302,24 @@ TextureImporter:
       name: aniki2_14
       rect:
         serializedVersion: 2
-        x: 100
+        x: 64
         y: 0
-        width: 25
-        height: 51
+        width: 32
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: aniki2_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

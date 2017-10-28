@@ -9,9 +9,9 @@ public class SymbolEncountContoller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(EnemyController.monster_num == monster_num)
-        {
-            LogController.logController.printText(new string[] { "やったー勝ったー" });
-        }
+        	{
+        	    LogController.logController.printText(new string[] { "やったー勝ったー" });
+        	}
 	}
 	
 	// Update is called once per frame
