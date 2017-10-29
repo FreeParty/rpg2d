@@ -35,7 +35,7 @@ public class OpenBoxContoroller : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = sp[1];
 	    audio = GetComponent<AudioSource>();
 	    audio.PlayOneShot(audio.clip);
-            LogController.logController.printText(new string[]{ItemList.ItemName(item_id) + "を手に入れた！","やった！"});
+            LogController.logController.printText(new string[]{ItemList.ItemName(item_id) + "を手に入れた！"});
 	    PlayerContoroller.my_items.Add (item_id);
             isOpen = true;
         }

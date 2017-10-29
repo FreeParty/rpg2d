@@ -39,7 +39,7 @@ public class GateController : MonoBehaviour {
 			else{
 				sr.sprite = sprite_not;
 				audio.PlayOneShot(sound_not);
-				LogController.logController.printText(new string[]{"ここを通るには「" + ItemName(key_item_id) + "」が必要です"});
+				LogController.logController.printText(new string[]{"ここを通るには「" + ItemList.ItemName(key_item_id) + "」が必要です"});
 				Invoke("ResetSprite", wait_not);
 			}
 		}
@@ -63,11 +63,5 @@ public class GateController : MonoBehaviour {
 
     void ResetSprite(){
 		sr.sprite = sprite_standby;
-	}
-
-
-	string ItemName(int id){
-		string item_name = ItemList.item_table.Find (x => x.item_id == id).item_name;
-		return item_name;
 	}
 }
