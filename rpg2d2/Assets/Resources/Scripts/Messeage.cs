@@ -9,7 +9,6 @@ public class Messeage : MonoBehaviour
 {
 
     public string fileName = "test.txt";
-    public bool isEncount = false;
     public bool isFixed = true;
     Sprite[] sp;
     public string spriteName = "Sprites/npc/893";
@@ -29,29 +28,22 @@ public class Messeage : MonoBehaviour
     public void Show()
     {
         LogController.Callback callback = null;
-        if (isEncount)
+        if (GetComponent<SymbolEncountContoller>() != null)
         {
-            if (GetComponent<SymbolEncountContoller>() == null)
-            {
-                callback = GameObject.Find("Player").GetComponent<EncountController>().Encount;
-            }
-            else
-            {
-                callback = GetComponent<SymbolEncountContoller>().Encount;
-            }
+            callback = GetComponent<SymbolEncountContoller>().Encount;
         }
         if (!isFixed)
         {
             int dir = 0;
             Animator animator = GameObject.Find("Player").GetComponent<Animator>();
-	    int div = sp.Length / 4;
+            int div = sp.Length / 4;
             if (animator.GetBool("walkingUnder"))
             {
-                dir = div*3;
+                dir = div * 3;
             }
-            else if(animator.GetBool("walkingLeft"))
+            else if (animator.GetBool("walkingLeft"))
             {
-                dir = div*2;
+                dir = div * 2;
             }
             else if (animator.GetBool("walkingTop"))
             {
