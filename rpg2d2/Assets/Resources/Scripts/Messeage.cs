@@ -32,6 +32,10 @@ public class Messeage : MonoBehaviour
         {
             callback = GetComponent<SymbolEncountContoller>().Encount;
         }
+        else if (GetComponent<HandItem>() != null)
+        {
+            callback = GetComponent<HandItem>().Receive;
+        }
         if (!isFixed)
         {
             int dir = 0;
