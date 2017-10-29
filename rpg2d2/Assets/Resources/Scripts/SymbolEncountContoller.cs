@@ -20,10 +20,6 @@ public class SymbolEncountContoller : MonoBehaviour
             case "THEラスボス": LogController.logController.printTextByFileName("test.txt").then(Callback1);
                     break;
         }
-        if(GetComponent<Messeage>() == null)
-        {
-            Encount();
-        }
     }
 
     void Callback1()
