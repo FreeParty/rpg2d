@@ -23,7 +23,7 @@ public class SymbolEncountContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void Encount()
