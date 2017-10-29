@@ -14,6 +14,10 @@ public class SymbolEncountContoller : MonoBehaviour
         {
             LogController.logController.printText(new string[] { "やったー勝ったー" });
         }
+        if(GetComponent<Messeage>() == null)
+        {
+            Encount();
+        }
     }
 
     // Update is called once per frame
