@@ -90,8 +90,8 @@ public class EnemyController : MonoBehaviour {
 
 	void setEnemyStatus(string [,] ml, int mn){
 		monster_name = ml[mn, 1];
-        GetComponent<Image> ().sprite = GetSprite("enemys/main", "0");
-        //GetComponent<Image> ().sprite = GetSprite("enemys/" + prevSceneName, ml[mn, 0]);
+        Texture2D texture = Resources.Load("Sprites/enemies/" + monster_name) as Texture2D;
+        GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
         enemy_status["hp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
 		enemy_status["mp"] = int.Parse(ml [mn, 3]);
@@ -105,13 +105,4 @@ public class EnemyController : MonoBehaviour {
 		enemy_status ["get_money"] = int.Parse (ml [mn, 10]);
 		enemy_status ["drop_pro"] = int.Parse (ml [mn, 11]);
 	}
-
-
-	// @param fileName ファイル名
-	// @param spriteName スプライト名
-	Sprite GetSprite(string fileName, string spriteName) {
-		Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);
-		return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals(spriteName));
-	}
-
 }
