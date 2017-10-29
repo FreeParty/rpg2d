@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        string[,] monster_list = GetMonsterList();
+        string[,] monster_list = EnemiesData.GetMonsterList(GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName);
         if (monster_num == -1)
         {
             monster_num = selectRandomMonster(monster_list);
@@ -43,31 +43,6 @@ public class EnemyController : MonoBehaviour {
         }
         setEnemyStatus(monster_list, monster_num);
         GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + "に" + encountStr[Random.Range(0, encountStr.Length - 1)] }).then(BattleManager.ToggleCommands); // 名前をlogにセット
-    }
-
-    string[,] GetMonsterList()
-    {
-        string prevSceneName = GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName;
-        switch (prevSceneName)
-        {
-            case "map_west":
-                 return EnemiesData.westSceneMonsters;
-            case "map_east":
-                return EnemiesData.eastSceneMonsters;
-            case "map_dendai2_1":
-                return EnemiesData.dendai2_1SceneMonsters;
-            case "map_dendai2_2":
-                return EnemiesData.dendai2_2SceneMonsters;
-            case "map_dendai1_1":
-                return EnemiesData.dendai1_1SceneMonsters;
-            case "map_dendai1_2":
-                return EnemiesData.dendai1_2SceneMonsters;
-            case "map_dendai1_3":
-                return EnemiesData.dendai1_3SceneMonsters;
-            default:
-                return EnemiesData.mainSceneMonsters;
-        }
-
     }
 
     /*
