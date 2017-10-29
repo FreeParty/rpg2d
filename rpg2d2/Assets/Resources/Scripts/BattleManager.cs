@@ -405,7 +405,7 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("GameManager").GetComponent<GameManager>().Load();
                 break;
             case "いいえ":
-                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("main", true);
+                GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange("title", true);
                 break;
         }
     }
