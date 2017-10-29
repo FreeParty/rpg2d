@@ -1,27 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Introduction : MonoBehaviour {
+public class Ending : MonoBehaviour {
 
-    public string fileName = "introduction.txt";
-    public string nextSceneName = "map_station";
+    public string fileName = "ending.txt";
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         StartCoroutine(Show());
         GameObject.Find("Player").GetComponent<SpriteRenderer>().sortingOrder = 14;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void FadeCallback()
+    {
+        GameObject.Find("Credit").GetComponent<Image>().enabled = true;
+        GameObject.Find("Credit").transform.Find("Panel").gameObject.SetActive(true);
     }
 
     void ShowCallback()
     {
         GameObject.Find("Player").GetComponent<SpriteRenderer>().sortingOrder = 4;
-        GameObject.Find("GameManager").GetComponent<GameManager>().SceneChange(nextSceneName, true);
+        StartCoroutine(GameObject.Find("Fade").GetComponent<FadeinController>().StartFadeOut(FadeCallback));
     }
 
     IEnumerator Show()
