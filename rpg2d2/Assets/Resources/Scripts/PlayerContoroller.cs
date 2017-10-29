@@ -48,17 +48,21 @@ public class PlayerContoroller : MonoBehaviour
             {
                 touching.GetComponent<OpenBoxContoroller>().OpenBox();
             }
-            if (touching.GetComponent<HealPointController>() != null)
+            else if (touching.GetComponent<HealPointController>() != null)
             {
                 touching.GetComponent<HealPointController>().Healing();
             }
-            if (touching.GetComponent<Messeage>() != null)
+            else if (touching.GetComponent<Messeage>() != null)
             {
                 touching.GetComponent<Messeage>().Show();
             }
             else if (touching.gameObject.GetComponent<SymbolEncountContoller>() != null)
             {
                 touching.gameObject.GetComponent<SymbolEncountContoller>().Encount();
+            }
+            else if (touching.gameObject.GetComponent<HandItem>() != null)
+            {
+                touching.gameObject.GetComponent<HandItem>().Receive();
             }
         }
     }
