@@ -73,4 +73,27 @@ public class EnemiesData : MonoBehaviour
         { "1", "もりのようせい",        "12", "0","8","4","1","0","1","1","5","2"},
         { "2", "ありせんし",            "7", "0","6","3","4","1","2","2","2","3"},
     };
+
+    public static string[,] GetMonsterList(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "map_west":
+                return westSceneMonsters;
+            case "map_east":
+                return eastSceneMonsters;
+            case "map_dendai2_1":
+                return dendai2_1SceneMonsters;
+            case "map_dendai2_2":
+                return dendai2_2SceneMonsters;
+            case "map_dendai1_1":
+                return dendai1_1SceneMonsters;
+            case "map_dendai1_2":
+                return dendai1_2SceneMonsters;
+            case "map_dendai1_3":
+                return dendai1_3SceneMonsters;
+            default:
+                return mainSceneMonsters;
+        }
+    }
 }

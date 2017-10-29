@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
                 PlayerContoroller.player_status = defaultStatus;
                 PlayerContoroller.my_items.Clear();
                 GameObject.Find("Player").transform.position = new Vector2(42, 50);
+                EnemyController.monster_name = null;
+                EnemyController.monster_num = -1;
                 isStateShow = false;
                 strongBoxes.Clear();
                 break;
