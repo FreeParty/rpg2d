@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (!strongBoxes.Contains(strongBox.name))
                     {
-                        if (strongBox.GetComponent<OpenBoxContoroller>().isOpen)
+                        if(strongBox.GetComponent<OpenBoxContoroller>() != null && strongBox.GetComponent<OpenBoxContoroller>().isOpen || strongBox.GetComponent<HandItem>() && strongBox.GetComponent<HandItem>().isOpen)
                         {
                             strongBoxes.Add(strongBox.name);
                         }

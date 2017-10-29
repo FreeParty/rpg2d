@@ -10,6 +10,10 @@ public class HandItem : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gameObject.tag = "StrongBox";
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes != null && GameObject.Find("GameManager").GetComponent<GameManager>().strongBoxes.Contains(gameObject.name))
+        {
+            isOpen = true;
+        }
     }
 	
 	// Update is called once per frame
