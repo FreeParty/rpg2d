@@ -50,7 +50,7 @@ public class ItemToggleController : MonoBehaviour
                     break;
                 case (int)ItemList.Eff.Key_item:
                     GameObject.Find("Use").GetComponent<Button>().enabled = false;
-                    GameObject.Find("Remove").GetComponentInChildren<Text>().color = new Color(0.3f, 0.3f, 0.3f);
+                    GameObject.Find("Use").GetComponentInChildren<Text>().color = new Color(0.3f, 0.3f, 0.3f);
                     if (SceneManager.GetActiveScene().name != "battle")
                     {
                         GameObject.Find("Remove").GetComponent<Button>().enabled = false;
