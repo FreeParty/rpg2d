@@ -402,6 +402,8 @@ public class BattleManager : MonoBehaviour
         switch (answer)
         {
             case "はい":
+                EnemyController.monster_name = null;
+                EnemyController.monster_num = -1;
                 GameObject.Find("GameManager").GetComponent<GameManager>().Load();
                 break;
             case "いいえ":

@@ -11,14 +11,14 @@ public class SymbolEncountContoller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if(EnemyController.monster_num == monster_num)
-        {
-            Destroy(gameObject);
-        }
         switch(EnemyController.monster_name) //戦闘終了後に呼び出したい処理を書く。逃げれない敵を指定すれば倒した後の処理となる。Endingへの遷移、倒した後の敵の命乞い等役立ててください。
         {
             case "THEラスボス": LogController.logController.printTextByFileName("test.txt").then(Callback1);
                     break;
+        }
+        if (EnemyController.monster_num == monster_num)
+        {
+            Destroy(gameObject);
         }
     }
 

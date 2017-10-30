@@ -36,6 +36,8 @@ public class MenuController : MonoBehaviour
             GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
             GameObject.Find("MenuButtons").SetActive(false);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
+            GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = false;
+            GameObject.Find("MenuModal").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
     }
 
@@ -45,8 +47,6 @@ public class MenuController : MonoBehaviour
         {
 	        GameObject.Find("BGM Source").GetComponent<BGMcontroller>().MenuClose();
             CloseMenu();
-            GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = false;
-            GameObject.Find("MenuModal").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
         else
         {
