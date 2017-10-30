@@ -6,24 +6,24 @@ public class PlayerContoroller : MonoBehaviour
 {
 
     public static Dictionary<string, int> player_status = new Dictionary<string, int>() {
-        {"hp", 20},
+        {"hp", 90},
         {"mhp", 20},
         {"mp", 0},
         {"mmp", 0},
-        {"mat", 3},
-        {"at", 3},
-        {"mdf", 3},
-        {"df", 3},
-        {"mag", 3},
-        {"ag", 3},
-        {"lv", 1},
+        {"mat", 30},
+        {"at", 30},
+        {"mdf", 30},
+        {"df", 30},
+        {"mag", 30},
+        {"ag", 30},
+        {"lv", 20},
         {"exp", 0},
         {"money", 0}
     };
 
 //    public static List<int> my_items = new List<int>();
 
-	public static List<int> my_items = new List<int>{4,17,20,23,28};
+	public static List<int> my_items = new List<int>{1,28};
     public static string player_name = "sample";
     GameObject touching;
 
