@@ -75,8 +75,8 @@ public class EnemiesData : MonoBehaviour
 
     public static string[] getMonster(string sceneName,int monster_num)
     {
-        string[] result = new string[12];
         string[,] monster_list = GetMonsterList(sceneName);
+        string[] result = new string[monster_list.GetLength(1)];
 
         for (int i = 0; i < monster_list.GetLength(0); i++)
         {
