@@ -67,10 +67,8 @@ public class EnemyController : MonoBehaviour {
 		monster_name = ml[mn, 1];
         Texture2D texture = Resources.Load("Sprites/enemies/" + monster_name) as Texture2D;
         GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        enemy_status["hp"] = int.Parse(ml [mn, 2]);
-		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
-		enemy_status["mp"] = int.Parse(ml [mn, 3]);
-		enemy_status["mmp"] = int.Parse(ml [mn, 3]);
+        enemy_status["hp"] = enemy_status["mhp"] = int.Parse(ml [mn, 2]);
+		enemy_status["mp"] = enemy_status["mmp"] = int.Parse(ml [mn, 3]);
 		enemy_status["at"] = int.Parse(ml [mn, 4]);
 		enemy_status["df"] = int.Parse(ml [mn, 5]);
 		enemy_status["ag"] = int.Parse(ml [mn, 6]);
