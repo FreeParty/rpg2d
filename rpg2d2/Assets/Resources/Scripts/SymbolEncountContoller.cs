@@ -21,7 +21,7 @@ public class SymbolEncountContoller : MonoBehaviour
                     break;
             case "GOD": LogController.logController.printTextByFileName("/d1/GOD2.txt").then(Destroyer);
                     break;
-            case "THEラスボス": LogController.logController.printTextByFileName("/d1/Last2.txt").then(Callback1);
+            case "マスクドADACHI": LogController.logController.printTextByFileName("/d1/Last2.txt").then(Callback1);
                     break;
         }
         if (EnemyController.monster_num == monster_num)
