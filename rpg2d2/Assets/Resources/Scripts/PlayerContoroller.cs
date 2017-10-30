@@ -23,7 +23,7 @@ public class PlayerContoroller : MonoBehaviour
 
 //    public static List<int> my_items = new List<int>();
 
-	public static List<int> my_items = new List<int>{4,17,20,23};
+	public static List<int> my_items = new List<int>{4,17,20,23,28};
     public static string player_name = "sample";
     GameObject touching;
 

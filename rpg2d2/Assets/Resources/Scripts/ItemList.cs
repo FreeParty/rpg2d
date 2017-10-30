@@ -34,6 +34,8 @@ public class ItemList : MonoBehaviour {
 		new Items (25,	"6Fエレベーターの鍵",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images/item/cardkey",		"1号館の1Fと6Fを繋ぐエレベーターを動かすことができる\nあの事件から、主要なエレベーターが封鎖されて久しい"),
 		new Items (26,	"12Fエレベーターの鍵",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images//cardkey",		"1号館の1Fと12Fを繋ぐエレベーターを動かすことができる\n少量の血痕が付着している"),
 		new Items (27,	"通行許可証",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images/item/dat_mail",		"駅東口の先へ進む事ができる\nかつて多くの路線により栄えていたこの駅だが、今では見る影もない"),
+		new Items (28,	"GODの裁き",		0, 		(int)scene.Battle, 		(int)Eff.Hp_damage, 	9999,			"Images/item/swd_tukuyomi",		"大学における偉大なる人物による裁き。\nその裁きは人の運命をも左右する。"),
+
 	};
 
     public static string ItemName(int id)
