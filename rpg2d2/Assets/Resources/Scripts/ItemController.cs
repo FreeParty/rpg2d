@@ -8,16 +8,16 @@ public class ItemController : MonoBehaviour
 {
 
     GameObject statusWindow;
-	BattleManager bm;
+    BattleManager bm;
 
     // Use this for initialization
     void Start()
     {
-		if (SceneManager.GetActiveScene ().name == "battle") 
-		{
-			statusWindow = GameObject.Find ("StatusWindowInBattle");
-			bm = GameObject.Find ("Management").GetComponent<BattleManager> ();
-		}
+        if (SceneManager.GetActiveScene().name == "battle")
+        {
+            statusWindow = GameObject.Find("StatusWindowInBattle");
+            bm = GameObject.Find("Management").GetComponent<BattleManager>();
+        }
         else
         {
             statusWindow = GameObject.Find("Window").transform.Find("StatusWindow").gameObject;
@@ -47,8 +47,8 @@ public class ItemController : MonoBehaviour
                         ItemList.Items item = ItemList.item_table[itemNo];
                         switch (item.item_type) // アイテムを使う処理
                         {
-							case (int)ItemList.Eff.Hp_heal:
-								item.item_effect = AddRunNum (item.item_effect);
+                            case (int)ItemList.Eff.Hp_heal:
+                                item.item_effect = AddRunNum(item.item_effect);
                                 PlayerContoroller.player_status["hp"] += item.item_effect;
                                 messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" };
                                 if (SceneManager.GetActiveScene().name != "battle")
@@ -60,9 +60,9 @@ public class ItemController : MonoBehaviour
                                     bm.isUsedItem = true;
                                     LogController.logController.printText(messeage).then(bm.AttackToPlayer);
                                 }
-                                    break;
+                                break;
                             case (int)ItemList.Eff.Hp_damage:
-								item.item_effect = AddRunNum (item.item_effect);
+                                item.item_effect = AddRunNum(item.item_effect);
                                 EnemyController.enemy_status["hp"] -= item.item_effect;
                                 bm.isUsedItem = true;
                                 messeage = new string[] { item.item_name + " を使った\n" + EnemyController.monster_name + "に" + item.item_effect + "のダメージ！" };
@@ -75,28 +75,26 @@ public class ItemController : MonoBehaviour
                                     LogController.logController.printText(messeage).then(bm.AttackToPlayer);
                                 }
                                 break;
-							case (int)ItemList.Eff.At_up:
-								PlayerContoroller.player_status ["at"] = item.item_effect;
-								bm.isUsedItem = true;
-								messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の力が" + item.item_effect + "上がった！" };
-								LogController.logController.printText (messeage).then (bm.AttackToPlayer);
-								break;
-							case (int)ItemList.Eff.Df_up:
-								PlayerContoroller.player_status ["df"] = item.item_effect;
-								bm.isUsedItem = true;
-								messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の防御力が" + item.item_effect + "上がった！" };
-								LogController.logController.printText (messeage).then (bm.AttackToPlayer);
-								break;
-							case (int)ItemList.Eff.Ag_up:
-								PlayerContoroller.player_status ["ag"] = item.item_effect;
-								bm.isUsedItem = true;
-								messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の素早さ" + item.item_effect + "上がった！" };
-								LogController.logController.printText (messeage).then (bm.AttackToPlayer);
-								break;
-							default:
-								break;
-
-
+                            case (int)ItemList.Eff.At_up:
+                                PlayerContoroller.player_status["at"] = item.item_effect;
+                                bm.isUsedItem = true;
+                                messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の力が" + item.item_effect + "上がった！" };
+                                LogController.logController.printText(messeage).then(bm.AttackToPlayer);
+                                break;
+                            case (int)ItemList.Eff.Df_up:
+                                PlayerContoroller.player_status["df"] = item.item_effect;
+                                bm.isUsedItem = true;
+                                messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の防御力が" + item.item_effect + "上がった！" };
+                                LogController.logController.printText(messeage).then(bm.AttackToPlayer);
+                                break;
+                            case (int)ItemList.Eff.Ag_up:
+                                PlayerContoroller.player_status["ag"] = item.item_effect;
+                                bm.isUsedItem = true;
+                                messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "の素早さ" + item.item_effect + "上がった！" };
+                                LogController.logController.printText(messeage).then(bm.AttackToPlayer);
+                                break;
+                            default:
+                                break;
                         }
                         my_items.Remove(my_items[i]);
                         break;
@@ -111,11 +109,14 @@ public class ItemController : MonoBehaviour
     public void Back()
     {
         GameObject.Find("Description").GetComponentInChildren<Text>().text = "";
-        GameObject.Find("ItemImage").GetComponent<Image>().sprite = null;
+        GameObject.Find("ItemImage").GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0);
         if (SceneManager.GetActiveScene().name == "battle")
         {
+            if (!bm.isUsedItem)
+            {
+                BattleManager.ToggleCommands();
+            }
             GameObject.Find("ItemListInBattle").SetActive(false);
-            BattleManager.ToggleCommands();
         }
         else
         {
@@ -158,7 +159,8 @@ public class ItemController : MonoBehaviour
         AlertController.alertController.ShowAlertByOptions("捨てる", "本当に捨てますか？", new string[] { "はい", "いいえ" }, RemoveCallback);
     }
 
-	public int AddRunNum(int num){
-		return num = (int)(num * Random.Range (0.8f, 1.2f));
-	}
+    public int AddRunNum(int num)
+    {
+        return num = (int)(num * Random.Range(0.8f, 1.2f));
+    }
 }
