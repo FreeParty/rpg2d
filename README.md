@@ -18,4 +18,7 @@ Version 2017.2.0f3
   - 魔王魂  
     - http://maoudamashii.jokersounds.com/  
   - Wingless Seraph
-    - https://wingless-seraph.net/
+    - https://wingless-seraph.net/  
+- フォント  
+  - PixelMplus  
+    - http://itouhiro.hatenablog.com/entry/20130602/font  
