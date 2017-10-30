@@ -58,6 +58,7 @@ public class EnemyController : MonoBehaviour
 
     void setEnemyStatus(string[] monster, string sceneName)
     {
+        print(monster[1]);
         Texture2D texture = Resources.Load("Sprites/enemies/" + sceneName + "/" + monster[0]) as Texture2D;
         GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
         monster_name = monster[1];
