@@ -10,7 +10,7 @@ public class SymbolEncountContoller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (GameObject.Find("GameManager").GetComponent<GameManager>().bosses.Contains(EnemiesData.GetMonsterList(SceneManager.GetActiveScene().name)[monster_num,1]))
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().bosses.Contains(EnemiesData.getMonster(SceneManager.GetActiveScene().name, monster_num)[1]))
         {
             Destroyer();
         }

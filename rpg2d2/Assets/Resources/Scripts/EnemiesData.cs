@@ -74,6 +74,27 @@ public class EnemiesData : MonoBehaviour
         { "2", "ありせんし",            "7", "0","6","3","4","1","2","2","2","3"},
     };
 
+    public static string[] getMonster(string sceneName,int monster_num)
+    {
+        string[] result = new string[11];
+        string[,] monster_list = GetMonsterList(sceneName);
+
+        for (int i = 0; i < monster_list.GetLength(0); i++)
+        {
+            if (int.Parse(monster_list[i, 0]) == monster_num)
+            {
+                monster_num = i;
+                for(int j = 0;j < monster_list.GetLength(1); j++)
+                {
+                    result[j] = monster_list[i,j];
+                }
+                break;
+            }
+        }
+
+        return GetMonsterList(sceneName)[monster_num];
+    }
+
     public static string[,] GetMonsterList(string sceneName)
     {
         switch (sceneName)
