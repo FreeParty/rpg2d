@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +25,8 @@ public class EnemyController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        string[,] monster_list = EnemiesData.GetMonsterList(GameObject.Find("GameManager").GetComponent<GameManager>().prevSceneName);
+		prevSceneName =  GameObject.Find ("GameManager").GetComponent<GameManager> ().prevSceneName;
+		string[,] monster_list = EnemiesData.GetMonsterList(prevSceneName);
         if (monster_num == -1)
         {
             monster_num = selectRandomMonster(monster_list);
@@ -41,7 +42,7 @@ public class EnemyController : MonoBehaviour {
                 }
             }
         }
-        setEnemyStatus(monster_list, monster_num);
+		setEnemyStatus(monster_list, monster_num, prevSceneName);
         GameObject.Find("BattleField").transform.Find("LogModal").gameObject.GetComponent<LogController>().printText(new string[] { monster_name + "に" + encountStr[Random.Range(0, encountStr.Length - 1)] }).then(BattleManager.ToggleCommands); // 名前をlogにセット
     }
 
@@ -63,12 +64,17 @@ public class EnemyController : MonoBehaviour {
 
 //[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]type, [8] drop_no, [9] get_exp, [10] get_money, 
 
-	void setEnemyStatus(string [,] ml, int mn){
+	void setEnemyStatus(string [,] ml, int mn, string sceneName){
+		Debug.Log ("scene is " + sceneName);
 		monster_name = ml[mn, 1];
-        Texture2D texture = Resources.Load("Sprites/enemies/" + monster_name) as Texture2D;
+		Debug.Log ("name is " + monster_name);
+		Texture2D texture = Resources.Load("Sprites/enemies/"+ sceneName + "/" + ml[mn,0]) as Texture2D;
+//		Texture2D texture = Resources.Load("Sprites/enemies/"+ ml[mn,0]) as Texture2D;
         GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        enemy_status["hp"] = enemy_status["mhp"] = int.Parse(ml [mn, 2]);
-		enemy_status["mp"] = enemy_status["mmp"] = int.Parse(ml [mn, 3]);
+        enemy_status["hp"] = int.Parse(ml [mn, 2]);
+		enemy_status["mhp"] = int.Parse(ml [mn, 2]);
+		enemy_status["mp"] = int.Parse(ml [mn, 3]);
+		enemy_status["mmp"] = int.Parse(ml [mn, 3]);
 		enemy_status["at"] = int.Parse(ml [mn, 4]);
 		enemy_status["df"] = int.Parse(ml [mn, 5]);
 		enemy_status["ag"] = int.Parse(ml [mn, 6]);
