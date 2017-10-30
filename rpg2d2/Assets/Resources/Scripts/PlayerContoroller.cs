@@ -6,16 +6,16 @@ public class PlayerContoroller : MonoBehaviour
 {
 
     public static Dictionary<string, int> player_status = new Dictionary<string, int>() {
-        {"hp", 25},
-        {"mhp", 25},
+        {"hp", 20},
+        {"mhp", 20},
         {"mp", 0},
         {"mmp", 0},
-        {"mat", 5},
-        {"at", 5},
-        {"mdf", 5},
-        {"df", 5},
-        {"mag", 4},
-        {"ag", 4},
+        {"mat", 3},
+        {"at", 3},
+        {"mdf", 3},
+        {"df", 3},
+        {"mag", 3},
+        {"ag", 3},
         {"lv", 1},
         {"exp", 0},
         {"money", 0}

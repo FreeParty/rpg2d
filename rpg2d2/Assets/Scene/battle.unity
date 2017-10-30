@@ -914,6 +914,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114619148851109110, guid: eec07a42ed2a6534ebda6c9797eccd52,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eec07a42ed2a6534ebda6c9797eccd52, type: 2}
   m_IsPrefabParent: 0
@@ -1469,7 +1474,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816395017
 GameObject:
@@ -1998,6 +2003,7 @@ MonoBehaviour:
   b_button: {fileID: 0}
   sound_box: {fileID: 1786070889}
   commands: {fileID: 2106703542}
+  isUsedItem: 0
 --- !u!4 &2116341367
 Transform:
   m_ObjectHideFlags: 0
@@ -2133,5 +2139,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
