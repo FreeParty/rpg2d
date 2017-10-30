@@ -148,6 +148,7 @@ public class BattleManager : MonoBehaviour
     {
         IntAndBool p_damage = P_damage();
         PlayerContoroller.player_status["hp"] -= p_damage.damage;
+        StatusUpdate();
 
         string[] messages;
         if (p_damage.isCelanHit)
@@ -183,10 +184,8 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            EnemyController.enemy_status["hp"] = 0;
             LogController.logController.printText(messages).cancel(Player_die);
         }
-        StatusUpdate();
     }
     public void AttackToPlayer_Guard()
     {
