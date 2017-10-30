@@ -8,6 +8,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public List<string> strongBoxes { get; private set; }
+    public List<string> bosses { get; private set; }
     public GameObject root { get; private set; }
     Dictionary<string, int> defaultStatus;
     bool isStateShow = false;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
             }
         }
         strongBoxes = new List<string>();
+        bosses = new List<string>();
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         defaultStatus = PlayerContoroller.player_status;
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
                 EnemyController.monster_num = -1;
                 isStateShow = false;
                 strongBoxes.Clear();
+                bosses.Clear();
                 break;
             default:
                 root = GameObject.Find("Window");
@@ -156,6 +159,7 @@ public class GameManager : MonoBehaviour
         string scene_name = SceneManager.GetActiveScene().name;
         string statusWindow = isStateShow.ToString();
         string strongBoxStatus = JsonUtility.ToJson(new Serialization<string>(strongBoxes), true);
+        string bossesStatus = JsonUtility.ToJson(new Serialization<string>(bosses), true);
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add("player_status", player_status);
         data.Add("player_position", player_position);
@@ -163,6 +167,7 @@ public class GameManager : MonoBehaviour
         data.Add("scene_name", scene_name);
         data.Add("my_items", my_items);
         data.Add("strongBoxes", strongBoxStatus);
+        data.Add("bosses", bossesStatus);
         data.Add("isStateShow", statusWindow);
 
         string json = JsonUtility.ToJson(new Serialization<string, string>(data), true);
@@ -201,6 +206,9 @@ public class GameManager : MonoBehaviour
                     break;
                 case "strongBoxes":
                     strongBoxes = JsonUtility.FromJson<Serialization<string>>(data[key]).ToList();
+                    break;
+                case "bosses":
+                    bosses = JsonUtility.FromJson<Serialization<string>>(data[key]).ToList();
                     break;
                 case "isStateShow":
                     if (data[key] == "True")
