@@ -29,11 +29,11 @@ public class ItemList : MonoBehaviour {
 		new Items (20,	"電磁気学応用の単位",		0, 		(int)scene.Battle, 		(int)Eff.Df_up, 	(int)(PlayerContoroller.player_status["df"]*2.3),			"Images/item/datdocum",		"守りを一時的に大きく上げる、希少なモノ\nしかし、基礎ほどの価値はないようだ"),
 		new Items (21,	"クロックス",		0, 		(int)scene.Battle, 		(int)Eff.Ag_up, 	(int)(PlayerContoroller.player_status["ag"]*1.3),			"Images/item/kutu",		"素早さを一時的に少し上げる\n素早さとは、つまり敏捷であり攻?によって与えるダメージも少し大きくなる"),
 		new Items (22,	"core i7",		0, 		(int)scene.Battle, 		(int)Eff.Ag_up, 	(int)(PlayerContoroller.player_status["ag"]*1.6),			"Images/item/icon414",		"素早さを一時的に上げる\n人業とは思えない高速かつ正確な動作を実現する。"),
-		new Items (23,	"暗い木目の指輪",		0, 		(int)scene.Battle, 		(int)Eff.Ag_up, 	(int)(PlayerContoroller.player_status["ag"]*2.3),			"Images/item/ring",		"素早さを一時的に上げる\n古い時代、仮面巨人と呼ばれる者たちの指輪\nこの街にはいろいろな時代のものが流れ着く"),
+		new Items (23,	"暗い木目の指輪",		0, 		(int)scene.Battle, 		(int)Eff.Ag_up, 	(int)(PlayerContoroller.player_status["ag"]*2.3),			"Images/item/ring",		"素早さを一時的に上げる\n古い時代の者たちの指輪\nこの街にはいろいろな時代のものが流れ着く"),
 		new Items (24,	"学生証",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images/item/idcard",		"選ばれし者の証\nゲートを通ることができる\nゲートは多くの人にとって不要な物だったらしい。だが、果たして本当にそうなのだろうか"),
 		new Items (25,	"6Fエレベーターの鍵",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images/item/cardkey",		"1号館の1Fと6Fを繋ぐエレベーターを動かすことができる\nあの事件から、主要なエレベーターが封鎖されて久しい"),
 		new Items (26,	"12Fエレベーターの鍵",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images//cardkey",		"1号館の1Fと12Fを繋ぐエレベーターを動かすことができる\n少量の血痕が付着している"),
-		new Items (27,	"通行許可証",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images/item/dat_mail",		"駅東口の先へ進む事ができる\nかつて多くの路線により栄えていたこの駅だが、今では見る影もない"),
+		new Items (27,	"通行許可証",		0, 		(int)scene.Battle, 		(int)Eff.Key_item, 	1,			"Images/item/dat_mail",		"駅東口の先へ進む事ができる\nかつて多くの路線により栄えていたこの駅だが、\n今では見る影もない"),
 		new Items (28,	"GODの裁き",		0, 		(int)scene.Battle, 		(int)Eff.Hp_damage, 	9999,			"Images/item/swd_tukuyomi",		"大学における偉大なる人物による裁き。\nその裁きは人の運命をも左右する。"),
 
 	};
