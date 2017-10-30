@@ -92,7 +92,7 @@ public class EnemiesData : MonoBehaviour
             }
         }
 
-        return GetMonsterList(sceneName)[monster_num];
+        return result;
     }
 
     public static string[,] GetMonsterList(string sceneName)
