@@ -6,7 +6,7 @@ public class EnemiesData : MonoBehaviour
 {
     public static string[,] westSceneMonsters = new string[,] {
 	//[0]NO,[1] name,              [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]enemy_type, [8] drop_no, [9] get_exp, [10] get_money, [11] drop_probability_type
-	{ "-3", "ぬし",                  "24", "10", "7", "4", "4", "2", "27", "15", "30","0"},
+	    { "-3", "ぬし",                  "24", "10", "7", "4", "4", "2", "27", "15", "30","0"},
         { "0", "ちんぴら",               "10", "0", "4", "3", "2", "0", "17", "4", "4","1"},
         { "1", "こわいひと",             "9", "0", "6","2", "2", "0", "18", "4", "10","2"},
         { "2", "おくすりまん",           "10", "3", "4","2", "1", "0", "17", "4", "4","1"},
@@ -68,7 +68,6 @@ public class EnemiesData : MonoBehaviour
     };
 
     public static string[,] mainSceneMonsters = new string[,] {
-		//[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]enemy_type, [8] drop_no, [9] get_exp, [10] get_money, [11] drop_probability_type
 		{ "0", "スライム",              "5","0","2","2","3","0","1","1","1","1"},
         { "1", "もりのようせい",        "12", "0","8","4","1","0","1","1","5","2"},
         { "2", "ありせんし",            "7", "0","6","3","4","1","2","2","2","3"},
@@ -76,7 +75,7 @@ public class EnemiesData : MonoBehaviour
 
     public static string[] getMonster(string sceneName,int monster_num)
     {
-        string[] result = new string[11];
+        string[] result = new string[12];
         string[,] monster_list = GetMonsterList(sceneName);
 
         for (int i = 0; i < monster_list.GetLength(0); i++)
@@ -86,7 +85,7 @@ public class EnemiesData : MonoBehaviour
                 monster_num = i;
                 for(int j = 0;j < monster_list.GetLength(1); j++)
                 {
-                    result[j] = monster_list[i,j];
+                    result[j] = monster_list[monster_num, j];
                 }
                 break;
             }
