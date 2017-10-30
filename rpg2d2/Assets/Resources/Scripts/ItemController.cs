@@ -49,7 +49,7 @@ public class ItemController : MonoBehaviour
                         {
                             case (int)ItemList.Eff.Hp_heal:
                                 item.item_effect = AddRunNum(item.item_effect);
-                                PlayerContoroller.player_status["hp"] += item.item_effect;
+                                PlayerContoroller.player_status["hp"] = Mathf.Min(PlayerContoroller.player_status["hp"] + item.item_effect, PlayerContoroller.player_status["mhp"]);
                                 messeage = new string[] { item.item_name + " を使った\n" + PlayerContoroller.player_name + "のHPが" + item.item_effect + "回復した！" };
                                 if (SceneManager.GetActiveScene().name != "battle")
                                 {
