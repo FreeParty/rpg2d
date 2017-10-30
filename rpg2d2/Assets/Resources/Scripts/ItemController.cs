@@ -115,6 +115,7 @@ public class ItemController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "battle")
         {
             GameObject.Find("ItemListInBattle").SetActive(false);
+            BattleManager.ToggleCommands();
         }
         else
         {
