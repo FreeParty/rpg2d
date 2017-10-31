@@ -6,7 +6,7 @@ public class EnemiesData : MonoBehaviour
 {
     public static string[,] westSceneMonsters = new string[,] {
 	//[0]NO,[1] name,              [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]enemy_type, [8] drop_no, [9] get_exp, [10] get_money, [11] drop_probability_type
-	{ "-3", "ぬし",                  "24", "10", "7", "4", "4", "2", "27", "15", "30","0"},
+	    { "-3", "ぬし",                  "24", "10", "7", "4", "4", "2", "27", "15", "30","0"},
         { "0", "ちんぴら",               "10", "0", "4", "3", "2", "0", "17", "4", "4","1"},
         { "1", "こわいひと",             "9", "0", "6","2", "2", "0", "18", "4", "10","2"},
         { "2", "おくすりまん",           "10", "3", "4","2", "1", "0", "17", "4", "4","1"},
@@ -68,30 +68,53 @@ public class EnemiesData : MonoBehaviour
     };
 
     public static string[,] mainSceneMonsters = new string[,] {
-		{ "0", "スライム",              "5","0","2","2","3","0","1","1","1","1"},
+        { "0", "スライム",              "5","0","2","2","3","0","1","1","1","1"},
         { "1", "もりのようせい",        "12", "0","8","4","1","0","1","1","5","2"},
         { "2", "ありせんし",            "7", "0","6","3","4","1","2","2","2","3"},
     };
 
-    public static string[] getMonster(string sceneName,int monster_num)
+    public static string[] getMonster(string sceneName, int monster_num)
     {
         string[,] monster_list = GetMonsterList(sceneName);
-        string[] result = new string[monster_list.GetLength(1)];
 
-        for (int i = 0; i < monster_list.GetLength(0); i++)
+        int left = 0;
+        int right = monster_list.GetLength(0) - 1;
+        int center;
+        int data;
+
+        while (true)
         {
-            if (int.Parse(monster_list[i, 0]) == monster_num)
+            if (left <= right)
             {
-                monster_num = i;
-                for(int j = 0;j < monster_list.GetLength(1); j++)
+                center = left + right / 2;
+                data = int.Parse(monster_list[center, 0]);
+                if (data == monster_num)
                 {
-                    result[j] = monster_list[monster_num, j];
+                    monster_num = center;
+                    break;
                 }
+                else if (data < monster_num)
+                {
+                    left = center + 1;
+                }
+                else
+                {
+                    right = center - 1;
+                }
+            }
+            else
+            {
+                monster_num = 0;
                 break;
             }
         }
 
-        return result;
+        string[] monster = new string[monster_list.GetLength(1)];
+        for (int i = 0; i < monster_list.GetLength(1); i++)
+        {
+            monster[i] = monster_list[monster_num, i];
+        }
+        return monster;
     }
 
     public static string[,] GetMonsterList(string sceneName)
