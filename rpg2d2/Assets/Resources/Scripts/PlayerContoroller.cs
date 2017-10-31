@@ -11,11 +11,11 @@ public class PlayerContoroller : MonoBehaviour
         {"mp", 0},
         {"mmp", 0},
         {"mat", 3},
-        {"at", 3},
+        {"at", 300},
         {"mdf", 3},
         {"df", 3},
         {"mag", 3},
-        {"ag", 3},
+        {"ag", 300},
         {"lv", 1},
         {"exp", 0},
         {"money", 0}
