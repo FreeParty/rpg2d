@@ -84,25 +84,28 @@ public class EnemiesData : MonoBehaviour
 
         while (true)
         {
-            if(left <= right)
+            if (left <= right)
             {
-                monster_num = 0;
-                break;
-            }
-            center = left + right / 2;
-            data = int.Parse(monster_list[center, 0]);
-            if (data == monster_num)
-            {
-                monster_num = center;
-                break;
-            }
-            else if (data < monster_num)
-            {
-                left = center + 1;
+                center = left + right / 2;
+                data = int.Parse(monster_list[center, 0]);
+                if (data == monster_num)
+                {
+                    monster_num = center;
+                    break;
+                }
+                else if (data < monster_num)
+                {
+                    left = center + 1;
+                }
+                else
+                {
+                    right = center - 1;
+                }
             }
             else
             {
-                right = center - 1;
+                monster_num = 0;
+                break;
             }
         }
 
