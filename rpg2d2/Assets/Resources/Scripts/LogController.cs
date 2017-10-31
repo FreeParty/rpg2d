@@ -101,6 +101,7 @@ public class LogController : MonoBehaviour
             .Replace("\r\n", "\n")
             .Split(new string[] { "\n+_new_+\n" }, StringSplitOptions.RemoveEmptyEntries);
         init();
+        yield return new WaitForSeconds(0f);
     }
 
     public LogController printTextByFileName(string fileName)

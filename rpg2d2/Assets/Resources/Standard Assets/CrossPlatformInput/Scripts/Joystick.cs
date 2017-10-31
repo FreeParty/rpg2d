@@ -33,6 +33,9 @@ namespace UnityStandardAssets.CrossPlatformInput
      
         void Start()
         {
+#if UNITY_STANDALONE_WIN
+            Destroy(this);
+#endif
             CreateVirtualAxes();
             camera = Camera.main;
             joystic = GameObject.Find("MobileJoystick");

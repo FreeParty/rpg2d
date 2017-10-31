@@ -68,12 +68,15 @@ public class BaseMortionController : MonoBehaviour {
         }
         else
         {
-            direction = new Vector2(x, y);
+            direction = new Vector2(x, y).normalized;
         }
-		m_Rigidbody2D.velocity = direction * (x * x + y * y) * move_speed;
-
-		//モーション判定用のパラメータ   
-		m_Anim.SetFloat("Direction_X", x);
+#if UNITY_STANDALONE_WIN
+        m_Rigidbody2D.velocity = direction * move_speed;
+#else
+        m_Rigidbody2D.velocity = direction * (x * x + y * y) * move_speed;
+#endif
+        //モーション判定用のパラメータ   
+        m_Anim.SetFloat("Direction_X", x);
 		m_Anim.SetFloat("Direction_Y", y);
 	}
 
