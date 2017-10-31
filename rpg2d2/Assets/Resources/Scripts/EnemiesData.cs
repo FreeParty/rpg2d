@@ -82,10 +82,14 @@ public class EnemiesData : MonoBehaviour
         int center;
         int data;
 
-        while (left <= right)
+        while (true)
         {
+            if(left <= right)
+            {
+                monster_num = 0;
+                break;
+            }
             center = left + right / 2;
-            print(center);
             data = int.Parse(monster_list[center, 0]);
             if (data == monster_num)
             {
@@ -102,12 +106,12 @@ public class EnemiesData : MonoBehaviour
             }
         }
 
-        string[] result = new string[monster_list.GetLength(1)];
+        string[] monster = new string[monster_list.GetLength(1)];
         for (int i = 0; i < monster_list.GetLength(1); i++)
         {
-            result[i] = monster_list[monster_num, i];
+            monster[i] = monster_list[monster_num, i];
         }
-        return result;
+        return monster;
     }
 
     public static string[,] GetMonsterList(string sceneName)
