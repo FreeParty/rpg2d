@@ -33,7 +33,7 @@ public class MenuController : MonoBehaviour
         if (GameObject.Find("MenuButtons") != null)
         {
             CloseItemList();
-            GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 50);
+            GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 60);
             GameObject.Find("MenuButtons").SetActive(false);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "メニュー";
             GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = false;
@@ -51,7 +51,7 @@ public class MenuController : MonoBehaviour
         else
         {
             GameObject.Find("BGM Source").GetComponent<BGMcontroller>().MenuOpen();
-            GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 220);
+            GameObject.Find("MenuWindow").GetComponent<RectTransform>().sizeDelta = new Vector2(200, 300);
             GameObject.Find("MenuWindow").transform.Find("MenuButtons").gameObject.SetActive(true);
             GameObject.Find("Menu").GetComponentInChildren<Text>().text = "閉じる";
             GameObject.Find("MenuModal").GetComponent<Image>().raycastTarget = true;
