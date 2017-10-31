@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour
         {
             return selectRandomMonster(ml);
         }
-        else return mn;
+		else return int.Parse(ml[mn, 0]);
     }
 
     //[0]NO, [1] name, [2] HP, [3]MP, [4]attack, [5]guarg, [6]ag, [7]type, [8] drop_no, [9] get_exp, [10] get_money, 
