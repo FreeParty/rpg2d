@@ -49,6 +49,7 @@ public class FadeinController : MonoBehaviour {
             GameObject.Find("Controller").SetActive(false);
         }
         GetComponent<GraphicRaycaster>().enabled = true;
+        GameObject.Find("Player").GetComponent<Animator>().enabled = false;
     }
 
     void enableObject()
@@ -63,6 +64,7 @@ public class FadeinController : MonoBehaviour {
             root.transform.Find("Controller").gameObject.SetActive(true);
         }
         GetComponent<GraphicRaycaster>().enabled = false;
+        GameObject.Find("Player").GetComponent<Animator>().enabled = true;
     }
 
     public delegate void Callback();
